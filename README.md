@@ -11,7 +11,7 @@
 2. Install the dependencies for the app:
 
    ```bash
-   cd api/
+   cd app/
    npm install
    ```
 
