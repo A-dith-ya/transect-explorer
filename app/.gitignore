@@ -14,7 +14,7 @@ target/
 .sts4-cache
 
 ### NodeJS ###
-./node_modules
+node_modules/
 
 ### VS Code ###
 .vscode/
