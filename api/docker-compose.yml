@@ -1,0 +1,23 @@
+version: "3"
+services:
+  postgres:
+    image: postgres:latest
+    environment:
+      POSTGRES_DB: transect_explorer_postgres
+      POSTGRES_USER: transect_explorer_postgres
+      POSTGRES_PASSWORD: transect_explorer_postgres
+    ports:
+      - "5432:5432"
+
+  spring-app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "8080:8080"
+    depends_on:
+      - postgres
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/transect_explorer_postgres
+      SPRING_DATASOURCE_USERNAME: transect_explorer_postgres
+      SPRING_DATASOURCE_PASSWORD: transect_explorer_postgres
