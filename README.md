@@ -21,9 +21,14 @@
    npm run dev
    ```
 
-4. Run the server on port 8080:
+4. Run the server on port 8080, postgres on port 5432:
 
    ```bash
-   docker build -t transect-explorer-server .
-   docker run -p 8080:8080 transect-explorer-server
+   docker compose up
+   ```
+
+5. Stop the server and postgres:
+
+   ```bash
+   docker compose down
    ```
