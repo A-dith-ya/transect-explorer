@@ -2,6 +2,7 @@ package com.example.transectexplorer.model;
 
 import java.time.LocalDate;
 
+import jakarta.persistence.Entity;
 import jakarta.persistence.Column;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -10,6 +11,7 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.PrePersist;
 
+@Entity
 public class Transect {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
