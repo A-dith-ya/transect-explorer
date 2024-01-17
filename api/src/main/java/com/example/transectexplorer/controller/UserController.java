@@ -3,6 +3,9 @@ package com.example.transectexplorer.controller;
 import com.example.transectexplorer.model.User;
 import com.example.transectexplorer.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/users")
@@ -12,7 +15,7 @@ public class UserController {
     private UserRepository userRepository;
 
     @GetMapping("/{id}")
-    public User getUserById(@PathVariable Long id) {
+    public Optional<User> getUserById(@PathVariable Long id) {
         return userRepository.findById(id);
     }
 
