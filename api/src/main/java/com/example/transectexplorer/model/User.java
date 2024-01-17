@@ -30,4 +30,8 @@ public class User {
     this.userEmail = userEmail;
     this.userPassword = userPassword;
   }
+
+  public void setId(Long id) {
+    this.id = id;
+  }
 }

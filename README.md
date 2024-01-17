@@ -27,7 +27,13 @@
    docker compose up
    ```
 
-5. Stop the server and postgres:
+5. Rebuild docker images after making changes to code:
+
+   ```bash
+   docker compose build
+   ```
+
+6. Stop the server and postgres:
 
    ```bash
    docker compose down
