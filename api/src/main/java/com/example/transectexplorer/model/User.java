@@ -5,8 +5,10 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Column;
+import jakarta.persistence.Table;
 
 @Entity
+@Table(name = "users")
 public class User {
 
   @Id
@@ -33,5 +35,17 @@ public class User {
 
   public void setId(Long id) {
     this.id = id;
+  }
+
+  public String getUserName() {
+    return userName;
+  }
+
+  public String getUserEmail() {
+    return userEmail;
+  }
+
+  public String getUserPassword() {
+    return userPassword;
   }
 }
