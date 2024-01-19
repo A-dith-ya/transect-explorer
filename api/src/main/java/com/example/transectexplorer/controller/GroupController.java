@@ -39,12 +39,20 @@ public class GroupController {
     }
 
     @PutMapping("/{id}")
-    public Group updateGroup(@PathVariable Long id, @RequestBody Group updatedGroup) {
+    public Group updateGroup(@PathVariable Long id, @RequestBody Map<String, Object> requestBody) {
         if (groupRepository.existsById(id)) {
-            updatedGroup.setId(id);
-            return groupRepository.save(updatedGroup);
+            Long groupLeaderId = ((Number) requestBody.get("groupLeaderId")).longValue();
+            User groupLeader = userRepository.findById(groupLeaderId).orElse(null);
+
+            if (groupLeader != null) {
+                Group updatedGroup = new Group(groupLeader, (String) requestBody.get("groupName"));
+                updatedGroup.setId(id);
+                return groupRepository.save(updatedGroup);
+            } else {
+                return null; 
+            }
         } else {
-            return null;
+            return null; 
         }
     }
 
