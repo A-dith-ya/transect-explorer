@@ -32,4 +32,8 @@ public class GroupUser {
     public void setId(Long id) {
         this.id = id;
     }
+
+    public String getUserName() {
+        return groupUser.getUserName();
+    }
 }
