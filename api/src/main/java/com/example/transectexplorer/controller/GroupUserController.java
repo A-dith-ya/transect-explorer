@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.Optional;
 import java.util.Map;
+import java.util.List;
 
 @RestController
 @RequestMapping("/groupUsers")
@@ -28,6 +29,11 @@ public class GroupUserController {
         @GetMapping("/{id}")
         public Optional<GroupUser> getGroupUserById(@PathVariable Long id) {
             return groupUserRepository.findById(id);
+        }
+
+        @GetMapping("/group/{id}")
+        public List<GroupUser> getGroupUsersByGroupId(@PathVariable Long id) {
+            return groupUserRepository.findByGroupId(id);
         }
     
         @PostMapping
