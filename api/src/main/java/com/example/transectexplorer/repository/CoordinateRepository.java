@@ -8,5 +8,5 @@ import com.example.transectexplorer.model.Transect;
 import org.springframework.data.repository.CrudRepository;
 
 public interface CoordinateRepository extends CrudRepository<Coordinate, Long> {
-    List<Coordinate> findByTransect(Transect transect);
+    List<Coordinate> findByTransectId(Long transectId);
 }
