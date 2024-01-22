@@ -28,4 +28,12 @@ public class GroupUser {
         this.group = group;
         this.groupUser = groupUser;
     }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public String getUserName() {
+        return groupUser.getUserName();
+    }
 }

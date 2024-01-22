@@ -9,4 +9,6 @@ import org.springframework.data.repository.CrudRepository;
 
 public interface GroupUserRepository extends CrudRepository<GroupUser, Long> {
     List<GroupUser> findByGroup(Group group);
+
+    List<GroupUser> findByGroupId(Long groupId);
 }
