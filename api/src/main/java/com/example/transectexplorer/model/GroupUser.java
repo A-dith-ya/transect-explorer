@@ -34,6 +34,6 @@ public class GroupUser {
     }
 
     public String getUserName() {
-        return groupUser.getUserName();
+        return groupUser.getUsername();
     }
 }
