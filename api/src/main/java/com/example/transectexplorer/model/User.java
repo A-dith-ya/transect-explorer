@@ -10,6 +10,8 @@ import jakarta.persistence.Table;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import java.util.Collection;
 
 @Entity
@@ -20,13 +22,14 @@ public class User implements UserDetails {
   @GeneratedValue(strategy = GenerationType.AUTO)
   private Long id;
 
-  @Column(nullable = false, length = 50)
+  @Column(nullable = false, length = 50, unique = true)
   private String userName;
 
   @Column(nullable = false, length = 100, unique = true)
   private String userEmail;
 
   @Column(nullable = false, length = 100)
+  @JsonIgnore
   private String userPassword;
 
   protected User() {
