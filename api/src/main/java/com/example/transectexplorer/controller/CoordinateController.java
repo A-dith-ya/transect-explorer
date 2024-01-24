@@ -7,7 +7,6 @@ import com.example.transectexplorer.repository.TransectRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Optional;
 import java.util.Map;
 import java.util.List;
 

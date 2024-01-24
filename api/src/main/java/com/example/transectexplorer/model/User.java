@@ -54,6 +54,7 @@ public class User implements UserDetails {
     return null;
   }
 
+  @JsonIgnore
   @Override
   public String getPassword() {
     return this.userPassword;
