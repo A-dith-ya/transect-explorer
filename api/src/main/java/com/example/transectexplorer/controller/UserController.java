@@ -1,5 +1,7 @@
 package com.example.transectexplorer.controller;
 
+import com.example.transectexplorer.model.LoginResponseDTO;
+import com.example.transectexplorer.model.RegistrationDTO;
 import com.example.transectexplorer.model.User;
 import com.example.transectexplorer.repository.UserRepository;
 import com.example.transectexplorer.services.AuthenticationService;
@@ -24,11 +26,14 @@ public class UserController {
         return userRepository.findById(id);
     }
 
-    @PostMapping("/auth")
-    public User createUser(@RequestBody User user) {
-        System.out.println("Creating user 2");
-        System.out.println(user.toString());
+    @PostMapping("/auth/register")
+    public User createUser(@RequestBody RegistrationDTO user) {
         return authenticationService.register(user.getUsername(), user.getUserEmail(), user.getPassword());
+    }
+
+    @PostMapping("/auth/login")
+    public LoginResponseDTO loginUser(@RequestBody RegistrationDTO user) {
+        return authenticationService.login(user.getUsername(), user.getPassword());
     }
 
     @PutMapping("/{id}")

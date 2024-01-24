@@ -1,6 +1,5 @@
 package com.example.transectexplorer.services;
 
-import com.example.transectexplorer.model.User;
 import com.example.transectexplorer.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
