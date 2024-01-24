@@ -7,7 +7,6 @@ import com.example.transectexplorer.repository.GroupRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Optional;
 import java.util.Map;
 
 @RestController
@@ -26,13 +25,13 @@ public class TransectController {
         Group group = groupRepository.findById(groupId).orElse(null);
 
         if (group != null) {
-            Transect transect = new Transect(group, (String) requestBody.get("transectName"), (String) requestBody.get("observations"), (String) requestBody.get("attachment"));
+            Transect transect = new Transect(group, (String) requestBody.get("transectName"),
+                    (String) requestBody.get("observations"), (String) requestBody.get("attachment"));
             return transectRepository.save(transect);
         } else {
             return null;
         }
     }
-
 
     @DeleteMapping("/{id}")
     public void deleteTransect(@PathVariable Long id) {
