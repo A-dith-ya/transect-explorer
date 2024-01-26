@@ -38,3 +38,7 @@
    ```bash
    docker compose down
    ```
+
+## API Documentation
+
+The API documentation is generated using the OpenAPI Specification and is accessible at [Swagger UI](http://localhost:8080/swagger-ui/index.html).
