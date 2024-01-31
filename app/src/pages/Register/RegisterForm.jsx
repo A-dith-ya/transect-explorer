@@ -1,9 +1,9 @@
 import React from "react";
 import Form from "@rjsf/core";
 import validator from "@rjsf/validator-ajv8";
-import schema from "../../jsonSchemas/loginschema.json";
+import schema from "../../jsonSchemas/registerschema.json";
 
-const LoginForm = () => {
+const RegisterForm = () => {
   const [formData, setFormData] = React.useState(null);
 
   const uiSchema = {
@@ -22,4 +22,4 @@ const LoginForm = () => {
     />
   );
 };
-export default LoginForm;
+export default RegisterForm;

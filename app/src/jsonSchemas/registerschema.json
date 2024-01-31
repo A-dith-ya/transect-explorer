@@ -1,7 +1,11 @@
 {
-  "title": "Login Form",
+  "title": "Register Form",
   "type": "object",
   "properties": {
+    "username": {
+      "type": "string",
+      "title": "Username"
+    },
     "email": {
       "type": "string",
       "title": "Email"
@@ -11,5 +15,5 @@
       "title": "Password"
     }
   },
-  "required": ["email", "password"]
+  "required": ["username", "email", "password"]
 }
