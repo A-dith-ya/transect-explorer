@@ -1,0 +1,22 @@
+.login-form {
+  width: 300px;
+  margin: 0 auto;
+}
+
+.login-form input[type="text"],
+.login-form input[type="password"] {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 10px;
+}
+
+.login-form .submit-button {
+  width: 50%;
+  padding: 10px;
+  background-color: #26b8d9;
+  border-radius: 5px;
+}
+
+.login-form .submit-button:hover {
+  background-color: #1d849b;
+}
