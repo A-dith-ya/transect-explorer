@@ -10,6 +10,8 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@rjsf/core": "^5.17.0",
+    "@rjsf/validator-ajv8": "^5.17.0",
     "axios": "^1.6.7",
     "leaflet": "^1.9.4",
     "proj4": "^2.10.0",
