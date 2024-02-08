@@ -2,14 +2,14 @@
   "title": "Login Form",
   "type": "object",
   "properties": {
-    "email": {
+    "username": {
       "type": "string",
-      "title": "Email"
+      "title": "Username"
     },
     "password": {
       "type": "string",
       "title": "Password"
     }
   },
-  "required": ["email", "password"]
+  "required": ["username", "password"]
 }
