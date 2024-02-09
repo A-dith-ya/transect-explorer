@@ -13,4 +13,15 @@ const registerUser = async (formData) => {
     });
 };
 
-export { registerUser };
+const loginUser = async (formData) => {
+  const response = await axios
+    .post(`${baseURL}auth/login`, formData)
+    .then((response) => {
+      console.log(response);
+    })
+    .catch((error) => {
+      console.log(error);
+    });
+};
+
+export { registerUser, loginUser };

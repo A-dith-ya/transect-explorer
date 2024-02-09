@@ -6,7 +6,12 @@ import com.example.transectexplorer.model.User;
 import com.example.transectexplorer.repository.UserRepository;
 import com.example.transectexplorer.services.AuthenticationService;
 
+import jakarta.servlet.http.Cookie;
+import jakarta.servlet.http.HttpServletResponse;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Optional;
@@ -32,8 +37,21 @@ public class UserController {
     }
 
     @PostMapping("/auth/login")
-    public LoginResponseDTO loginUser(@RequestBody RegistrationDTO user) {
-        return authenticationService.login(user.getUsername(), user.getPassword());
+    public ResponseEntity<?> loginUser(@RequestBody RegistrationDTO user, HttpServletResponse response) {
+        LoginResponseDTO loginResponse = authenticationService.login(user.getUsername(), user.getPassword());
+
+        if (loginResponse.getUser() != null) {
+            Cookie cookie = new Cookie("jwt", loginResponse.getJwt());
+            cookie.setHttpOnly(true);
+            cookie.setSecure(true);
+            cookie.setPath("/");
+
+            response.addCookie(cookie);
+
+            return ResponseEntity.ok().build();
+        } else {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+        }
     }
 
     @PutMapping("/{id}")
