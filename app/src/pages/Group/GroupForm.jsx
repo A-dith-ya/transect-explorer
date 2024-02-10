@@ -3,6 +3,7 @@ import Form from "@rjsf/core";
 import validator from "@rjsf/validator-ajv8";
 import schema from "../../jsonSchemas/groupschema.json";
 import ObjectFieldTemplate from "../../components/rjsf/ObjectFieldTemplate";
+import ArrayFieldTemplate from "../../components/rjsf/ArrayFieldTemplate";
 import SubmitButton from "../../components/rjsf/SubmitButton";
 
 const GroupForm = () => {
@@ -16,7 +17,11 @@ const GroupForm = () => {
       formData={formData}
       onChange={(e) => setFormData(e.formData)}
       validator={validator}
-      templates={{ ObjectFieldTemplate, ButtonTemplates: { SubmitButton } }}
+      templates={{
+        ObjectFieldTemplate,
+        ButtonTemplates: { SubmitButton },
+        ArrayFieldTemplate,
+      }}
       onSubmit={handleSubmit}
     />
   );
