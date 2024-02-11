@@ -2,11 +2,11 @@
   "title": "Group Form",
   "type": "object",
   "properties": {
-    "name": {
+    "groupName": {
       "type": "string",
       "title": "Group Name"
     },
-    "members": {
+    "groupUserEmails": {
       "type": "array",
       "title": "Group Members Email Addresses",
       "items": {
@@ -14,5 +14,5 @@
       }
     }
   },
-  "required": ["name", "members"]
+  "required": ["groupName"]
 }
