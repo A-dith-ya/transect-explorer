@@ -1,4 +1,4 @@
-package com.example.transectexplorer.model;
+package com.example.transectexplorer.dto;
 
 public class RegistrationDTO {
     private String username;
