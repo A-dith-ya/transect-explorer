@@ -1,4 +1,6 @@
-package com.example.transectexplorer.model;
+package com.example.transectexplorer.dto;
+
+import com.example.transectexplorer.model.User;
 
 public class LoginResponseDTO {
     private User user;
