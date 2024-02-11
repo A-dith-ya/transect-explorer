@@ -48,7 +48,7 @@ public class UserController {
 
             response.addCookie(cookie);
 
-            return ResponseEntity.ok().build();
+            return ResponseEntity.ok(loginResponse.getUser());
         } else {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
         }
