@@ -1,6 +1,8 @@
 package com.example.transectexplorer.controller;
 
 import com.example.transectexplorer.model.Group;
+import com.example.transectexplorer.model.GroupUser;
+import com.example.transectexplorer.repository.GroupUserRepository;
 import com.example.transectexplorer.repository.GroupRepository;
 import com.example.transectexplorer.model.User;
 import com.example.transectexplorer.repository.UserRepository;
@@ -8,14 +10,18 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Optional;
+import java.util.List;
 import java.util.Map;
 
 @RestController
 @RequestMapping("/groups")
 public class GroupController {
-    
+
     @Autowired
     private GroupRepository groupRepository;
+
+    @Autowired
+    private GroupUserRepository groupUserRepository;
 
     @Autowired
     private UserRepository userRepository;
@@ -32,7 +38,18 @@ public class GroupController {
 
         if (groupLeader != null) {
             Group group = new Group(groupLeader, (String) requestBody.get("groupName"));
-            return groupRepository.save(group);
+            groupRepository.save(group);
+
+            List<String> groupUserEmails = (List<String>) requestBody.get("groupUserEmails");
+            for (String email : groupUserEmails) {
+                Optional<User> user = userRepository.findByUserEmail(email);
+                if (user.isPresent()) {
+                    GroupUser groupUser = new GroupUser(group, user.get());
+                    groupUserRepository.save(groupUser);
+                }
+            }
+
+            return group;
         } else {
             return null;
         }
@@ -49,10 +66,10 @@ public class GroupController {
                 updatedGroup.setId(id);
                 return groupRepository.save(updatedGroup);
             } else {
-                return null; 
+                return null;
             }
         } else {
-            return null; 
+            return null;
         }
     }
 
