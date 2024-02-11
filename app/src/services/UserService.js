@@ -18,6 +18,9 @@ const loginUser = async (formData) => {
     .post(`${baseURL}auth/login`, formData)
     .then((response) => {
       console.log(response);
+      localStorage.setItem("id", response.data.id);
+      localStorage.setItem("userEmail", response.data.userEmail);
+      localStorage.setItem("username", response.data.username);
     })
     .catch((error) => {
       console.log(error);
