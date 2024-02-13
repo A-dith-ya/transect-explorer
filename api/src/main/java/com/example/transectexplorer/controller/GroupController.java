@@ -31,6 +31,16 @@ public class GroupController {
         return groupRepository.findById(id);
     }
 
+    @GetMapping("/groupLeader/{userId}")
+    public List<Group> getGroupsByUserId(@PathVariable Long userId) {
+        User user = userRepository.findById(userId).orElse(null);
+        if (user != null) {
+            return groupRepository.findByGroupLeader(user);
+        } else {
+            return null;
+        }
+    }
+
     @PostMapping
     public Group createGroup(@RequestBody Map<String, Object> requestBody) {
         Long groupLeaderId = ((Number) requestBody.get("groupLeaderId")).longValue();
