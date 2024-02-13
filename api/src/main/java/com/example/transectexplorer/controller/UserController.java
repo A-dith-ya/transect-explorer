@@ -1,7 +1,7 @@
 package com.example.transectexplorer.controller;
 
-import com.example.transectexplorer.model.LoginResponseDTO;
-import com.example.transectexplorer.model.RegistrationDTO;
+import com.example.transectexplorer.dto.LoginResponseDTO;
+import com.example.transectexplorer.dto.RegistrationDTO;
 import com.example.transectexplorer.model.User;
 import com.example.transectexplorer.repository.UserRepository;
 import com.example.transectexplorer.services.AuthenticationService;
@@ -48,7 +48,7 @@ public class UserController {
 
             response.addCookie(cookie);
 
-            return ResponseEntity.ok().build();
+            return ResponseEntity.ok(loginResponse.getUser());
         } else {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
         }
