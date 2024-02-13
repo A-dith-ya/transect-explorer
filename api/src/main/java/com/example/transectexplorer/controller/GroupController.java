@@ -85,6 +85,10 @@ public class GroupController {
 
     @DeleteMapping("/{id}")
     public void deleteGroup(@PathVariable Long id) {
+        List<GroupUser> groupUsers = groupUserRepository.findByGroupId(id);
+        for (GroupUser groupUser : groupUsers) {
+            groupUserRepository.delete(groupUser);
+        }
         groupRepository.deleteById(id);
     }
 }
