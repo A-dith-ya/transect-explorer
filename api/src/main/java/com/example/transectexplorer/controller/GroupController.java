@@ -74,7 +74,23 @@ public class GroupController {
             if (groupLeader != null) {
                 Group updatedGroup = new Group(groupLeader, (String) requestBody.get("groupName"));
                 updatedGroup.setId(id);
-                return groupRepository.save(updatedGroup);
+                Group savedGroup = groupRepository.save(updatedGroup);
+
+                List<GroupUser> groupUsers = groupUserRepository.findByGroupId(id);
+                for (GroupUser groupUser : groupUsers) {
+                    groupUserRepository.delete(groupUser);
+                }
+
+                List<String> groupUserEmails = (List<String>) requestBody.get("groupUserEmails");
+                for (String email : groupUserEmails) {
+                    Optional<User> user = userRepository.findByUserEmail(email);
+                    if (user.isPresent()) {
+                        GroupUser groupUser = new GroupUser(savedGroup, user.get());
+                        groupUserRepository.save(groupUser);
+                    }
+                }
+
+                return savedGroup;
             } else {
                 return null;
             }
