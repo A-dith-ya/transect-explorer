@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Optional;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -36,6 +37,21 @@ public class GroupController {
         User user = userRepository.findById(userId).orElse(null);
         if (user != null) {
             return groupRepository.findByGroupLeader(user);
+        } else {
+            return null;
+        }
+    }
+
+    @GetMapping("/groupUser/{userId}")
+    public List<Group> getGroupsByGroupUserId(@PathVariable Long userId) {
+        User user = userRepository.findById(userId).orElse(null);
+        if (user != null) {
+            List<GroupUser> groupUsers = groupUserRepository.findByGroupUser(user);
+            List<Group> groups = new ArrayList<>();
+            for (GroupUser groupUser : groupUsers) {
+                groups.add(groupUser.getGroup());
+            }
+            return groups;
         } else {
             return null;
         }

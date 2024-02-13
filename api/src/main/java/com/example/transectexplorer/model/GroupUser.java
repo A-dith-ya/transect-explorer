@@ -36,4 +36,12 @@ public class GroupUser {
     public String getUserName() {
         return groupUser.getUsername();
     }
+
+    public Group getGroup() {
+        return group;
+    }
+
+    public User getUser() {
+        return groupUser;
+    }
 }
