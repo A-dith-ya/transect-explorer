@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Optional;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -29,6 +30,31 @@ public class GroupController {
     @GetMapping("/{id}")
     public Optional<Group> getGroupById(@PathVariable Long id) {
         return groupRepository.findById(id);
+    }
+
+    @GetMapping("/groupLeader/{userId}")
+    public List<Group> getGroupsByUserId(@PathVariable Long userId) {
+        User user = userRepository.findById(userId).orElse(null);
+        if (user != null) {
+            return groupRepository.findByGroupLeader(user);
+        } else {
+            return null;
+        }
+    }
+
+    @GetMapping("/groupUser/{userId}")
+    public List<Group> getGroupsByGroupUserId(@PathVariable Long userId) {
+        User user = userRepository.findById(userId).orElse(null);
+        if (user != null) {
+            List<GroupUser> groupUsers = groupUserRepository.findByGroupUser(user);
+            List<Group> groups = new ArrayList<>();
+            for (GroupUser groupUser : groupUsers) {
+                groups.add(groupUser.getGroup());
+            }
+            return groups;
+        } else {
+            return null;
+        }
     }
 
     @PostMapping
@@ -64,7 +90,23 @@ public class GroupController {
             if (groupLeader != null) {
                 Group updatedGroup = new Group(groupLeader, (String) requestBody.get("groupName"));
                 updatedGroup.setId(id);
-                return groupRepository.save(updatedGroup);
+                Group savedGroup = groupRepository.save(updatedGroup);
+
+                List<GroupUser> groupUsers = groupUserRepository.findByGroupId(id);
+                for (GroupUser groupUser : groupUsers) {
+                    groupUserRepository.delete(groupUser);
+                }
+
+                List<String> groupUserEmails = (List<String>) requestBody.get("groupUserEmails");
+                for (String email : groupUserEmails) {
+                    Optional<User> user = userRepository.findByUserEmail(email);
+                    if (user.isPresent()) {
+                        GroupUser groupUser = new GroupUser(savedGroup, user.get());
+                        groupUserRepository.save(groupUser);
+                    }
+                }
+
+                return savedGroup;
             } else {
                 return null;
             }
@@ -75,6 +117,10 @@ public class GroupController {
 
     @DeleteMapping("/{id}")
     public void deleteGroup(@PathVariable Long id) {
+        List<GroupUser> groupUsers = groupUserRepository.findByGroupId(id);
+        for (GroupUser groupUser : groupUsers) {
+            groupUserRepository.delete(groupUser);
+        }
         groupRepository.deleteById(id);
     }
 }
