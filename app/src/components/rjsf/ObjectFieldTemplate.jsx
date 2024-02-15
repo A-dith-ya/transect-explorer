@@ -6,7 +6,7 @@ const ObjectFieldTemplate = (props) => {
       {props.title}
       {props.description}
       {props.properties.map((element) => (
-        <div className="login-form">{element.content}</div>
+        <div className="form">{element.content}</div>
       ))}
     </div>
   );
