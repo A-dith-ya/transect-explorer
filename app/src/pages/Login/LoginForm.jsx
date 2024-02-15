@@ -5,7 +5,6 @@ import schema from "../../jsonSchemas/loginschema.json";
 import ObjectFieldTemplate from "../../components/rjsf/ObjectFieldTemplate";
 import SubmitButton from "../../components/rjsf/SubmitButton";
 import { loginUser } from "../../services/UserService";
-import "./styles.css";
 
 const LoginForm = () => {
   const [formData, setFormData] = React.useState(null);

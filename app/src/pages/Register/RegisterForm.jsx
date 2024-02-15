@@ -5,7 +5,6 @@ import schema from "../../jsonSchemas/registerschema.json";
 import ObjectFieldTemplate from "../../components/rjsf/ObjectFieldTemplate";
 import SubmitButton from "../../components/rjsf/SubmitButton";
 import { registerUser } from "../../services/UserService";
-import "../Login/styles.css";
 
 const RegisterForm = () => {
   const [formData, setFormData] = React.useState(null);
