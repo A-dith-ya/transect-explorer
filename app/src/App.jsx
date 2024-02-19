@@ -2,6 +2,7 @@ import { useState } from 'react'
 import { MapContainer, TileLayer } from 'react-leaflet'
 import DrawingBar from './components/map/DrawingBar'
 import './App.css'
+import NavBar from './components/layout/navbar/NavBar'
 
 function App() {
   const [count, setCount] = useState(0)
@@ -16,6 +17,7 @@ function App() {
         zoomControl={false}>
 
         <DrawingBar>
+    
 
         </DrawingBar>
 
@@ -24,6 +26,9 @@ function App() {
           url='https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png' />
 
       </MapContainer>
+      <NavBar>
+        
+      </NavBar>
     </div>
   )
 }

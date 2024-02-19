@@ -1,0 +1,31 @@
+.navbar {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    background-color: #2A6041;
+    color: #fff;
+    padding: 10px 0;
+    text-align: center;
+  }
+  
+  .navbar-list {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+  }
+  
+  .navbar-list-item {
+    display: inline-block;
+    margin: 0 20px; /* Adjust the margin to add separation */
+    cursor: pointer;
+    position: relative;
+  }
+
+  .navbar-list-item img {
+    width: 24px; /* Set the width of the icon images */
+    height: 24px; /* Set the height of the icon images */
+  }
+
+  .icon {
+    filter: invert(92%) sepia(10%) saturate(1058%) hue-rotate(350deg) brightness(108%) contrast(91%);
+  }
