@@ -1,10 +1,9 @@
 .navbar {
     position: fixed;
     bottom: 0;
-    width: 100%;
+    width: 100vw;
+    height: 5rem;
     background-color: #2A6041;
-    color: #fff;
-    padding: 10px 0;
     text-align: center;
   }
   
@@ -12,20 +11,26 @@
     list-style-type: none;
     padding: 0;
     margin: 0;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;;
+    height:100%;
+
+  }
+
+  .navbar-list-item {
+    filter: grayscale(100%) opacity(0.7);
+    transition: 400ms;
+    height: 100%;
+    padding-top: .5rem;
+  }
+
+  .navbar-list-item:hover{
+    filter: grayscale(0%) opacity(1);
+    background-color: #1a3b28;
   }
   
-  .navbar-list-item {
-    display: inline-block;
-    margin: 0 20px; /* Adjust the margin to add separation */
-    cursor: pointer;
-    position: relative;
-  }
-
-  .navbar-list-item img {
-    width: 24px; /* Set the width of the icon images */
-    height: 24px; /* Set the height of the icon images */
-  }
-
   .icon {
+    margin: 0 1rem;
     filter: invert(92%) sepia(10%) saturate(1058%) hue-rotate(350deg) brightness(108%) contrast(91%);
   }

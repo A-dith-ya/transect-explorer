@@ -13,7 +13,7 @@ function App() {
         id='map'
         center={[55, -122]}
         zoom={5}
-        scrollWheelZoom={false}
+        scrollWheelZoom={true}
         zoomControl={false}>
 
         <DrawingBar>
@@ -22,7 +22,7 @@ function App() {
         </DrawingBar>
 
         <TileLayer
-          attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+
           url='https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png' />
 
       </MapContainer>
