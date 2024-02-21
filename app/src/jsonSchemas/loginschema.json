@@ -1,5 +1,4 @@
 {
-  "title": "Login Form",
   "type": "object",
   "properties": {
     "username": {
@@ -11,5 +10,6 @@
       "title": "Password"
     }
   },
+  "button": "Login",
   "required": ["username", "password"]
 }

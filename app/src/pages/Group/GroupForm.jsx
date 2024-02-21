@@ -15,18 +15,23 @@ const GroupForm = () => {
   };
 
   return (
-    <Form
-      schema={schema}
-      formData={formData}
-      onChange={(e) => setFormData(e.formData)}
-      validator={validator}
-      templates={{
-        ObjectFieldTemplate,
-        ButtonTemplates: { SubmitButton },
-        ArrayFieldTemplate,
-      }}
-      onSubmit={handleSubmit}
-    />
+    <div className="group-container">
+      <div className="wrap">
+        <h1>Create Group</h1>
+        <Form
+          schema={schema}
+          formData={formData}
+          onChange={(e) => setFormData(e.formData)}
+          validator={validator}
+          templates={{
+            ObjectFieldTemplate,
+            ButtonTemplates: { SubmitButton },
+            ArrayFieldTemplate,
+          }}
+          onSubmit={handleSubmit}
+        />
+      </div>
+    </div>
   );
 };
 

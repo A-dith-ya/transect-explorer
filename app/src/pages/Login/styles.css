@@ -1,0 +1,45 @@
+.container {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 90vh;
+  flex-direction: column;
+}
+
+.login-form .form-group   {
+  display: flex;
+  flex-direction: column;
+  text-align: start;
+}
+.login-form input[type="text"],
+.login-form input[type="password"] {
+  padding: 10px;
+  margin-bottom: 10px;
+  background-color: white;
+  color: black;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  min-width: 300px;
+}
+
+.login-form .submit-button {
+  width: 50%;
+  padding: 10px;
+  background-color: #26b8d9;
+  border-radius: 5px;
+  outline: none;
+  border: none;
+}
+
+.login-form .submit-button:hover {
+  background-color: #1d849b;
+}
+
+
+.link-btn {
+  padding: 10px;
+  margin-top: 10px;
+  background-color: #333;
+  border-radius: 10px;
+}

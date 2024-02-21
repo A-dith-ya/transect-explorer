@@ -1,0 +1,35 @@
+.group-container {
+  display: flex;
+  justify-content: center;
+  margin-top: 50px;
+}
+
+.wrap {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  justify-content: center;
+  gap: 5px;
+  border: 2px solid #ddd;
+  padding: 20px;
+  border-radius: 10px;
+}
+
+.group-box {
+  display: flex;
+  padding: 5px;
+  gap: 10px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.create-group-btn {
+  padding: 3;
+  cursor: pointer;
+  min-width: 150px;
+  border: 1px dotted #2CEAA3;
+  background: none;
+  border-radius: 10px;
+  margin-left: 5px;
+  min-height: 100px;
+}
