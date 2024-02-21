@@ -1,4 +1,5 @@
 {
+  "title": "Group Form",
   "type": "object",
   "properties": {
     "groupName": {
@@ -13,6 +14,5 @@
       }
     }
   },
-  "button": "Create Group",
   "required": ["groupName"]
 }

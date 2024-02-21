@@ -1,4 +1,5 @@
 {
+  "title": "Register Form",
   "type": "object",
   "properties": {
     "username": {
@@ -14,6 +15,5 @@
       "title": "Password"
     }
   },
-  "button": "Register",
   "required": ["username", "email", "password"]
 }
