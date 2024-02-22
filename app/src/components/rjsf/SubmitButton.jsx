@@ -8,7 +8,7 @@ const SubmitButton = (props) => {
     return null;
   }
   return (
-    <div className="form">
+    <div className="login-form">
       <button type="submit" className="submit-button">
         Submit
       </button>
