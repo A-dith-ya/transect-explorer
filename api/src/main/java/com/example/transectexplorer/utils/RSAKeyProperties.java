@@ -13,8 +13,11 @@ public class RSAKeyProperties {
     private RSAPrivateKey privateKey;
 
     public RSAKeyProperties() {
+        // Generate an RSA key pair using the KeyGeneratorUtility.
         KeyPair pair = KeyGeneratorUtility.generateRsaKey();
+        // Extract the public key from the key pair and cast it to RSAPublicKey.
         this.publicKey = (RSAPublicKey) pair.getPublic();
+        // Extract the private key from the key pair and cast it to RSAPrivateKey.
         this.privateKey = (RSAPrivateKey) pair.getPrivate();
     }
 

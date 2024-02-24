@@ -1,29 +1,40 @@
 package com.example.transectexplorer.dto;
 
-import com.example.transectexplorer.model.User;
-
 public class LoginResponseDTO {
-    private User user;
-    private String jwt;
+    private Long id;
+    private String username;
+    private String email;
 
-    public LoginResponseDTO(User user, String jwt) {
-        this.user = user;
-        this.jwt = jwt;
+    public LoginResponseDTO() {
     }
 
-    public User getUser() {
-        return this.user;
+    public LoginResponseDTO(Long id, String username, String email) {
+        this.id = id;
+        this.username = username;
+        this.email = email;
     }
 
-    public void setUser(User user) {
-        this.user = user;
+    public Long getId() {
+        return this.id;
     }
 
-    public String getJwt() {
-        return this.jwt;
+    public void setId(Long id) {
+        this.id = id;
     }
 
-    public void setJwt(String jwt) {
-        this.jwt = jwt;
+    public String getUsername() {
+        return this.username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public String getEmail() {
+        return this.email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
     }
 }

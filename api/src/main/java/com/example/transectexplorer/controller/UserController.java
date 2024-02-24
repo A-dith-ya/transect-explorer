@@ -6,7 +6,6 @@ import com.example.transectexplorer.model.User;
 import com.example.transectexplorer.repository.UserRepository;
 import com.example.transectexplorer.services.AuthenticationService;
 
-import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,23 +31,17 @@ public class UserController {
     }
 
     @PostMapping("/auth/register")
-    public User createUser(@RequestBody RegistrationDTO user) {
-        return authenticationService.register(user.getUsername(), user.getUserEmail(), user.getPassword());
+    public ResponseEntity<RegistrationDTO> createUser(@RequestBody RegistrationDTO user) {
+        return ResponseEntity
+                .ok(authenticationService.register(user.getUsername(), user.getUserEmail(), user.getPassword()));
     }
 
     @PostMapping("/auth/login")
-    public ResponseEntity<?> loginUser(@RequestBody RegistrationDTO user, HttpServletResponse response) {
-        LoginResponseDTO loginResponse = authenticationService.login(user.getUsername(), user.getPassword());
+    public ResponseEntity<LoginResponseDTO> loginUser(@RequestBody RegistrationDTO user, HttpServletResponse response) {
+        LoginResponseDTO loginResponse = authenticationService.login(user.getUsername(), user.getPassword(), response);
 
-        if (loginResponse.getUser() != null) {
-            Cookie cookie = new Cookie("jwt", loginResponse.getJwt());
-            cookie.setHttpOnly(true);
-            cookie.setSecure(true);
-            cookie.setPath("/");
-
-            response.addCookie(cookie);
-
-            return ResponseEntity.ok(loginResponse.getUser());
+        if (loginResponse != null) {
+            return ResponseEntity.ok(loginResponse);
         } else {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
         }
