@@ -9,7 +9,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.example.transectexplorer.dto.LoginResponseDTO;
+import com.example.transectexplorer.dto.UserDTO;
 import com.example.transectexplorer.dto.RegistrationDTO;
 import com.example.transectexplorer.model.User;
 import com.example.transectexplorer.repository.UserRepository;
@@ -45,7 +45,7 @@ public class AuthenticationService {
     }
 
     // Authenticate a user with the provided username and password
-    public LoginResponseDTO login(String username, String password, HttpServletResponse response) {
+    public UserDTO login(String username, String password, HttpServletResponse response) {
         try {
             Authentication auth = authenticationManager.authenticate(
                     new UsernamePasswordAuthenticationToken(username, password));
@@ -60,7 +60,7 @@ public class AuthenticationService {
 
             Optional<User> user = userRepository.findByUserName(username);
             // Return a DTO with the login response details and the JWT token
-            return new LoginResponseDTO(user.get().getId(), user.get().getUsername(), user.get().getUserEmail());
+            return new UserDTO(user.get().getId(), user.get().getUsername(), user.get().getUserEmail());
         } catch (AuthenticationException e) {
             throw new RuntimeException("Invalid username or password");
         }

@@ -1,6 +1,6 @@
 package com.example.transectexplorer.controller;
 
-import com.example.transectexplorer.dto.LoginResponseDTO;
+import com.example.transectexplorer.dto.UserDTO;
 import com.example.transectexplorer.dto.RegistrationDTO;
 import com.example.transectexplorer.model.User;
 import com.example.transectexplorer.repository.UserRepository;
@@ -26,39 +26,60 @@ public class UserController {
     private AuthenticationService authenticationService;
 
     @GetMapping("/{id}")
-    public Optional<User> getUserById(@PathVariable Long id) {
-        return userRepository.findById(id);
+    public ResponseEntity<UserDTO> getUserById(@PathVariable Long id) {
+        return userRepository.findById(id)
+                .map(user -> new UserDTO(user.getId(), user.getUsername(), user.getUserEmail()))
+                .map(userDTO -> new ResponseEntity<>(userDTO, HttpStatus.OK))
+                .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
 
     @PostMapping("/auth/register")
     public ResponseEntity<RegistrationDTO> createUser(@RequestBody RegistrationDTO user) {
-        return ResponseEntity
-                .ok(authenticationService.register(user.getUsername(), user.getUserEmail(), user.getPassword()));
+        return new ResponseEntity<>(
+                authenticationService.register(user.getUsername(), user.getUserEmail(), user.getPassword()),
+                HttpStatus.CREATED);
     }
 
     @PostMapping("/auth/login")
-    public ResponseEntity<LoginResponseDTO> loginUser(@RequestBody RegistrationDTO user, HttpServletResponse response) {
-        LoginResponseDTO loginResponse = authenticationService.login(user.getUsername(), user.getPassword(), response);
+    public ResponseEntity<UserDTO> loginUser(@RequestBody RegistrationDTO user, HttpServletResponse response) {
+        UserDTO loginResponse = authenticationService.login(user.getUsername(), user.getPassword(), response);
 
         if (loginResponse != null) {
-            return ResponseEntity.ok(loginResponse);
-        } else {
-            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+            return new ResponseEntity<>(loginResponse, HttpStatus.OK);
         }
+
+        return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
     }
 
     @PutMapping("/{id}")
-    public User updateUser(@PathVariable Long id, @RequestBody User updatedUser) {
-        if (userRepository.existsById(id)) {
-            updatedUser.setId(id);
-            return userRepository.save(updatedUser);
-        } else {
-            return null;
+    public ResponseEntity<UserDTO> updateUser(@PathVariable Long id, @RequestBody RegistrationDTO user) {
+        Optional<User> userOptional = userRepository.findById(id);
+
+        if (userOptional.isPresent()) {
+            User updatedUser = userOptional.get();
+
+            updatedUser.setUsername(user.getUsername());
+            updatedUser.setUserEmail(user.getUserEmail());
+            updatedUser.setPassword(user.getPassword());
+            userRepository.save(updatedUser);
+
+            return new ResponseEntity<>(
+                    new UserDTO(updatedUser.getId(), updatedUser.getUsername(), updatedUser.getUserEmail()),
+                    HttpStatus.OK);
         }
+
+        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 
     @DeleteMapping("/{id}")
-    public void deleteUser(@PathVariable Long id) {
-        userRepository.deleteById(id);
+    public ResponseEntity<UserDTO> deleteUser(@PathVariable Long id) {
+        Optional<User> userOptional = userRepository.findById(id);
+
+        if (userOptional.isPresent()) {
+            userRepository.deleteById(id);
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        }
+
+        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 }

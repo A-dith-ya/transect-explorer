@@ -50,6 +50,10 @@ public class User implements UserDetails {
     return userEmail;
   }
 
+  public void setUserEmail(String userEmail) {
+    this.userEmail = userEmail;
+  }
+
   @Override
   public Collection<? extends GrantedAuthority> getAuthorities() {
     return null;
