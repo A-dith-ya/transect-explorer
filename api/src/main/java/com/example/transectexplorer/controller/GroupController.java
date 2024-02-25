@@ -1,5 +1,6 @@
 package com.example.transectexplorer.controller;
 
+import com.example.transectexplorer.dto.GroupDTO;
 import com.example.transectexplorer.model.Group;
 import com.example.transectexplorer.model.GroupUser;
 import com.example.transectexplorer.repository.GroupUserRepository;
@@ -7,12 +8,13 @@ import com.example.transectexplorer.repository.GroupRepository;
 import com.example.transectexplorer.model.User;
 import com.example.transectexplorer.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Optional;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 @RestController
 @RequestMapping("/groups")
@@ -28,99 +30,141 @@ public class GroupController {
     private UserRepository userRepository;
 
     @GetMapping("/{id}")
-    public Optional<Group> getGroupById(@PathVariable Long id) {
-        return groupRepository.findById(id);
+    public ResponseEntity<GroupDTO> getGroupById(@PathVariable Long id) {
+        Optional<Group> group = groupRepository.findById(id);
+
+        if (group.isPresent()) {
+            List<GroupUser> groupUsers = groupUserRepository.findByGroup(group.get());
+
+            // Get the emails of the users in the group
+            List<String> groupUserEmails = new ArrayList<>();
+            for (GroupUser groupUser : groupUsers) {
+                groupUserEmails.add(groupUser.getUser().getUserEmail());
+            }
+
+            return new ResponseEntity<>(new GroupDTO(group.get().getId(), group.get().getGroupName(),
+                    group.get().getGroupLeaderId(), groupUserEmails), HttpStatus.OK);
+        }
+
+        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 
     @GetMapping("/groupLeader/{userId}")
-    public List<Group> getGroupsByUserId(@PathVariable Long userId) {
-        User user = userRepository.findById(userId).orElse(null);
-        if (user != null) {
-            return groupRepository.findByGroupLeader(user);
-        } else {
-            return null;
+    public ResponseEntity<List<Group>> getGroupsByGroupLeaderId(@PathVariable Long userId) {
+        Optional<User> user = userRepository.findById(userId);
+
+        if (user.isPresent()) {
+            return new ResponseEntity<>(groupRepository.findByGroupLeader(user.get()), HttpStatus.OK);
         }
+
+        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 
     @GetMapping("/groupUser/{userId}")
-    public List<Group> getGroupsByGroupUserId(@PathVariable Long userId) {
-        User user = userRepository.findById(userId).orElse(null);
-        if (user != null) {
-            List<GroupUser> groupUsers = groupUserRepository.findByGroupUser(user);
+    public ResponseEntity<List<Group>> getGroupsByGroupUserId(@PathVariable Long userId) {
+        Optional<User> user = userRepository.findById(userId);
+
+        if (user.isPresent()) {
+            List<GroupUser> groupUsers = groupUserRepository.findByGroupUser(user.get());
+
+            // Get the groups that the user is in
             List<Group> groups = new ArrayList<>();
             for (GroupUser groupUser : groupUsers) {
                 groups.add(groupUser.getGroup());
             }
-            return groups;
-        } else {
-            return null;
+
+            return new ResponseEntity<>(groups, HttpStatus.OK);
         }
+
+        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 
     @PostMapping
-    public Group createGroup(@RequestBody Map<String, Object> requestBody) {
-        Long groupLeaderId = ((Number) requestBody.get("groupLeaderId")).longValue();
-        User groupLeader = userRepository.findById(groupLeaderId).orElse(null);
+    public ResponseEntity<GroupDTO> createGroup(@RequestBody GroupDTO groupDTO) {
+        Optional<User> groupLeader = userRepository.findById(groupDTO.getGroupLeaderId());
 
-        if (groupLeader != null) {
-            Group group = new Group(groupLeader, (String) requestBody.get("groupName"));
+        if (groupLeader.isPresent()) {
+            Group group = new Group(groupLeader.get(), groupDTO.getGroupName());
             groupRepository.save(group);
 
-            List<String> groupUserEmails = (List<String>) requestBody.get("groupUserEmails");
-            for (String email : groupUserEmails) {
+            // Add the users to the group by their email
+            for (String email : groupDTO.getGroupUserEmails()) {
                 Optional<User> user = userRepository.findByUserEmail(email);
+
                 if (user.isPresent()) {
                     GroupUser groupUser = new GroupUser(group, user.get());
                     groupUserRepository.save(groupUser);
                 }
             }
 
-            return group;
-        } else {
-            return null;
+            // Set the id of the groupDTO to the id of the group
+            groupDTO.setId(group.getId());
+
+            return new ResponseEntity<>(groupDTO, HttpStatus.CREATED);
         }
+
+        return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
     }
 
     @PutMapping("/{id}")
-    public Group updateGroup(@PathVariable Long id, @RequestBody Map<String, Object> requestBody) {
-        if (groupRepository.existsById(id)) {
-            Long groupLeaderId = ((Number) requestBody.get("groupLeaderId")).longValue();
-            User groupLeader = userRepository.findById(groupLeaderId).orElse(null);
+    public ResponseEntity<GroupDTO> updateGroup(@RequestBody GroupDTO group) {
+        Optional<Group> existingGroup = groupRepository.findById(group.getId());
 
-            if (groupLeader != null) {
-                Group updatedGroup = new Group(groupLeader, (String) requestBody.get("groupName"));
-                updatedGroup.setId(id);
-                Group savedGroup = groupRepository.save(updatedGroup);
+        if (existingGroup.isPresent()) {
+            Optional<User> groupLeader = userRepository.findById(group.getGroupLeaderId());
 
-                List<GroupUser> groupUsers = groupUserRepository.findByGroupId(id);
+            if (groupLeader.isPresent()) {
+                Group updatedGroup = existingGroup.get();
+
+                // Update the group leader and group name
+                updatedGroup.setGroupLeader(groupLeader.get());
+                updatedGroup.setGroupName(group.getGroupName());
+                groupRepository.save(updatedGroup);
+
+                // Delete the group users
+                List<GroupUser> groupUsers = groupUserRepository.findByGroupId(group.getId());
                 for (GroupUser groupUser : groupUsers) {
                     groupUserRepository.delete(groupUser);
                 }
 
-                List<String> groupUserEmails = (List<String>) requestBody.get("groupUserEmails");
-                for (String email : groupUserEmails) {
+                // Add the users to the group by their email
+                List<String> groupUserEmails = new ArrayList<>();
+                for (String email : group.getGroupUserEmails()) {
                     Optional<User> user = userRepository.findByUserEmail(email);
                     if (user.isPresent()) {
-                        GroupUser groupUser = new GroupUser(savedGroup, user.get());
+                        GroupUser groupUser = new GroupUser(updatedGroup, user.get());
                         groupUserRepository.save(groupUser);
+                        groupUserEmails.add(groupUser.getUser().getUserEmail());
                     }
                 }
 
-                return savedGroup;
-            } else {
-                return null;
+                return new ResponseEntity<>(new GroupDTO(updatedGroup.getId(), updatedGroup.getGroupName(),
+                        groupLeader.get().getId(), groupUserEmails), HttpStatus.OK);
             }
-        } else {
-            return null;
+
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
+
+        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 
     @DeleteMapping("/{id}")
-    public void deleteGroup(@PathVariable Long id) {
-        List<GroupUser> groupUsers = groupUserRepository.findByGroupId(id);
-        for (GroupUser groupUser : groupUsers) {
-            groupUserRepository.delete(groupUser);
+    public ResponseEntity<GroupDTO> deleteGroup(@PathVariable Long id) {
+        Optional<Group> group = groupRepository.findById(id);
+
+        if (group.isPresent()) {
+            List<GroupUser> groupUsers = groupUserRepository.findByGroupId(id);
+
+            // Delete the group users
+            for (GroupUser groupUser : groupUsers) {
+                groupUserRepository.delete(groupUser);
+            }
+
+            groupRepository.deleteById(id);
+
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         }
-        groupRepository.deleteById(id);
+
+        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 }
