@@ -3,28 +3,39 @@ import axios from "axios";
 const baseURL = "http://localhost:8080/users/";
 
 const registerUser = async (formData) => {
-  const response = await axios
+  await axios
     .post(`${baseURL}auth/register`, formData)
     .then((response) => {
-      console.log(response);
+      window.location.href = "/login";
     })
     .catch((error) => {
       console.log(error);
+      alert("Register failed");
     });
 };
 
 const loginUser = async (formData) => {
-  const response = await axios
+  await axios
     .post(`${baseURL}auth/login`, formData)
     .then((response) => {
-      console.log(response);
-      localStorage.setItem("id", response.data.id);
-      localStorage.setItem("userEmail", response.data.userEmail);
-      localStorage.setItem("username", response.data.username);
+      sessionStorage.setItem("id", response.data.id);
+      sessionStorage.setItem("userEmail", response.data.userEmail);
+      sessionStorage.setItem("username", response.data.username);
+      window.location.href = "/";
     })
     .catch((error) => {
       console.log(error);
+      alert("Login failed");
     });
 };
 
-export { registerUser, loginUser };
+const getUser = async (userId) => {
+  try {
+    const result = await axios.get(`${baseURL}${userId}`);
+    return result.data;
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export { registerUser, loginUser, getUser };

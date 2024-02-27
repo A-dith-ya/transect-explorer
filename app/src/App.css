@@ -1,7 +1,7 @@
 #root {
   max-width: 1280px;
   margin: 0 auto;
-  padding: 2rem;
+  /* padding: 2rem; */
   text-align: center;
 }
 
@@ -24,4 +24,85 @@
   width: 44;
   background-color: transparent;
   border-color: transparent;
+}
+
+.login-btn {
+  float: "right";
+  margin: "10px";
+  background: "none";
+  border: "none";
+  cursor: "pointer";
+  font-weight: "bold";
+  font-size: "16px";
+  color: "#555";
+}
+
+
+.submit-btn {
+  color: "white";
+  border-radius: '20px';
+  background-color: "#333";
+  padding: '20px'
+}
+
+.submit-btn:hover {
+  background-color: "#222";
+}
+
+
+.group-form {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  justify-content: center;
+  gap: 5px;
+  padding: "0 5px";
+  width: 500;
+}
+
+.group-form-wrap {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.group-form-title {
+  font-size: 18px;
+  font-weight: 600;
+  text-align: left;
+}
+
+.group-form-add-btn {
+  background: "#2CEAA3";
+  padding: '10px';
+  border-radius: '10px';
+}
+
+.form-group-item {
+  border: 2px solid #ddd;
+  padding: 10px;
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  max-height: 400px;
+  overflow: auto;
+}
+
+.form-group-content-item {
+  display: flex;
+  flex-direction: row;
+  gap: 10px; 
+  align-items: center;
+  justify-content: flex-start;
+}
+
+.form-group-content-item  button {
+  display: flex;
+  align-items: center;
+  height: 'max-content';
+  background: none;
+  border: none;
+  cursor: pointer;
 }
