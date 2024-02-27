@@ -5,6 +5,9 @@ public class RegistrationDTO {
     private String email;
     private String password;
 
+    public RegistrationDTO() {
+    }
+
     public RegistrationDTO(String username, String email, String password) {
         this.username = username;
         this.email = email;

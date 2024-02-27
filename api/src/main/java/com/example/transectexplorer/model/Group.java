@@ -42,4 +42,16 @@ public class Group {
   public String getGroupName() {
     return groupName;
   }
+
+  public void setGroupName(String groupName) {
+    this.groupName = groupName;
+  }
+
+  public Long getGroupLeaderId() {
+    return groupLeader.getId();
+  }
+
+  public void setGroupLeader(User groupLeader) {
+    this.groupLeader = groupLeader;
+  }
 }

@@ -10,8 +10,6 @@ import jakarta.persistence.Table;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-
 import java.util.Collection;
 
 @Entity
@@ -29,7 +27,6 @@ public class User implements UserDetails {
   private String userEmail;
 
   @Column(nullable = false, length = 100)
-  @JsonIgnore
   private String userPassword;
 
   protected User() {
@@ -53,12 +50,15 @@ public class User implements UserDetails {
     return userEmail;
   }
 
+  public void setUserEmail(String userEmail) {
+    this.userEmail = userEmail;
+  }
+
   @Override
   public Collection<? extends GrantedAuthority> getAuthorities() {
     return null;
   }
 
-  @JsonIgnore
   @Override
   public String getPassword() {
     return this.userPassword;

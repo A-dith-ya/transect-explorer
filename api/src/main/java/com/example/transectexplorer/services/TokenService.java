@@ -19,13 +19,17 @@ public class TokenService {
     @Autowired
     private JwtDecoder jwtDecoder;
 
+    // Method to generate a JWT for a given authentication.
     public String generateJwt(Authentication auth) {
+        // Create a JwtClaimsSet with the issuer as "self", the current time as the
+        // issuedAt time, and the name of the authentication as the subject.
         JwtClaimsSet claims = JwtClaimsSet.builder()
                 .issuer("self")
                 .issuedAt(Instant.now())
                 .subject(auth.getName())
                 .build();
 
+        // Encode the JwtClaimsSet into a JWT and return its token value.
         return jwtEncoder.encode(JwtEncoderParameters.from(claims)).getTokenValue();
     }
 }
