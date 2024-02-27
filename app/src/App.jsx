@@ -6,7 +6,6 @@ import GroupForm from './pages/Group/GroupForm';
 import NavBar from './components/layout/navbar/NavBar'
 import DrawingBar from './components/map/DrawingBar'
 import './App.css'
-import NavBar from './components/layout/navbar/NavBar'
 
 function App() {
   return (
