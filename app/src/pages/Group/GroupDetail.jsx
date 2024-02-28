@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from "react";
 import Form from "@rjsf/core";
 import validator from "@rjsf/validator-ajv8";
-import schema from "../../jsonSchemas/groupschema.json";
-import ObjectFieldTemplate from "../../components/rjsf/ObjectFieldTemplate";
-import ArrayFieldTemplate from "../../components/rjsf/ArrayFieldTemplate";
-import SubmitButton from "../../components/rjsf/SubmitButton";
+import { groupFormSchema } from "../../components/rjsf/schema/GroupFormSchema";
+import ObjectFieldTemplate from "../../components/rjsf/template/ObjectFieldTemplate";
+import ArrayFieldTemplate from "../../components/rjsf/template/ArrayFieldTemplate";
+import SubmitButton from "../../components/rjsf/template/SubmitButton";
 import {
   deleteGroup,
   getGroupId,
@@ -88,7 +88,7 @@ const GroupDetail = () => {
           </div>
         ) : (
           <Form
-            schema={{ ...schema, button: "Update" }}
+            schema={{ ...groupFormSchema, button: "Update" }}
             formData={formData}
             onChange={(e) => setFormData(e.formData)}
             validator={validator}
