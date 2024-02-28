@@ -1,0 +1,140 @@
+.group, .group__form{
+  display: flex;
+  justify-content: center;
+  margin-top: 50px;
+}
+
+.group__box {
+  display: flex;
+  padding: 5px;
+  gap: 10px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.group__box .group__button--create {
+  padding: 3;
+  cursor: pointer;
+  min-width: 150px;
+  border: 1px dotted #2CEAA3;
+  background: none;
+  border-radius: 10px;
+  margin-left: 5px;
+  min-height: 100px;
+}
+
+.group__form__content {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  justify-content: center;
+  gap: 5px;
+  border: 2px solid #ddd;
+  padding: 20px;
+  border-radius: 10px;
+}
+
+.group__detail {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.group__detail__title {
+  font-weight: bold;
+  color: #555;
+  font-size: 20px;
+}
+
+.group__detail__subtitle {
+  font-style: italic;
+  border: 2px solid #547ED9	;
+  padding: 10px;
+  border-radius: 10px;
+}
+
+.group__detail__information {
+  border: 1px solid #2CEAA3;
+  padding: 20px;
+  border-radius: 20px;
+  min-width: 300px;
+}
+
+.group-detail-information hr {
+  width: 100%;
+  border: 1px solid #2CEAA3;
+}
+
+
+.group__detail__information--border {
+  font-size: 20px;
+  border: 2px solid #547ED9;
+  border-radius: 50px;
+  padding:  5px;
+}
+
+.group__detail__information .members__list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  justify-content: center;
+  padding: 0;
+}
+
+.group__detail__information .member__item {
+  border: 1px solid #555;
+  padding: 10px;
+  border-radius: 50px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  overflow: auto; 
+  font-size: 20px;
+
+}
+
+.group__detail__information .detail__buttons {
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+  justify-content: center;
+  padding-top: 20px;
+}
+
+.group__detail__information button {
+  background: none;
+  border-radius: 5px;
+  padding: 5px 10px;
+  cursor: pointer;
+  width: 100px;
+  outline: none;
+  border: none;
+  font-size: 20px;
+}
+
+.group__detail__information .detail__buttons--delete {
+  background: #f3f0bb;
+  color: #000;
+}
+.group__detail__information .detail__buttons--edit {
+  border: 1px solid #e79c55;
+  color: #fff;
+}
+
+.group .group__card {
+  cursor: pointer;
+  min-width: 130px;
+  position: relative;
+  box-shadow: #2A6041 0px 5px 15px;
+  padding: 10px;
+  border-radius: 10px;
+}
+
+.group .group__card i {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  font-size: 20px;
+  color: #2CEAA3;
+}
