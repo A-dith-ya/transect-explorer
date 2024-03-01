@@ -5,8 +5,10 @@ const ObjectFieldTemplate = (props) => {
     <div>
       {props.title}
       {props.description}
-      {props.properties.map((element) => (
-        <div className="login-form">{element.content}</div>
+      {props.properties.map((element, index) => (
+        <div key={index} className="login-form">
+          {element.content}
+        </div>
       ))}
     </div>
   );
