@@ -1,13 +1,13 @@
 export const registerFormSchema = {
   title: "Register Form",
   type: "object",
-  required: ["username", "email", "password"],
+  required: ["username", "userEmail", "password"],
   properties: {
     username: {
       type: "string",
       title: "Username",
     },
-    email: {
+    userEmail: {
       type: "string",
       title: "Email",
     },
@@ -16,4 +16,5 @@ export const registerFormSchema = {
       title: "Password",
     },
   },
+
 };

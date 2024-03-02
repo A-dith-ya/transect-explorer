@@ -10,7 +10,7 @@ const authUISchema = {
 const registerUISchema = {
   ...authUISchema,
   email: {},
-  "ui:order": ["username", "email", "password"],
+  "ui:order": ["username", "userEmail", "password"],
 };
 
 const loginUISchema = {
