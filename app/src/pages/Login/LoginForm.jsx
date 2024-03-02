@@ -7,7 +7,7 @@ import { Link } from "react-router-dom";
 
 const LoginForm = () => {
   return (
-    <div>
+    <div className="container">
       <FormContainer
         schema={loginFormSchema}
         uiSchema={UISchemas.loginUISchema}
@@ -16,9 +16,6 @@ const LoginForm = () => {
       <div>
         Don't have an account?{" "}
         <Link
-          style={{
-            textDecoration: "none",
-          }}
           to={"/register"}
         >
           Register

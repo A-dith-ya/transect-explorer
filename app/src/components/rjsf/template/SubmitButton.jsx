@@ -12,18 +12,9 @@ const SubmitButton = (props) => {
     <button
       type="submit"
       variant="contained"
-      className="submit-btn"
-      style={{
-        color: "white",
-        borderRadius: "10px",
-        backgroundColor: "#333",
-        padding: "10px 20px",
-        fontSize: "18px",
-        margin: "20px",
-        border: "none",
-        cursor: "pointer",
-      }}
-    >
+      className="submit-button"
+
+    > Submit
       {props.registry.rootSchema.button}
     </button>
   );
