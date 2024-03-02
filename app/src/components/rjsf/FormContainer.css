@@ -7,11 +7,19 @@
   flex-direction: column;
 }
 
+.title{
+  text-align: center;
+  font-weight: bold;
+  font-family: monospace;
+  color: #2a6041;
+}
+
 .login-form .form-group   {
   display: flex;
   flex-direction: column;
   text-align: start;
 }
+
 .login-form input[type="text"],
 .login-form input[type="password"] {
   padding: 10px;
@@ -24,16 +32,14 @@
 }
 
 .login-form .submit-button {
-  width: 50%;
+  width: 20%;
   padding: 10px;
-  background-color: #26b8d9;
+  background-color: #2ceaa3;
   border-radius: 5px;
   outline: none;
   border: none;
-}
-
-.login-form .submit-button:hover {
-  background-color: #1d849b;
+  cursor: pointer;
+  font-size: "18px";
 }
 
 .link-btn {
