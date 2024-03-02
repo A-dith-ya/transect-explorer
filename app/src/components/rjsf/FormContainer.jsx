@@ -10,7 +10,7 @@ const FormContainer = ({ schema, uiSchema, onSubmitAction }) => {
   const [formData, setFormData] = useState(null);
 
   const handleSubmit = async ({ formData }) => {
-    onSubmitAction(formData);
+     onSubmitAction(formData);
   };
 
   return (
