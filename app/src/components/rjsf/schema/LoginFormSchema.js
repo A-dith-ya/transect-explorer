@@ -1,5 +1,5 @@
 export const loginFormSchema = {
-  title: "Login Form",
+  title: "Login",
   type: "object",
   required: ["username", "password"],
   properties: {

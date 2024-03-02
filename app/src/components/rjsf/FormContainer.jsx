@@ -10,11 +10,13 @@ const FormContainer = ({ schema, uiSchema, onSubmitAction }) => {
   const [formData, setFormData] = useState(null);
 
   const handleSubmit = async ({ formData }) => {
-    onSubmitAction(formData);
+     onSubmitAction(formData);
   };
 
-  return (
-    <Form
+  return ( 
+    <div className="container"> 
+    <Form 
+      className="login-form"
       schema={schema}
       uiSchema={uiSchema}
       formData={formData}
@@ -27,7 +29,9 @@ const FormContainer = ({ schema, uiSchema, onSubmitAction }) => {
       }}
       onSubmit={handleSubmit}
     />
+    </div>
   );
 };
 
 export default FormContainer;
+
