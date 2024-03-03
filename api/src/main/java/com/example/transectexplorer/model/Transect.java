@@ -21,25 +21,36 @@ public class Transect {
     @JoinColumn(nullable = false)
     private Group group;
 
+    @ManyToOne
+    @JoinColumn(nullable = false)
+    private User userCreator;
+
     @Column(nullable = false, length = 50)
     private String transectName;
 
     @Column(nullable = false, length = 50)
-    private String observations;
+    private String description;
+
+    @Column(nullable = false, length = 50)
+    private String location;
+
+    @Column(nullable = false, length = 50)
+    private String coordinate;
 
     @Column(nullable = false)
     private LocalDate dateCreated;
 
-    private String attachment;
-
     protected Transect() {
     };
 
-    public Transect(Group group, String transectName, String observations, String attachment) {
+    public Transect(Group group, User userCreator, String transectName, String description, String location,
+            String coordinate) {
         this.group = group;
+        this.userCreator = userCreator;
         this.transectName = transectName;
-        this.observations = observations;
-        this.attachment = attachment;
+        this.description = description;
+        this.location = location;
+        this.coordinate = coordinate;
     }
 
     @PrePersist
