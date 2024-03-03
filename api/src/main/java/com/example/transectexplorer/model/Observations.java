@@ -9,7 +9,7 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 
 @Entity
-public class Observations {
+public class Observations extends BaseEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
@@ -70,7 +70,7 @@ public class Observations {
         this.fileName = fileName;
     }
 
-    public String getfileSize() {
+    public String getFileSize() {
         return fileSize;
     }
 

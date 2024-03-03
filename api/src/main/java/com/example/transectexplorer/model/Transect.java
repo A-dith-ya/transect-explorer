@@ -1,7 +1,5 @@
 package com.example.transectexplorer.model;
 
-import java.time.LocalDate;
-
 import jakarta.persistence.Entity;
 import jakarta.persistence.Column;
 import jakarta.persistence.GeneratedValue;
@@ -9,10 +7,9 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
-import jakarta.persistence.PrePersist;
 
 @Entity
-public class Transect {
+public class Transect extends BaseEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
@@ -37,9 +34,6 @@ public class Transect {
     @Column(nullable = false, length = 50)
     private String coordinate;
 
-    @Column(nullable = false)
-    private LocalDate dateCreated;
-
     protected Transect() {
     };
 
@@ -51,10 +45,5 @@ public class Transect {
         this.description = description;
         this.location = location;
         this.coordinate = coordinate;
-    }
-
-    @PrePersist
-    protected void onCreate() {
-        this.dateCreated = LocalDate.now();
     }
 }
