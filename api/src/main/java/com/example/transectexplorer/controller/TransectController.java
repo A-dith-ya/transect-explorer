@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Optional;
-import org.springframework.web.bind.annotation.GetMapping;
 
 @RestController
 @RequestMapping("/transects")
@@ -83,7 +82,12 @@ public class TransectController {
     }
 
     @DeleteMapping("/{id}")
-    public void deleteTransect(@PathVariable Long id) {
-        transectRepository.deleteById(id);
+    public ResponseEntity<Void> deleteTransect(@PathVariable Long id) {
+        if (transectRepository.existsById(id)) {
+            transectRepository.deleteById(id);
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        }
+
+        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 }
