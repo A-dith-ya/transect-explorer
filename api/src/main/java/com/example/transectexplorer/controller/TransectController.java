@@ -12,6 +12,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.Optional;
 import org.springframework.web.bind.annotation.GetMapping;
 
@@ -51,6 +52,14 @@ public class TransectController {
                 .map(transect -> new TransectDTO(transect.getId(), transect.getTransectName(),
                         transect.getDescription(), transect.getLocation(), transect.getCoordinate(),
                         transect.getUserCreator().getUsername()))
+                .map(transectDTO -> new ResponseEntity<>(transectDTO, HttpStatus.OK))
+                .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
+    }
+
+    @GetMapping("/groups/{groupId}")
+    public ResponseEntity<List<TransectDTO>> getTransectsByGroupId(@PathVariable Long groupId) {
+        return groupRepository.findById(groupId)
+                .map(group -> transectRepository.findByGroup(group))
                 .map(transectDTO -> new ResponseEntity<>(transectDTO, HttpStatus.OK))
                 .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
