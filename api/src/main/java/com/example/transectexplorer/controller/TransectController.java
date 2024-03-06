@@ -64,6 +64,24 @@ public class TransectController {
                 .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
 
+    @PutMapping("/{id}")
+    public ResponseEntity<TransectDTO> updateTransect(@RequestBody TransectDTO transectDTO) {
+        Optional<Transect> transect = transectRepository.findById(transectDTO.getId());
+
+        if (transect.isPresent()) {
+            transect.get().setTransectName(transectDTO.getTransectName());
+            transect.get().setDescription(transectDTO.getDescription());
+            transect.get().setLocation(transectDTO.getLocation());
+            transect.get().setCoordinate(transectDTO.getCoordinate());
+
+            transectRepository.save(transect.get());
+
+            return new ResponseEntity<>(transectDTO, HttpStatus.OK);
+        }
+
+        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+    }
+
     @DeleteMapping("/{id}")
     public void deleteTransect(@PathVariable Long id) {
         transectRepository.deleteById(id);
