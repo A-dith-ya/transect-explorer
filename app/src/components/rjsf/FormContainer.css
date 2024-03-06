@@ -1,17 +1,25 @@
 .container {
   width: 100%;
   display: flex;
-  justify-content: center;
   align-items: center;
-  height: 90vh;
+  padding-top: 5rem;
+  padding-bottom: 7rem;
+  margin-top: auto;
+  height: calc(100vh - 5rem); /* Adjust for navbar height */
   flex-direction: column;
+  align-self: center;
+  overflow-y: auto;
+}
+.login-form{
 }
 
 .title{
   text-align: center;
+  font-size: larger;
   font-weight: bold;
   font-family: monospace;
   color: #2a6041;
+  margin-bottom: 2rem;
 }
 
 .login-form .form-group   {
@@ -21,7 +29,8 @@
 }
 
 .login-form input[type="text"],
-.login-form input[type="password"] {
+.login-form input[type="password"],
+.login-form select {
   padding: 10px;
   margin-bottom: 10px;
   background-color: white;
@@ -31,9 +40,36 @@
   min-width: 300px;
 }
 
+.login-form .panel.panel-danger.errors{
+  visibility: hidden;
+}
+
+.login-form .text-danger{
+  color:#ea2c2c;
+}
+
+.login-form textarea{
+  padding: 10px;
+  margin-bottom: 10px;
+  background-color: white;
+  color: black;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  min-width: 300px;
+  min-height: 50px;
+}
+
+.file-info {
+  max-width: 300px;
+}
+
+input[type="file"]{
+  background-color:red;
+}
 .login-form .submit-button {
   width: 20%;
   padding: 10px;
+  margin-top: 30px;
   background-color: #2ceaa3;
   border-radius: 5px;
   outline: none;
@@ -42,9 +78,76 @@
   font-size: "18px";
 }
 
+.login-form label{
+  font-weight: bold;
+  font-size: 18px; /*match h3 size*/
+}
+
+.arrayfield__item label{
+  font-weight:400;
+  font-size: 16px;
+}
+
+
 .link-btn {
   padding: 10px;
   margin-top: 10px;
   background-color: #333;
   border-radius: 10px;
+}
+
+
+.arrayfield{
+
+}
+
+.arrayfield__title{
+  display: flex;
+  justify-content: space-between;
+}
+.arrayfield__add-button{
+  width: 30%;
+  margin: 22px 0px;
+  padding: 0px 15px;
+  background-color: #2ceaa3;
+  border-radius: 5px;
+  outline: none;
+  border: none;
+  cursor: pointer;
+  font-size: "18px";
+}
+
+.arrayfield__item{
+  display: flex;
+}
+
+.arrayfield__item input[type="text"]{
+  padding: 10px;
+  margin-bottom: 10px;
+  background-color: white;
+  color: black;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  min-width: 234px;
+}
+
+.arrayfield__remove-button{
+  width: fit-content;
+  margin-top: 22px;
+  margin-bottom: 10px;
+  margin-left: auto;
+  background-color: #ea2c2c;
+  border-radius: 5px;
+  outline: none;
+  border: none;
+  cursor: pointer;
+  font-size: "18px";
+}
+
+.arrayfield__item input[type="file"]{
+  width: 30%;
+  margin: 22px 0px;
+  padding: 0px 15px;
+  background-color: #2ceaa3;
+  border-radius: 5px;
 }

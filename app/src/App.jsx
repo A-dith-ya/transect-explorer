@@ -7,6 +7,7 @@ import RegisterForm from "./pages/Register/RegisterForm";
 import MapPage from "./pages/Map/MapPage";
 import GroupForm from "./pages/Group/GroupForm";
 import GroupDetail from "./pages/Group/GroupDetail";
+import AddTransect from "./pages/AddTransect/AddTransect";
 import NavBar from "./components/layout/navbar/NavBar";
 import DrawingBar from "./components/map/DrawingBar";
 import "./App.css";
@@ -22,6 +23,7 @@ function App() {
         <Route path="/map" element={<MapPage />} />
         <Route path="/group" element={<GroupForm />} />
         <Route path="/group/:id" element={<GroupDetail />} />
+        <Route path="/add" element={<AddTransect />} />
       </Routes>
     </Router>
   );
