@@ -19,20 +19,6 @@ public class TransectController {
     @Autowired
     private GroupRepository groupRepository;
 
-    @PostMapping
-    public Transect createTransect(@RequestBody Map<String, Object> requestBody) {
-        Long groupId = ((Number) requestBody.get("groupId")).longValue();
-        Group group = groupRepository.findById(groupId).orElse(null);
-
-        if (group != null) {
-            Transect transect = new Transect(group, (String) requestBody.get("transectName"),
-                    (String) requestBody.get("observations"), (String) requestBody.get("attachment"));
-            return transectRepository.save(transect);
-        } else {
-            return null;
-        }
-    }
-
     @DeleteMapping("/{id}")
     public void deleteTransect(@PathVariable Long id) {
         transectRepository.deleteById(id);
