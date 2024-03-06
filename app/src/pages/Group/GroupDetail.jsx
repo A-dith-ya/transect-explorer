@@ -10,7 +10,7 @@ import {
   getGroupId,
   updateGroup,
 } from "../../services/GroupService";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { getUser } from "../../services/UserService";
 
 const GroupDetail = () => {
@@ -22,6 +22,7 @@ const GroupDetail = () => {
   const username = sessionStorage.getItem("username");
 
   const { id } = useParams();
+  const navigate = useNavigate();
 
   const handleSubmit = async ({ formData }) => {
     updateGroup(formData);
@@ -60,6 +61,12 @@ const GroupDetail = () => {
 
   return (
     <div className="group__detail">
+      <button
+        className="group__Detail__button--back"
+        onClick={() => navigate("/group")}
+      >
+        <i class="fa-solid fa-arrow-left"></i>
+      </button>
       <h4 className="group__detail__title">{group?.groupName} group</h4>
 
       <h5 className="group__detail__subtitle">
