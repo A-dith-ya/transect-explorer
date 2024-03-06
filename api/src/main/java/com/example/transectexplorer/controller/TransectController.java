@@ -13,6 +13,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Optional;
+import org.springframework.web.bind.annotation.GetMapping;
 
 @RestController
 @RequestMapping("/transects")
@@ -42,6 +43,16 @@ public class TransectController {
         }
 
         return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<TransectDTO> getTransectById(@PathVariable Long id) {
+        return transectRepository.findById(id)
+                .map(transect -> new TransectDTO(transect.getId(), transect.getTransectName(),
+                        transect.getDescription(), transect.getLocation(), transect.getCoordinate(),
+                        transect.getUserCreator().getUsername()))
+                .map(transectDTO -> new ResponseEntity<>(transectDTO, HttpStatus.OK))
+                .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
 
     @DeleteMapping("/{id}")
