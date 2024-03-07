@@ -43,6 +43,15 @@
 }
 
 .group__detail__title {
+  color: white;
+  font-family: "Open Sans Condensed", sans-serif;
+  font-size: 64px;
+  font-weight: 700;
+  line-height: 64px;
+  margin: 0 0 0;
+  padding: 20px 30px;
+  text-align: center;
+  text-transform: uppercase;
 }
 
 .group__detail__subtitle {
@@ -132,28 +141,4 @@
   right: 10px;
   font-size: 20px;
   color: #2ceaa3;
-}
-
-h1 {
-  color: white;
-  font-family: "Open Sans Condensed", sans-serif;
-  font-size: 64px;
-  font-weight: 700;
-  line-height: 64px;
-  margin: 0 0 0;
-  padding: 20px 30px;
-  text-align: center;
-  text-transform: uppercase;
-}
-
-h2 {
-  color: white;
-  font-family: "Open Sans Condensed", sans-serif;
-  font-size: 48px;
-  font-weight: 700;
-  line-height: 48px;
-  margin: 0 0 24px;
-  padding: 0 30px;
-  text-align: center;
-  text-transform: uppercase;
 }
