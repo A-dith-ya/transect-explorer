@@ -10,8 +10,6 @@
   align-self: center;
   overflow-y: auto;
 }
-.login-form{
-}
 
 .title{
   text-align: center;
@@ -63,9 +61,15 @@
   max-width: 300px;
 }
 
-input[type="file"]{
-  background-color:red;
+.btn.btn-danger.array-item-remove{
+  background-color: #ea2c2c;
+  outline: none;
+  border: none;
+  cursor: pointer;
+  margin-left: 3px;
+  justify-self: center;
 }
+
 .login-form .submit-button {
   width: 20%;
   padding: 10px;
@@ -96,10 +100,6 @@ input[type="file"]{
   border-radius: 10px;
 }
 
-
-.arrayfield{
-
-}
 
 .arrayfield__title{
   display: flex;
