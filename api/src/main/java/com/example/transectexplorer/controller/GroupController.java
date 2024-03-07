@@ -1,6 +1,7 @@
 package com.example.transectexplorer.controller;
 
 import com.example.transectexplorer.dto.GroupDTO;
+import com.example.transectexplorer.dto.UserGroupsDTO;
 import com.example.transectexplorer.model.Group;
 import com.example.transectexplorer.model.GroupUser;
 import com.example.transectexplorer.repository.GroupUserRepository;
@@ -75,6 +76,17 @@ public class GroupController {
 
             return new ResponseEntity<>(groups, HttpStatus.OK);
         }
+
+        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+    }
+
+    @GetMapping("/userGroups/{userId}")
+    public ResponseEntity<UserGroupsDTO> getUserGroups(@PathVariable Long userId) {
+        Optional<User> user = userRepository.findById(userId);
+
+        if (user.isPresent())
+            return new ResponseEntity<>(new UserGroupsDTO(groupUserRepository.findDtoByGroupUser(user.get()),
+                    groupRepository.findDtoByGroupLeader(user.get())), HttpStatus.OK);
 
         return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }

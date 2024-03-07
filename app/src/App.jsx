@@ -11,6 +11,7 @@ import AddTransect from "./pages/AddTransect/AddTransect";
 import NavBar from "./components/layout/navbar/NavBar";
 import DrawingBar from "./components/map/DrawingBar";
 import "./App.css";
+import GroupList from "./pages/Group/GroupList";
 
 function App() {
   return (
@@ -21,7 +22,8 @@ function App() {
         <Route path="/login" element={<LoginForm />} />
         <Route path="/register" element={<RegisterForm />} />
         <Route path="/map" element={<MapPage />} />
-        <Route path="/group" element={<GroupForm />} />
+        <Route path="/group" element={<GroupList />} />
+        <Route path="/create-group" element={<GroupForm />} />
         <Route path="/group/:id" element={<GroupDetail />} />
         <Route path="/add" element={<AddTransect />} />
       </Routes>

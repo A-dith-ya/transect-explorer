@@ -9,7 +9,7 @@ export const groupFormSchema = {
     },
     groupUserEmails: {
       type: "array",
-      title: "Group Members Email Addresses",
+      title: "Group Member Emails",
       items: {
         type: "string",
       },

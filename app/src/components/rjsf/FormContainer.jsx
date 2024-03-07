@@ -8,9 +8,12 @@ import "./FormContainer.css";
 
 const FormContainer = ({ schema, uiSchema, onSubmitAction, arrayFieldTemplate }) => {
   const [formData, setFormData] = useState(null);
+  const userEmail = sessionStorage.getItem("userEmail");
 
   const handleSubmit = async ({ formData }) => {
-     onSubmitAction(formData);
+    if (!userEmail) return;
+    formData.groupUserEmails.push(userEmail);
+    onSubmitAction(formData);
   };
 
   return ( 
@@ -34,4 +37,3 @@ const FormContainer = ({ schema, uiSchema, onSubmitAction, arrayFieldTemplate })
 };
 
 export default FormContainer;
-
