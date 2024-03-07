@@ -1,4 +1,5 @@
-.group, .group__form{
+.group,
+.group__form {
   display: flex;
   justify-content: center;
   margin-top: 50px;
@@ -16,7 +17,7 @@
   padding: 3;
   cursor: pointer;
   min-width: 150px;
-  border: 1px dotted #2CEAA3;
+  border: 1px dotted #2ceaa3;
   background: none;
   border-radius: 10px;
   margin-left: 5px;
@@ -42,17 +43,16 @@
 }
 
 .group__detail__title {
-
 }
 
 .group__detail__subtitle {
-  border: 2px solid #547ED9	;
+  border: 2px solid #547ed9;
   padding: 10px;
   border-radius: 10px;
 }
 
 .group__detail__information {
-  border: 1px solid #2CEAA3;
+  border: 1px solid #2ceaa3;
   padding: 20px;
   border-radius: 20px;
   min-width: 300px;
@@ -60,15 +60,14 @@
 
 .group-detail-information hr {
   width: 100%;
-  border: 1px solid #2CEAA3;
+  border: 1px solid #2ceaa3;
 }
-
 
 .group__detail__information--border {
   font-size: 20px;
-  border: 2px solid #547ED9;
+  border: 2px solid #547ed9;
   border-radius: 50px;
-  padding:  5px;
+  padding: 5px;
 }
 
 .group__detail__information .members__list {
@@ -86,9 +85,8 @@
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  overflow: auto; 
+  overflow: auto;
   font-size: 20px;
-
 }
 
 .group__detail__information .detail__buttons {
@@ -123,7 +121,7 @@
   cursor: pointer;
   min-width: 130px;
   position: relative;
-  box-shadow: #2A6041 0px 5px 15px;
+  box-shadow: #2a6041 0px 5px 15px;
   padding: 10px;
   border-radius: 10px;
 }
@@ -133,9 +131,29 @@
   top: 10px;
   right: 10px;
   font-size: 20px;
-  color: #2CEAA3;
+  color: #2ceaa3;
 }
 
-h1 { color: white; font-family: 'Open Sans Condensed', sans-serif; font-size: 64px; font-weight: 700; line-height: 64px; margin: 0 0 0; padding: 20px 30px; text-align: center; text-transform: uppercase; }
+h1 {
+  color: white;
+  font-family: "Open Sans Condensed", sans-serif;
+  font-size: 64px;
+  font-weight: 700;
+  line-height: 64px;
+  margin: 0 0 0;
+  padding: 20px 30px;
+  text-align: center;
+  text-transform: uppercase;
+}
 
-h2 { color: white; font-family: 'Open Sans Condensed', sans-serif; font-size: 48px; font-weight: 700; line-height: 48px; margin: 0 0 24px; padding: 0 30px; text-align: center; text-transform: uppercase; }
+h2 {
+  color: white;
+  font-family: "Open Sans Condensed", sans-serif;
+  font-size: 48px;
+  font-weight: 700;
+  line-height: 48px;
+  margin: 0 0 24px;
+  padding: 0 30px;
+  text-align: center;
+  text-transform: uppercase;
+}
