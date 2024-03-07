@@ -17,7 +17,7 @@
   padding: 3;
   cursor: pointer;
   min-width: 150px;
-  border: 1px dotted #2CEAA3;
+  border: 1px dotted #2ceaa3;
   background: none;
   border-radius: 10px;
   margin-left: 5px;
@@ -43,20 +43,26 @@
 }
 
 .group__detail__title {
-  font-weight: bold;
-  color: #555;
-  font-size: 20px;
+  color: white;
+  font-family: "Open Sans Condensed", sans-serif;
+  font-size: 64px;
+  font-weight: 700;
+  line-height: 64px;
+  margin: 0 0 0;
+  padding: 20px 30px;
+  text-align: center;
+  text-transform: uppercase;
 }
 
 .group__detail__subtitle {
   font-style: italic;
-  border: 2px solid #547ED9;
+  border: 2px solid #547ed9;
   padding: 10px;
   border-radius: 10px;
 }
 
 .group__detail__information {
-  border: 1px solid #2CEAA3;
+  border: 1px solid #2ceaa3;
   padding: 20px;
   border-radius: 20px;
   min-width: 300px;
@@ -64,13 +70,12 @@
 
 .group-detail-information hr {
   width: 100%;
-  border: 1px solid #2CEAA3;
+  border: 1px solid #2ceaa3;
 }
-
 
 .group__detail__information--border {
   font-size: 20px;
-  border: 2px solid #547ED9;
+  border: 2px solid #547ed9;
   border-radius: 50px;
   padding: 5px;
 }
@@ -92,7 +97,6 @@
   justify-content: space-between;
   overflow: auto;
   font-size: 20px;
-
 }
 
 .group__detail__information .detail__buttons {
@@ -128,7 +132,7 @@
 }
 
 .group__Detail__button--back i {
-  color: #2CEAA3;
+  color: #2ceaa3;
 }
 
 .group__detail__information .detail__buttons--delete {
@@ -145,7 +149,7 @@
   cursor: pointer;
   min-width: 130px;
   position: relative;
-  box-shadow: #2A6041 0px 5px 15px;
+  box-shadow: #2a6041 0px 5px 15px;
   padding: 10px;
   border-radius: 10px;
 }
@@ -155,5 +159,5 @@
   top: 10px;
   right: 10px;
   font-size: 20px;
-  color: #2CEAA3;
+  color: #2ceaa3;
 }

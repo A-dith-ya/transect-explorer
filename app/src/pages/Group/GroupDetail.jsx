@@ -12,6 +12,7 @@ import {
 } from "../../services/GroupService";
 import { useNavigate, useParams } from "react-router-dom";
 import { getUser } from "../../services/UserService";
+import "./style.css";
 
 const GroupDetail = () => {
   const [formData, setFormData] = useState(null);
@@ -67,7 +68,7 @@ const GroupDetail = () => {
       >
         <i class="fa-solid fa-arrow-left"></i>
       </button>
-      <h4 className="group__detail__title">{group?.groupName} group</h4>
+      <h1 className="group__detail__title">{group?.groupName} group</h1>
 
       <h5 className="group__detail__subtitle">
         {username === leader?.username ? "You are " : leader?.username + " is"}{" "}
@@ -77,12 +78,12 @@ const GroupDetail = () => {
       <div className="group__detail__information">
         {!isEdit ? (
           <div>
-            <h4>Leader</h4>
-            <p className="group__detail__information--border">
+            <h2>Leader</h2>
+            <p className="member__item">
               {leader?.userEmail}({leader?.username})
             </p>
             <hr />
-            <h4>Members</h4>
+            <h2>Members</h2>
             <ul className="members__list">
               {group?.groupUserEmails.map((member) => {
                 return (
