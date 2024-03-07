@@ -1,4 +1,5 @@
-.group, .group__form{
+.group,
+.group__form {
   display: flex;
   justify-content: center;
   margin-top: 50px;
@@ -49,7 +50,7 @@
 
 .group__detail__subtitle {
   font-style: italic;
-  border: 2px solid #547ED9	;
+  border: 2px solid #547ED9;
   padding: 10px;
   border-radius: 10px;
 }
@@ -71,7 +72,7 @@
   font-size: 20px;
   border: 2px solid #547ED9;
   border-radius: 50px;
-  padding:  5px;
+  padding: 5px;
 }
 
 .group__detail__information .members__list {
@@ -89,7 +90,7 @@
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  overflow: auto; 
+  overflow: auto;
   font-size: 20px;
 
 }
@@ -113,10 +114,28 @@
   font-size: 20px;
 }
 
+.group__Detail__button--back {
+  padding: 10px;
+  margin-top: 10px;
+  background-color: #333;
+  border-radius: 10px;
+  position: absolute;
+  top: 0;
+  left: 0;
+  outline: none;
+  border: none;
+  cursor: pointer;
+}
+
+.group__Detail__button--back i {
+  color: #2CEAA3;
+}
+
 .group__detail__information .detail__buttons--delete {
   background: #f3f0bb;
   color: #000;
 }
+
 .group__detail__information .detail__buttons--edit {
   border: 1px solid #e79c55;
   color: #fff;
