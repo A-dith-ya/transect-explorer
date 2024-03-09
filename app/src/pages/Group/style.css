@@ -42,12 +42,18 @@
   align-items: center;
 }
 
+.group__header {
+  display: block; /* header takes the full width */
+  text-align: center; /* centers title */
+  margin-bottom: 1rem; /* space below the header */
+}
+
 .group__detail__title {
   color: white;
   font-family: "Open Sans Condensed", sans-serif;
-  font-size: 64px;
+  font-size: 56px;
   font-weight: 700;
-  line-height: 64px;
+  line-height: 56px;
   margin: 0 0 0;
   padding: 20px 30px;
   text-align: center;
