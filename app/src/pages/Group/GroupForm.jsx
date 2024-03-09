@@ -14,7 +14,10 @@ const GroupForm = () => {
       >
         <i class="fa-solid fa-arrow-left"></i>
       </button>
-      <FormContainer schema={groupFormSchema} onSubmitAction={createGroup} />
+      <FormContainer
+        schema={groupFormSchema}
+        onSubmitAction={(formData) => createGroup(formData, navigate)}
+      />
     </div>
   );
 };
