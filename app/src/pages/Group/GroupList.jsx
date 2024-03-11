@@ -13,8 +13,16 @@ const GroupList = () => {
   useEffect(() => {
     const getGroups = async () => {
       const response = await getGroupUser(userId);
-      setGroups(response);
-      console.log("Group response: " + response);
+      // Check if both userGroups and leaderGroups exist and are arrays before spreading
+      const userGroups = Array.isArray(response.userGroups)
+        ? response.userGroups
+        : [];
+      const leaderGroups = Array.isArray(response.leaderGroups)
+        ? response.leaderGroups
+        : [];
+      const combinedGroups = [...userGroups, ...leaderGroups];
+      setGroups(combinedGroups);
+      console.log("Group response:", combinedGroups, "for user:", userId);
     };
     getGroups();
   }, []);

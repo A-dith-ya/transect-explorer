@@ -18,7 +18,8 @@ const createGroup = async (formData, navigate) => {
 
 const getGroupUser = async (userId) => {
   try {
-    const result = await axios.get(`${baseURL}/groupUser/${userId}`);
+    const result = await axios.get(`${baseURL}/userGroups/${userId}`);
+    console.log("This is the result.data = " + result.data);
     return result.data;
   } catch (error) {
     console.log(error);
