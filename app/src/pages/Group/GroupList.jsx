@@ -5,7 +5,7 @@ import GroupCard from "../../components/group/GroupCard";
 import "./style.css";
 
 const GroupList = () => {
-  const userId = sessionStorage.getItem("id").toString();
+  const userId = sessionStorage.getItem("id")?.toString();
   const [groups, setGroups] = useState([]);
 
   const navigate = useNavigate();
@@ -15,7 +15,11 @@ const GroupList = () => {
       const response = await getGroupUser(userId);
       setGroups(response);
     };
-    getGroups();
+    if (!userId) {
+      navigate("/login");
+    } else {
+      getGroups();
+    }
   }, []);
 
   return (

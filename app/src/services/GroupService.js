@@ -47,6 +47,7 @@ const updateGroup = async (formData) => {
   try {
     await axios.put(`${baseURL}/${formData.id}`, formData);
     alert("Successfully updated");
+    return true;
   } catch (error) {
     console.log(error);
     alert("Error updating group");

@@ -24,6 +24,18 @@
   min-height: 100px;
 }
 
+.container .group__form__container {
+  position: relative;
+  width: max-content;
+}
+
+.group__form__wrap {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 10px;
+}
+
 .group__form__content {
   display: flex;
   align-items: center;
@@ -118,20 +130,35 @@
   font-size: 20px;
 }
 
-.group__Detail__button--back {
+/* button */
+.group__detail__button--back {
   padding: 10px;
   margin-top: 10px;
   background-color: #333;
   border-radius: 10px;
-  position: absolute;
-  top: 0;
-  left: 0;
   outline: none;
   border: none;
   cursor: pointer;
+  position: absolute;
+  top: 0;
+  left: 0;
 }
 
-.group__Detail__button--back i {
+.group__detail__button--repeat {
+  padding: 10px;
+  margin-top: 10px;
+  background-color: #333;
+  border-radius: 10px;
+  outline: none;
+  border: none;
+  cursor: pointer;
+  position: absolute;
+  top: -20px;
+  right: -5px;
+}
+
+.group__detail__button--back i,
+.group__detail__button--repeat i {
   color: #2ceaa3;
 }
 
