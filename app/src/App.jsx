@@ -23,7 +23,7 @@ function App() {
         <Route path="/register" element={<RegisterForm />} />
         <Route path="/map" element={<MapPage />} />
         <Route path="/group" element={<GroupList />} />
-        <Route path="/create-group" element={<GroupForm />} />
+        <Route path="/group/create-group" element={<GroupForm />} />
         <Route path="/group/:id" element={<GroupDetail />} />
         <Route path="/add" element={<AddTransect />} />
       </Routes>

@@ -6,7 +6,7 @@ const registerUser = async (formData) => {
   await axios
     .post(`${baseURL}auth/register`, formData)
     .then((response) => {
-      window.location.href = "/login";
+      navigate("/login");
     })
     .catch((error) => {
       console.log(error);
@@ -14,14 +14,14 @@ const registerUser = async (formData) => {
     });
 };
 
-const loginUser = async (formData) => {
+const loginUser = async (formData, navigate) => {
   await axios
     .post(`${baseURL}auth/login`, formData)
     .then((response) => {
       sessionStorage.setItem("id", response.data.id);
       sessionStorage.setItem("userEmail", response.data.userEmail);
       sessionStorage.setItem("username", response.data.username);
-      window.location.href = "/";
+      navigate("/");
     })
     .catch((error) => {
       console.log(error);

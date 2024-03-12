@@ -33,8 +33,7 @@ const GroupDetail = () => {
     const fetchGroup = async () => {
       const result = await getGroupId(id);
 
-      if (!result || result === undefined)
-        return (window.location.href = "/group");
+      if (!result || result === undefined) return navigate("/group");
       setGroup(result);
       setFormData(result);
     };
@@ -56,7 +55,7 @@ const GroupDetail = () => {
   };
   const handleDelete = () => {
     if (confirm("Are you sure you want to delete " + group.groupName)) {
-      deleteGroup(group.id);
+      deleteGroup(group.id, navigate);
     }
   };
 
