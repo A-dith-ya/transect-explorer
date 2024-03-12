@@ -34,7 +34,6 @@ const GroupDetail = () => {
   useEffect(() => {
     const fetchGroup = async () => {
       const result = await getGroupId(id);
-      if (!result || result === undefined) return navigate("/group");
       setGroup(result);
       setFormData(result);
     };

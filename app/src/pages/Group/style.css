@@ -3,7 +3,42 @@
   display: flex;
   justify-content: center;
   margin-top: 50px;
+  flex-direction: column;
+  gap: 30px;
 }
+
+.group__nav {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+}
+
+.group__nav__btn {
+  width: 200px;
+  padding: 10px 5px;
+  cursor: pointer;
+  font-size: 20px;
+  background: none;
+  border: none;
+  border-radius: 10px;
+}
+
+.all__groups {
+  background-color: #547ed925;
+}
+
+.all__groups:hover {
+  background-color: #547ed9;
+}
+
+.group__leader {
+  background-color: #e79c552a;
+}
+
+.group__leader:hover {
+  background-color: #e79c55;
+}
+
 
 .group__box {
   display: flex;

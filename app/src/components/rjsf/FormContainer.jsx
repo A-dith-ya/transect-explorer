@@ -8,11 +8,8 @@ import "./FormContainer.css";
 
 const FormContainer = ({ schema, uiSchema, onSubmitAction }) => {
   const [formData, setFormData] = useState(null);
-  const userEmail = sessionStorage.getItem("userEmail");
 
   const handleSubmit = async ({ formData }) => {
-    if (!userEmail) return;
-    formData.groupUserEmails.push(userEmail);
     onSubmitAction(formData);
   };
 

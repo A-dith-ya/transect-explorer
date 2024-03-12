@@ -7,6 +7,13 @@ import GroupTransects from "../../components/group/GroupTransects";
 
 const GroupForm = () => {
   const navigate = useNavigate();
+  const userEmail = sessionStorage.getItem("userEmail");
+
+  const handleCreateGroup = (formData) => {
+    if (!userEmail) return;
+    formData.groupUserEmails.push(userEmail);
+    createGroup(formData, navigate);
+  };
   return (
     <div className="container">
       <div className="group__form__container">
@@ -15,7 +22,7 @@ const GroupForm = () => {
 
           <FormContainer
             schema={groupFormSchema}
-            onSubmitAction={(formData) => createGroup(formData, navigate)}
+            onSubmitAction={handleCreateGroup}
           />
         </div>
         <button
