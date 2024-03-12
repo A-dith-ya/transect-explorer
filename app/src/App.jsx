@@ -9,7 +9,9 @@ import GroupForm from "./pages/Group/GroupForm";
 import GroupDetail from "./pages/Group/GroupDetail";
 import NavBar from "./components/layout/navbar/NavBar";
 import DrawingBar from "./components/map/DrawingBar";
+import SettingsPage from "./pages/Settings/SettingsPage";
 import "./App.css";
+import EditUserForm from "./pages/Settings/EditUserForm";
 
 function App() {
   return (
@@ -22,6 +24,8 @@ function App() {
         <Route path="/map" element={<MapPage />} />
         <Route path="/group" element={<GroupForm />} />
         <Route path="/group/:id" element={<GroupDetail />} />
+        <Route path="/settings" element={<SettingsPage />} />
+        <Route path="/edit" element={<EditUserForm/>} />
       </Routes>
     </Router>
   );
