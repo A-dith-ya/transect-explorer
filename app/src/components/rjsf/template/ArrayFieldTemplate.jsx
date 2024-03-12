@@ -3,7 +3,7 @@ import addIcon from "../../../assets/add-item-icon.png";
 
 
 
-const ArrayFieldTemplate = (props) => { console.log(props);
+const ArrayFieldTemplate = (props) => {
   return (
     <div className="arrayfield">
         <div className="arrayfield__title">
