@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from "react";
 import Form from "@rjsf/core";
+import FormContainer from "../../components/rjsf/FormContainer";
 import validator from "@rjsf/validator-ajv8";
 import { groupFormSchema } from "../../components/rjsf/schema/GroupFormSchema";
 import ObjectFieldTemplate from "../../components/rjsf/template/ObjectFieldTemplate";
-import ArrayFieldTemplate from "../../components/rjsf/template/ArrayFieldTemplate";
 import GroupArrayFieldTemplate from "../../components/rjsf/template/GroupArrayFieldTemplate";
+import ArrayFieldTemplate from "../../components/rjsf/template/ArrayFieldTemplate";
 import SubmitButton from "../../components/rjsf/template/SubmitButton";
 import {
   deleteGroup,
@@ -101,7 +102,7 @@ const GroupDetail = () => {
             </ul>
           </div>
         ) : (
-          <Form
+          <FormContainer
             schema={{ ...groupFormSchema, button: "Update" }}
             formData={formData}
             onChange={(e) => setFormData(e.formData)}
@@ -109,9 +110,10 @@ const GroupDetail = () => {
             templates={{
               ObjectFieldTemplate,
               ButtonTemplates: { SubmitButton },
-              ArrayFieldTemplate,
+              // GroupArrayFieldTemplate,
             }}
             onSubmit={handleSubmit}
+            arrayFieldTemplate={GroupArrayFieldTemplate}
           />
         )}
 

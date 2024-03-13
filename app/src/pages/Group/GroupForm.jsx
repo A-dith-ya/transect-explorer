@@ -4,6 +4,7 @@ import { groupFormSchema } from "../../components/rjsf/schema/GroupFormSchema";
 import { createGroup } from "../../services/GroupService";
 import { useNavigate } from "react-router-dom";
 import GroupTransects from "../../components/group/GroupTransects";
+import GroupArrayFieldTemplate from "../../components/rjsf/template/GroupArrayFieldTemplate";
 
 const GroupForm = () => {
   const navigate = useNavigate();
@@ -29,6 +30,7 @@ const GroupForm = () => {
           <FormContainer
             schema={groupFormSchema}
             onSubmitAction={handleCreateGroup}
+            arrayFieldTemplate={GroupArrayFieldTemplate}
           />
         </div>
         {/* <button
