@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import "./style.css";
 
 // Mock function to simulate fetching transects for a specific group
 // Replace this with your actual API call
@@ -35,44 +36,72 @@ const fetchTransectsForGroup = async (groupId) => {
 };
 
 const TransectList = ({ selectedGroupId }) => {
-  const [transectsByLocation, setTransectsByLocation] = useState([]);
+  const [transects, setTransects] = useState([]);
+  const [sortColumn, setSortColumn] = useState("");
+  const [isAscending, setIsAscending] = useState(true);
   const navigate = useNavigate();
 
   useEffect(() => {
-    const groupTransects = async () => {
+    const fetchAndSetTransects = async () => {
       const fetchedTransects = await fetchTransectsForGroup(selectedGroupId);
-      const groupedByLocation = fetchedTransects.reduce((acc, current) => {
-        acc[current.location] = [...(acc[current.location] || []), current];
-        return acc;
-      }, {});
-
-      console.log(groupedByLocation);
-
-      setTransectsByLocation(groupedByLocation);
+      setTransects(fetchedTransects);
     };
 
-    groupTransects();
+    fetchAndSetTransects();
   }, [selectedGroupId]);
 
+  const sortTransects = (columnName) => {
+    if (sortColumn === columnName) {
+      setIsAscending(!isAscending);
+    } else {
+      setSortColumn(columnName);
+      setIsAscending(true);
+    }
+
+    setTransects(
+      transects.slice().sort((a, b) => {
+        if (isAscending) {
+          return a[columnName].localeCompare(b[columnName]);
+        } else {
+          return b[columnName].localeCompare(a[columnName]);
+        }
+      })
+    );
+  };
+
   return (
-    <div>
-      {Object.keys(transectsByLocation).map((location) => (
-        <div key={location} className="group__detail">
-          <h1 className="group__detail__title">{location}</h1>
-          <ul className="group__detail__information">
-            {transectsByLocation[location].map((transect) => (
-              <li
+    <>
+      <div>
+        <h1 className="page_title">Transect List</h1>
+      </div>
+      <div className="page_div">
+        <table>
+          <thead>
+            <tr>
+              <th onClick={() => sortTransects("transectName")}>
+                Transect Name
+              </th>
+              <th>Description</th>
+              <th onClick={() => sortTransects("location")}>Location</th>
+              <th>Coordinate</th>
+            </tr>
+          </thead>
+          <tbody>
+            {transects.map((transect) => (
+              <tr
                 key={transect.id}
-                className="member__item"
                 onClick={() => navigate("/region/transect")}
               >
-                {transect.transectName} - {transect.description}
-              </li>
+                <td>{transect.transectName}</td>
+                <td>{transect.description}</td>
+                <td>{transect.location}</td>
+                <td>{transect.coordinate}</td>
+              </tr>
             ))}
-          </ul>
-        </div>
-      ))}
-    </div>
+          </tbody>
+        </table>
+      </div>
+    </>
   );
 };
 
