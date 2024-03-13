@@ -6,29 +6,29 @@ import ArrayFieldTemplate from "./template/ArrayFieldTemplate";
 import SubmitButton from "./template/SubmitButton";
 import "./FormContainer.css";
 
-const FormContainer = ({ schema, uiSchema, onSubmitAction, arrayFieldTemplate }) => {
+const FormContainer = ({ schema, uiSchema, onSubmitAction }) => {
   const [formData, setFormData] = useState(null);
 
-  const handleSubmit = async () => {
+  const handleSubmit = async ({ formData }) => {
     onSubmitAction(formData);
   };
 
-  return ( 
-    <div className="container"> 
-    <Form 
-      className="login-form"
-      schema={schema}
-      uiSchema={uiSchema}
-      formData={formData}
-      onChange={({ formData }) => setFormData(formData)}
-      validator={validator}
-      templates={{
-        ObjectFieldTemplate,
-        ArrayFieldTemplate: arrayFieldTemplate || ArrayFieldTemplate ,
-        ButtonTemplates: { SubmitButton },
-      }}
-      onSubmit={handleSubmit}
-    />
+  return (
+    <div>
+      <Form
+        className="login-form"
+        schema={schema}
+        uiSchema={uiSchema}
+        formData={formData}
+        onChange={({ formData }) => setFormData(formData)}
+        validator={validator}
+        templates={{
+          ObjectFieldTemplate,
+          ArrayFieldTemplate,
+          ButtonTemplates: { SubmitButton },
+        }}
+        onSubmit={handleSubmit}
+      />
     </div>
   );
 };
