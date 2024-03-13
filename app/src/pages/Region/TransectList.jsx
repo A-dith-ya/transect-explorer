@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 
 // Mock function to simulate fetching transects for a specific group
 // Replace this with your actual API call
@@ -35,6 +36,7 @@ const fetchTransectsForGroup = async (groupId) => {
 
 const TransectList = ({ selectedGroupId }) => {
   const [transectsByLocation, setTransectsByLocation] = useState([]);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const groupTransects = async () => {
@@ -59,7 +61,11 @@ const TransectList = ({ selectedGroupId }) => {
           <h1 className="group__detail__title">{location}</h1>
           <ul className="group__detail__information">
             {transectsByLocation[location].map((transect) => (
-              <li key={transect.id} className="member__item">
+              <li
+                key={transect.id}
+                className="member__item"
+                onClick={() => navigate("/region/transect")}
+              >
                 {transect.transectName} - {transect.description}
               </li>
             ))}
