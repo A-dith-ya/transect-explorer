@@ -1,12 +1,12 @@
 import React, {useEffect, useState} from 'react';
-import Sidebar from "../../components/layout/sidebar/Sidebar";
+import Sidebar from "../../components/layout/sidebar/SettingsSidebar";
 import "./sidebar.css";
 import { getUser } from "../../services/UserService";
 
 
 const SettingsPage = () => {
     const [userData, setUserData] = useState(null);
-    
+
     useEffect(() => {
         const fetchUserData = async() => {
             try{

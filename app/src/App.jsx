@@ -11,7 +11,7 @@ import NavBar from "./components/layout/navbar/NavBar";
 import DrawingBar from "./components/map/DrawingBar";
 import SettingsPage from "./pages/Settings/SettingsPage";
 import "./App.css";
-import EditUserForm from "./pages/Settings/EditUserForm";
+import EditUserForm from "./pages/Settings/Edit/EditUserForm";
 
 function App() {
   return (

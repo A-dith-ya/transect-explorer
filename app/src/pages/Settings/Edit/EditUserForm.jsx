@@ -1,7 +1,7 @@
 import React from 'react';
-import Sidebar from "../../components/layout/sidebar/Sidebar";
+import Sidebar from "../../../components/layout/sidebar/SettingsSidebar";
 import "./sidebar.css";
-import { getUser } from "../../services/UserService";
+import { getUser } from "../../../services/UserService";
 
 
 function EditUserForm() {
