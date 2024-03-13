@@ -1,17 +1,47 @@
 .settings {
-  font-family: Arial, sans-serif;
   height: 100vh;
   width: 100vw;
+  overflow: hidden;
+  display: flex;
+  flex-flow: column wrap;
+  position: relative;
 }
 
-body{
+.settings form {
+  text-align: left;
+  display: flex;
+  flex-direction: column wrap;
   margin: 0;
-  padding:0;
 }
+
+.settings form ul li {
+  list-style-type: none;
+  padding: 0;
+  margin-bottom: 0;
+}
+
+dialog form {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  flex-flow: column wrap;
+}
+
+.dialog {
+  display: flex;
+  justify-content: space-between;
+  flex-flow: row nowrap;
+  gap: 10px;
+}
+
 .sidebar {
-  width: 100px;
-  height: 100vh;
-  background-color: #333;
+  width: 65px;
+  height: calc(100vh - 5rem);
+  background-color: #02111b;
+  position: fixed;
+  top: 0;
+  right: 0;
 }
 
 .sidebarlist {
@@ -30,23 +60,53 @@ body{
   color: white;
   align-items: center;
 }
-  
+
 .sidebarlist .row:hover {
   background-color: #555;
   cursor: pointer;
 }
-  
+
 .sidebarlist #active {
   background-color: #555;
- }
+}
 
 .row #options {
   place-items: center;
 }
 
-.info {
-  text-align: left;
-  position: fixed;
-  top: 20%;
-  left: 40%;
+input {
+  width: 15em;
+  height: 2em;
+}
+.settings h5 {
+  margin: 10px;
+  padding: 0;
+}
+button {
+  color: white;
+  outline: none;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+#delete {
+  position: absolute;
+  top: 75%;
+  left: 30%;
+  background-color: #e79c55;
+  font-size: 15px;
+}
+
+.edit {
+  position: absolute;
+  left: 30%;
+  top: 45%;
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+}
+.edit button {
+  background-color: #2ceaa3;
+  color: black;
 }

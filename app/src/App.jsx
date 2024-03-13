@@ -12,7 +12,7 @@ import NavBar from "./components/layout/navbar/NavBar";
 import DrawingBar from "./components/map/DrawingBar";
 import SettingsPage from "./pages/Settings/SettingsPage";
 import "./App.css";
-import EditUserForm from "./pages/Settings/Edit/EditUserForm";
+import EditPreferences from "./pages/Settings/Edit/EditPreferences";
 import GroupList from "./pages/Group/GroupList";
 
 function App() {
@@ -28,7 +28,6 @@ function App() {
         <Route path="/group/create-group" element={<GroupForm />} />
         <Route path="/group/:id" element={<GroupDetail />} />
         <Route path="/settings" element={<SettingsPage />} />
-        <Route path="/settings/edit" element={<EditUserForm/>} />
         <Route path="/add" element={<AddTransect />} />
       </Routes>
     </Router>
