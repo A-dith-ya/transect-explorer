@@ -4,6 +4,7 @@ import validator from "@rjsf/validator-ajv8";
 import { groupFormSchema } from "../../components/rjsf/schema/GroupFormSchema";
 import ObjectFieldTemplate from "../../components/rjsf/template/ObjectFieldTemplate";
 import ArrayFieldTemplate from "../../components/rjsf/template/ArrayFieldTemplate";
+import GroupArrayFieldTemplate from "../../components/rjsf/template/GroupArrayFieldTemplate";
 import SubmitButton from "../../components/rjsf/template/SubmitButton";
 import {
   deleteGroup,
