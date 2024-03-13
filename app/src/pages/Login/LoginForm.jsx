@@ -3,26 +3,20 @@ import FormContainer from "../../components/rjsf/FormContainer";
 import { loginFormSchema } from "../../components/rjsf/schema/LoginFormSchema";
 import UISchemas from "../../components/rjsf/UISchema/UISchema";
 import { loginUser } from "../../services/UserService";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 const LoginForm = () => {
+  const navigate = useNavigate();
+
   return (
-    <div>
+    <div className="container">
       <FormContainer
         schema={loginFormSchema}
         uiSchema={UISchemas.loginUISchema}
-        onSubmitAction={loginUser}
+        onSubmitAction={(formData) => loginUser(formData, navigate)}
       />
       <div>
-        Don't have an account?{" "}
-        <Link
-          style={{
-            textDecoration: "none",
-          }}
-          to={"/register"}
-        >
-          Register
-        </Link>
+        Don't have an account? <Link to={"/register"}>Register</Link>
       </div>
     </div>
   );

@@ -25,7 +25,7 @@ const Group = () => {
           <GroupCard key={group.id} group={group} />
         ))}
         <button
-          onClick={() => navigate("/create-group")}
+          onClick={() => navigate("/group/create-group")}
           className="group__button--create"
         >
           <i className="fa-solid fa-plus" />

@@ -6,15 +6,17 @@ import ArrayFieldTemplate from "./template/ArrayFieldTemplate";
 import SubmitButton from "./template/SubmitButton";
 import "./FormContainer.css";
 
-const FormContainer = ({ schema, uiSchema, onSubmitAction }) => {
+const FormContainer = ({ schema, uiSchema, onSubmitAction, arrayFieldTemplate }) => {
   const [formData, setFormData] = useState(null);
 
-  const handleSubmit = async ({ formData }) => {
+  const handleSubmit = async () => {
     onSubmitAction(formData);
   };
 
-  return (
-    <Form
+  return ( 
+    <div className="container"> 
+    <Form 
+      className="login-form"
       schema={schema}
       uiSchema={uiSchema}
       formData={formData}
@@ -22,11 +24,12 @@ const FormContainer = ({ schema, uiSchema, onSubmitAction }) => {
       validator={validator}
       templates={{
         ObjectFieldTemplate,
-        ArrayFieldTemplate,
+        ArrayFieldTemplate: arrayFieldTemplate || ArrayFieldTemplate ,
         ButtonTemplates: { SubmitButton },
       }}
       onSubmit={handleSubmit}
     />
+    </div>
   );
 };
 

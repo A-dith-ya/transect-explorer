@@ -10,7 +10,7 @@ const authUISchema = {
 const registerUISchema = {
   ...authUISchema,
   email: {},
-  "ui:order": ["username", "email", "password"],
+  "ui:order": ["username", "userEmail", "password"],
 };
 
 const loginUISchema = {
@@ -18,6 +18,13 @@ const loginUISchema = {
   "ui:order": ["username", "password"],
 };
 
-const UISchemas = { registerUISchema, loginUISchema };
+const addTransectUISchema = {
+  observation: {
+    "ui:widget": "textarea",
+  }
+}
+
+const UISchemas = { registerUISchema, loginUISchema, addTransectUISchema};
+
 
 export default UISchemas;

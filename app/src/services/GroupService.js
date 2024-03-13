@@ -2,7 +2,7 @@ import axios from "axios";
 const baseURL = "http://localhost:8080/groups";
 axios.defaults.withCredentials = true;
 
-const createGroup = async (formData) => {
+const createGroup = async (formData, navigate) => {
   try {
     await axios.post(baseURL, {
       groupLeaderId: Number(sessionStorage.getItem("id")),
@@ -10,7 +10,7 @@ const createGroup = async (formData) => {
       groupUserEmails: formData.groupUserEmails,
     });
 
-    window.location.href = "/group";
+    navigate("/group");
   } catch (error) {
     console.log(error);
   }
@@ -53,10 +53,10 @@ const updateGroup = async (formData) => {
   }
 };
 
-const deleteGroup = async (id) => {
+const deleteGroup = async (id, navigate) => {
   try {
     await axios.delete(`${baseURL}/${id}`);
-    window.location.href = "/group";
+    navigate("/group");
   } catch (error) {
     console.log(error);
     alert("Error deleting group");

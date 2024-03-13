@@ -3,7 +3,7 @@ import React from "react";
 const ObjectFieldTemplate = (props) => {
   return (
     <div>
-      {props.title}
+      <div className="title"> {props.title} </div>
       {props.description}
       {props.properties.map((element, index) => (
         <div key={index} className="login-form">
