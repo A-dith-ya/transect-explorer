@@ -1,8 +1,14 @@
 import React, { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 
 const TransectDetail = () => {
+  const navigate = useNavigate();
   return (
     <div>
+      <button
+        className="group__Detail__button--back"
+        onClick={() => navigate("/region")}
+      ></button>
       <h1>Transect Name</h1>
       <h3>Region</h3>
       <div>
