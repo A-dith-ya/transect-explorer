@@ -4,6 +4,7 @@
   font-weight: 400;
 
   color-scheme: light dark;
+  --bg-darkgreen: #2a6041;
 
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -11,4 +12,8 @@
 
 body {
   margin: 0;
+}
+
+button {
+  background-color: var(--bg-darkgreen);
 }

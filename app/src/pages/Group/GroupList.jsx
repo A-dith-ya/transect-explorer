@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { getUserGroup } from "../../services/GroupService";
 import { useNavigate } from "react-router-dom";
 import GroupCard from "../../components/group/GroupCard";
-import "./style.css";
+import "./index.css";
 
 const GroupList = () => {
   const userId = sessionStorage.getItem("id")?.toString();

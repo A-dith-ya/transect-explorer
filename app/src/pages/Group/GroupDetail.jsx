@@ -12,7 +12,7 @@ import {
 } from "../../services/GroupService";
 import { useNavigate, useParams } from "react-router-dom";
 import { getUser } from "../../services/UserService";
-import "./style.css";
+import "./index.css";
 
 const GroupDetail = () => {
   const [formData, setFormData] = useState(null);
