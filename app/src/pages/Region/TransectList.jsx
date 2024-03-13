@@ -78,11 +78,25 @@ const TransectList = ({ selectedGroupId }) => {
         <table>
           <thead>
             <tr>
-              <th onClick={() => sortTransects("transectName")}>
+              <th>
                 Transect Name
+                <button
+                  className="button_arrows"
+                  onClick={() => sortTransects("transectName")}
+                >
+                  <i class="fa-solid fa-arrows-alt-v"></i>
+                </button>
               </th>
               <th>Description</th>
-              <th onClick={() => sortTransects("location")}>Location</th>
+              <th onClick={() => sortTransects("location")}>
+                Location
+                <button
+                  className="button_arrows"
+                  onClick={() => sortTransects("transectName")}
+                >
+                  <i class="fa-solid fa-arrows-alt-v"></i>
+                </button>
+              </th>
               <th>Coordinate</th>
             </tr>
           </thead>

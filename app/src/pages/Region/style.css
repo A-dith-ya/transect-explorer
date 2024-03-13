@@ -24,3 +24,12 @@ td {
   padding: 10px;
   border-bottom: 1px solid #ddd;
 }
+
+tr:hover {
+  background-color: #d3d3d3;
+}
+
+.button_arrows {
+  margin-left: 8px;
+  cursor: pointer;
+}
