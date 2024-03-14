@@ -36,5 +36,40 @@
   font-family: monospace;
   color: #2a6041;
   margin: 0;
-  
+}
+
+.text-btn {
+  height: 50px;
+  min-width: 100px;
+  width: auto;
+  background-color: #2A6041;
+  color: #fff;
+
+  font-size: calc(.875rem*var(--ifm-button-size-multiplier));
+
+  border-style: none;
+  border-radius: 5px;
+}
+
+.text-btn:hover {
+  transition: 0.5s;
+
+  background-color: #d3d3d3;
+
+  color: #333;
+}
+
+.icon-btn {
+  width: 40px;
+  height: 40px;
+
+  border-style: none;
+}
+
+.icon-btn:hover {
+  transition: 0.5s;
+
+  background-color: #d3d3d3;
+
+  color: #333;
 }

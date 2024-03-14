@@ -21,7 +21,33 @@ const SettingsPage = () => {
   }, []);
 
   return (
-    <>
+    <div className="page">
+      <div className="panel">
+        <button style={{
+        }}>
+          Account
+        </button>
+        <button>
+          Preferences
+        </button>
+        <button id="deactivate" className="text-btn"
+          onClick={function () {
+            dialogRef.current.showModal();
+          }}
+        >
+          Deactivate Account
+        </button>
+      </div>
+      <div>
+        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+      </div>
+    </div>
+  );
+};
+
+export default SettingsPage;
+
+/**
       <div className="settings">
         <h3> Account Settings </h3>
         <SettingsList />
@@ -45,19 +71,11 @@ const SettingsPage = () => {
             </ul>
           )}
           <div className="edit">
-            <button> Save </button>
+            <button style={{ }} className="text-btn">Save</button>
 
-            <button> Cancel </button>
+            <button className="text-btn">Cancel</button>
           </div>
         </form>
-        <button
-          id="delete"
-          onClick={function () {
-            dialogRef.current.showModal();
-          }}
-        >
-          Deactivate Account{" "}
-        </button>
         <div id="myModal" className="modal">
           {" "}
         </div>
@@ -77,8 +95,4 @@ const SettingsPage = () => {
           </div>
         </form>
       </dialog>
-    </>
-  );
-};
-
-export default SettingsPage;
+ */
