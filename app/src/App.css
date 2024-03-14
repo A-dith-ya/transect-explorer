@@ -30,14 +30,6 @@
   border-color: transparent;
 }
 
-.title{
-  text-align: center;
-  font-weight: bold;
-  font-family: monospace;
-  color: #2a6041;
-  margin: 0;
-}
-
 .text-btn {
   height: 50px;
   min-width: 100px;

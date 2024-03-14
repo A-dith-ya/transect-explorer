@@ -4,7 +4,6 @@
   margin-top: 20px;
   margin-bottom: 20px;
   color: #333;
-  font-weight: normal;
 }
 
 .page_div {
@@ -22,7 +21,12 @@
   align-items: start;
 }
 
-.edit div.title {
+.edit h3 {
+  padding: 0;
+  margin: 0;
+}
+
+.edit div.edit-title {
   display: flex;
   flex-flow: row nowrap;
   align-items: center;
@@ -33,6 +37,7 @@
   margin: 0;
 
   height: 70px;
+
 }
 
 .edit div.title button {
