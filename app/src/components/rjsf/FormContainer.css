@@ -15,7 +15,6 @@
   text-align: center;
   font-size: larger;
   font-weight: bold;
-  font-family: monospace;
   color: #2a6041;
   margin-bottom: 2rem;
 }
@@ -44,6 +43,18 @@
 
 .login-form .text-danger{
   color:#ea2c2c;
+  max-width: 250px;
+}
+
+.login-form .control-label{
+  display: flex;
+  flex-direction: row-reverse;
+  justify-content: flex-end;
+}
+
+.login-form .required{
+  color: #ea2c2c;
+  margin-right: 0.1rem;
 }
 
 .login-form textarea{
