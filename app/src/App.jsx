@@ -15,7 +15,6 @@ import TransectDetail from "./pages/Region/TransectDetail";
 import NotFound from "./pages/Error/NotFound";
 import "./App.css";
 import GroupList from "./pages/Group/GroupList";
-
 function App() {
   return (
     <Router>
