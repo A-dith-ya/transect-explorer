@@ -1,4 +1,5 @@
 import axios from "axios";
+import { toast } from 'react-toastify';
 
 const baseURL = "http://localhost:8080/users/";
 
@@ -10,7 +11,7 @@ const registerUser = async (formData) => {
     })
     .catch((error) => {
       console.log(error);
-      alert("Register failed");
+      toast.error("Register failed: " + error.message);
     });
 };
 
@@ -21,11 +22,12 @@ const loginUser = async (formData, navigate) => {
       sessionStorage.setItem("id", response.data.id);
       sessionStorage.setItem("userEmail", response.data.userEmail);
       sessionStorage.setItem("username", response.data.username);
+      toast.success("Welcome back " + response.data.username + "!");
       navigate("/");
     })
     .catch((error) => {
       console.log(error);
-      alert("Login failed");
+      toast.error("Login failed: " + error.message);
     });
 };
 
@@ -35,6 +37,7 @@ const getUser = async (userId) => {
     return result.data;
   } catch (error) {
     console.log(error);
+    toast.error("Error getting user: " + error.message);
   }
 };
 
