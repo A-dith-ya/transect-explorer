@@ -75,45 +75,47 @@ const TransectList = ({ selectedGroupId }) => {
         <h1 className="page_title">Transect List</h1>
       </div>
       <div className="page_div">
-        <table>
-          <thead>
-            <tr>
-              <th>
-                Transect Name
-                <button
-                  className="button_arrows"
-                  onClick={() => sortTransects("transectName")}
-                >
-                  <i class="fa-solid fa-arrows-alt-v"></i>
-                </button>
-              </th>
-              <th>Description</th>
-              <th onClick={() => sortTransects("location")}>
-                Location
-                <button
-                  className="button_arrows"
-                  onClick={() => sortTransects("transectName")}
-                >
-                  <i class="fa-solid fa-arrows-alt-v"></i>
-                </button>
-              </th>
-              <th>Coordinate</th>
-            </tr>
-          </thead>
-          <tbody>
-            {transects.map((transect) => (
-              <tr
-                key={transect.id}
-                onClick={() => navigate("/region/transect")}
-              >
-                <td>{transect.transectName}</td>
-                <td>{transect.description}</td>
-                <td>{transect.location}</td>
-                <td>{transect.coordinate}</td>
+        <div className="page_div_table">
+          <table>
+            <thead>
+              <tr>
+                <th>
+                  Transect Name
+                  <button
+                    className="button_arrows"
+                    onClick={() => sortTransects("transectName")}
+                  >
+                    <i class="fa-solid fa-arrows-alt-v"></i>
+                  </button>
+                </th>
+                <th>Description</th>
+                <th onClick={() => sortTransects("location")}>
+                  Location
+                  <button
+                    className="button_arrows"
+                    onClick={() => sortTransects("transectName")}
+                  >
+                    <i class="fa-solid fa-arrows-alt-v"></i>
+                  </button>
+                </th>
+                <th>Coordinate</th>
               </tr>
-            ))}
-          </tbody>
-        </table>
+            </thead>
+            <tbody>
+              {transects.map((transect) => (
+                <tr
+                  key={transect.id}
+                  onClick={() => navigate("/region/transect")}
+                >
+                  <td>{transect.transectName}</td>
+                  <td>{transect.description}</td>
+                  <td>{transect.location}</td>
+                  <td>{transect.coordinate}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
       </div>
     </>
   );
