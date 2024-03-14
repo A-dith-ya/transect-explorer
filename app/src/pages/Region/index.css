@@ -3,7 +3,6 @@
   font-size: 2.5rem;
   margin-top: 20px;
   margin-bottom: 20px;
-  color: #333;
 }
 
 .page_div {
@@ -48,7 +47,6 @@
 }
 
 .edit div.edit-title button::hover {
-  background-color: red;
 
 }
 
