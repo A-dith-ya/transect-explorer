@@ -10,9 +10,10 @@ import GroupDetail from "./pages/Group/GroupDetail";
 import AddTransect from "./pages/AddTransect/AddTransect";
 import NavBar from "./components/layout/navbar/NavBar";
 import DrawingBar from "./components/map/DrawingBar";
+import TransectList from "./pages/Region/TransectList";
+import TransectDetail from "./pages/Region/TransectDetail";
 import "./App.css";
 import GroupList from "./pages/Group/GroupList";
-
 function App() {
   return (
     <Router>
@@ -21,6 +22,8 @@ function App() {
         <Route path="/" element={<HomePage />} />
         <Route path="/login" element={<LoginForm />} />
         <Route path="/register" element={<RegisterForm />} />
+        <Route path="/region" element={<TransectList />} />
+        <Route path="/region/transect" element={<TransectDetail />} />
         <Route path="/map" element={<MapPage />} />
         <Route path="/group" element={<GroupList />} />
         <Route path="/group/create-group" element={<GroupForm />} />
