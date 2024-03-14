@@ -40,14 +40,14 @@
 
 }
 
-.edit div.title button {
+.edit div.edit-title button {
   width: 40px;
   height: 40px;
 
   border-style: none;
 }
 
-.edit div.title button::hover {
+.edit div.edit-title button::hover {
   background-color: red;
 
 }
