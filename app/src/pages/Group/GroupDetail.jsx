@@ -1,10 +1,8 @@
 import React, { useEffect, useState } from "react";
 import Form from "@rjsf/core";
-import FormContainer from "../../components/rjsf/FormContainer";
 import validator from "@rjsf/validator-ajv8";
 import { groupFormSchema } from "../../components/rjsf/schema/GroupFormSchema";
 import ObjectFieldTemplate from "../../components/rjsf/template/ObjectFieldTemplate";
-import GroupArrayFieldTemplate from "../../components/rjsf/template/GroupArrayFieldTemplate";
 import ArrayFieldTemplate from "../../components/rjsf/template/ArrayFieldTemplate";
 import SubmitButton from "../../components/rjsf/template/SubmitButton";
 import {
@@ -93,16 +91,17 @@ const GroupDetail = () => {
             <h2>Members</h2>
             <ul className="members__list">
               {group?.groupUserEmails.map((member) => {
+                const username = member.split("@")[0]; // Extracts the part before the '@'
                 return (
                   <li key={member} className="member__item">
-                    {member}
+                    {member} - {username}
                   </li>
                 );
               })}
             </ul>
           </div>
         ) : (
-          <FormContainer
+          <Form
             schema={{ ...groupFormSchema, button: "Update" }}
             formData={formData}
             onChange={(e) => setFormData(e.formData)}
@@ -110,10 +109,9 @@ const GroupDetail = () => {
             templates={{
               ObjectFieldTemplate,
               ButtonTemplates: { SubmitButton },
-              // GroupArrayFieldTemplate,
+              ArrayFieldTemplate,
             }}
             onSubmit={handleSubmit}
-            arrayFieldTemplate={GroupArrayFieldTemplate}
           />
         )}
 
