@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import SettingsList from "../../components/layout/list/SettingsList";
+import SettingsList from "../../components/layout/sidebar/SettingsSidebar";
 import "./index.css";
 import { getUser } from "../../services/UserService";
 import { useRef } from "react";
@@ -24,6 +24,7 @@ const SettingsPage = () => {
     <>
       <div className="settings">
         <h3> Account Settings </h3>
+        <SettingsList />
         <form>
           {userData ? (
             <p> {userData.username} </p>
