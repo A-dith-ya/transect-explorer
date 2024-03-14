@@ -9,7 +9,7 @@ const TransectDetail = () => {
         className="group__Detail__button--back"
         onClick={() => navigate("/region")}
       >
-        <i class="fa-solid fa-arrow-left"></i>
+        <i className="fa-solid fa-arrow-left"></i>
       </button>
       <h1>Transect Name</h1>
       <h3>Region</h3>

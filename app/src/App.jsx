@@ -13,6 +13,7 @@ import DrawingBar from "./components/map/DrawingBar";
 import SettingsPage from "./pages/Settings/SettingsPage";
 import TransectList from "./pages/Region/TransectList";
 import TransectDetail from "./pages/Region/TransectDetail";
+import NotFound from "./pages/Error/NotFound";
 import "./App.css";
 import EditPreferences from "./pages/Settings/Edit/EditPreferences";
 import GroupList from "./pages/Group/GroupList";
@@ -32,6 +33,7 @@ function App() {
         <Route path="/group/:id" element={<GroupDetail />} />
         <Route path="/settings" element={<SettingsPage />} />
         <Route path="/add" element={<AddTransect />} />
+        <Route path="*" element={<NotFound />} />
       </Routes>
     </Router>
   );

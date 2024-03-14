@@ -1,0 +1,9 @@
+.div_notfound {
+  text-align: center;
+  margin-top: 60px;
+}
+
+a:hover {
+  background-color: #d3d3d3;
+  cursor: pointer;
+}
