@@ -13,6 +13,46 @@
   width: 100%;
 }
 
+.edit {
+  text-align: left;
+  padding: 2rem 1rem;
+  display: flex;
+  flex-flow: column wrap;
+}
+
+.edit div.title {
+  display: flex;
+  flex-flow: row nowrap;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 10px;
+
+  padding: 0;
+  margin: 0;
+
+  height: 70px;
+}
+
+.edit div.title button {
+  width: 40px;
+  height: 40px;
+
+  border-style: none;
+}
+
+.edit div.title button::hover {
+  background-color: red;
+
+}
+
+#cool-map {
+  height: 100%;
+  width: 100%;
+
+  position: relative;
+  z-index: 3;
+}
+
 th {
   background-color: #2a6041;
   text-align: left;
