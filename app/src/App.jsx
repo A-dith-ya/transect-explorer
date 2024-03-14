@@ -12,6 +12,7 @@ import NavBar from "./components/layout/navbar/NavBar";
 import DrawingBar from "./components/map/DrawingBar";
 import TransectList from "./pages/Region/TransectList";
 import TransectDetail from "./pages/Region/TransectDetail";
+import NotFound from "./pages/Error/NotFound";
 import "./App.css";
 import GroupList from "./pages/Group/GroupList";
 
@@ -30,6 +31,7 @@ function App() {
         <Route path="/group/create-group" element={<GroupForm />} />
         <Route path="/group/:id" element={<GroupDetail />} />
         <Route path="/add" element={<AddTransect />} />
+        <Route path="*" element={<NotFound />} />
       </Routes>
     </Router>
   );
