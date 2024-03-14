@@ -3,7 +3,7 @@ import { toast } from 'react-toastify';
 
 const baseURL = "http://localhost:8080/users/";
 
-const registerUser = async (formData) => {
+const registerUser = async (formData, navigate) => {
   await axios
     .post(`${baseURL}auth/register`, formData)
     .then((response) => {

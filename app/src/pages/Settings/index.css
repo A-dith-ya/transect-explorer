@@ -1,0 +1,104 @@
+.settings {
+  height: 100vh;
+  width: 100vw;
+  overflow: hidden;
+  display: flex;
+  flex-flow: column wrap;
+  position: relative;
+}
+
+.settings form {
+  text-align: left;
+  display: flex;
+  flex-direction: column wrap;
+  margin: 0;
+  align-items: center;
+  justify-content: center;
+}
+
+.settings form ul {
+  list-style-type: none;
+  margin-bottom: 0;
+  padding: 0;
+}
+
+dialog form {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  flex-flow: column wrap;
+}
+
+.dialog {
+  display: flex;
+  justify-content: space-between;
+  flex-flow: row nowrap;
+  gap: 10px;
+}
+
+input {
+  width: 15em;
+  height: 2em;
+}
+.settings h5 {
+  margin: 10px;
+  padding: 0;
+}
+button {
+  color: white;
+  outline: none;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+#delete {
+  position: absolute;
+  left: 50%;
+  top: 75%;
+  transform: translate(-50%, -50%);
+  background-color: #e79c55;
+  font-size: 15px;
+}
+
+.edit {
+  position: absolute;
+  text-align: center;
+  top: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+}
+.edit button {
+  background-color: #2ceaa3;
+  color: black;
+  text-align: center;
+}
+
+.sidebar button {
+  background-color: #2ceaa3;
+  color: black;
+  position: absolute;
+  left: 5px;
+}
+.sidebar {
+  width: 200px;
+  padding: 10px;
+  position: fixed;
+}
+.sidebar ul {
+  list-style-type: none;
+  padding: 0;
+  background-color: #2a6041;
+}
+.sidebar ul li {
+  cursor: pointer;
+  padding: 5px 10px;
+  color: white;
+}
+.sidebar ul li:hover {
+  background-color: #02111b;
+  cursor: pointer;
+}

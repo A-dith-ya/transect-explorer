@@ -3,7 +3,7 @@ import Form from "@rjsf/core";
 import validator from "@rjsf/validator-ajv8";
 import { groupFormSchema } from "../../components/rjsf/schema/GroupFormSchema";
 import ObjectFieldTemplate from "../../components/rjsf/template/ObjectFieldTemplate";
-import GroupArrayFieldTemplate from "../../components/rjsf/template/GroupArrayFieldTemplate";
+import ArrayFieldTemplate from "../../components/rjsf/template/ArrayFieldTemplate";
 import SubmitButton from "../../components/rjsf/template/SubmitButton";
 import {
   deleteGroup,
@@ -12,7 +12,7 @@ import {
 } from "../../services/GroupService";
 import { useNavigate, useParams } from "react-router-dom";
 import { getUser } from "../../services/UserService";
-import "./style.css";
+import "./index.css";
 
 const GroupDetail = () => {
   const [formData, setFormData] = useState(null);
@@ -26,14 +26,14 @@ const GroupDetail = () => {
   const navigate = useNavigate();
 
   const handleSubmit = async ({ formData }) => {
-    updateGroup(formData);
+    updateGroup(formData).then(() => {
+      setIsEdit(false);
+    });
   };
 
   useEffect(() => {
     const fetchGroup = async () => {
       const result = await getGroupId(id);
-
-      if (!result || result === undefined) return navigate("/group");
       setGroup(result);
       setFormData(result);
     };
@@ -61,11 +61,17 @@ const GroupDetail = () => {
 
   return (
     <div className="group__detail">
-      <button
-        className="group__Detail__button--back"
+      {/* <button
+        className="group__detail__button--back"
         onClick={() => navigate("/group")}
       >
-        <i class="fa-solid fa-arrow-left"></i>
+        <i className="fa-solid fa-arrow-left"></i>
+      </button> */}
+      <button
+        className="group__detail__button--repeat"
+        onClick={() => navigate("/group")}
+      >
+        <i className="fa-solid fa-repeat"></i>
       </button>
       <h1 className="group__detail__title">{group?.groupName} group</h1>
 
@@ -79,15 +85,16 @@ const GroupDetail = () => {
           <div>
             <h2>Leader</h2>
             <p className="member__item">
-              {leader?.userEmail}({leader?.username})
+              {leader?.userEmail} - {leader?.username}
             </p>
             <hr />
             <h2>Members</h2>
             <ul className="members__list">
               {group?.groupUserEmails.map((member) => {
+                const username = member.split("@")[0]; // Extracts the part before the '@'
                 return (
                   <li key={member} className="member__item">
-                    {member}
+                    {member} - {username}
                   </li>
                 );
               })}
@@ -102,7 +109,7 @@ const GroupDetail = () => {
             templates={{
               ObjectFieldTemplate,
               ButtonTemplates: { SubmitButton },
-              ArrayFieldTemplate: {GroupArrayFieldTemplate},
+              ArrayFieldTemplate,
             }}
             onSubmit={handleSubmit}
           />
