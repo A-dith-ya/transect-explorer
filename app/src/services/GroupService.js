@@ -15,7 +15,14 @@ const createGroup = async (formData, navigate) => {
     console.log(error);
   }
 };
-
+const getUserGroup = async (userId) => {
+  try {
+    const result = await axios.get(`${baseURL}/userGroups/${userId}`);
+    return result.data;
+  } catch (error) {
+    console.log(error);
+  }
+};
 const getGroupUser = async (userId) => {
   try {
     const result = await axios.get(`${baseURL}/groupUser/${userId}`);
@@ -47,6 +54,7 @@ const updateGroup = async (formData) => {
   try {
     await axios.put(`${baseURL}/${formData.id}`, formData);
     alert("Successfully updated");
+    return true;
   } catch (error) {
     console.log(error);
     alert("Error updating group");
@@ -70,4 +78,5 @@ export {
   getGroupLeader,
   updateGroup,
   deleteGroup,
+  getUserGroup,
 };
