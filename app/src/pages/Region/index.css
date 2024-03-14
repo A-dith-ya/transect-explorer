@@ -18,6 +18,8 @@
   padding: 2rem 1rem;
   display: flex;
   flex-flow: column wrap;
+  
+  align-items: start;
 }
 
 .edit div.title {
@@ -54,7 +56,7 @@
 }
 
 th {
-  background-color: #2a6041;
+  background-color: #2ceaa3;
   text-align: left;
   padding: 12px;
   cursor: pointer;
@@ -63,6 +65,7 @@ th {
 td {
   padding: 10px;
   border-bottom: 1px solid #ddd;
+  text-align: left;
 }
 
 tr:hover {
@@ -72,4 +75,19 @@ tr:hover {
 .button_arrows {
   margin-left: 8px;
   cursor: pointer;
+  background-color: transparent;
+  border: none;
+  padding: 0;
+}
+
+.page_div_table {
+  overflow: hidden;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  border-radius: 10px;
 }

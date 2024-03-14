@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { MapContainer, TileLayer } from "react-leaflet";
-import "./style.css";
+import "./index.css";
 
 const TransectDetail = () => {
   const navigate = useNavigate();
@@ -13,7 +13,6 @@ const TransectDetail = () => {
         </button>
         <h2>Transect Name</h2>
       </div>
-
 
       <h3>Region</h3>
       <p>Cool Region</p>
