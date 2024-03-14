@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import "./style.css";
+import "./index.css";
 
 // Mock function to simulate fetching transects for a specific group
 // Replace this with your actual API call
