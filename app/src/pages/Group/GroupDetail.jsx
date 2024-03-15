@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from "react";
 import Form from "@rjsf/core";
 import validator from "@rjsf/validator-ajv8";
+
 import { groupFormSchema } from "../../components/rjsf/schema/GroupFormSchema";
 import ObjectFieldTemplate from "../../components/rjsf/template/ObjectFieldTemplate";
-import ArrayFieldTemplate from "../../components/rjsf/template/ArrayFieldTemplate";
+import GroupArrayFieldTemplate from "../../components/rjsf/template/GroupArrayFieldTemplate";
 import SubmitButton from "../../components/rjsf/template/SubmitButton";
 import {
   deleteGroup,
@@ -13,6 +14,7 @@ import {
 import { useNavigate, useParams } from "react-router-dom";
 import { getUser } from "../../services/UserService";
 import "./index.css";
+import FormContainer from "../../components/rjsf/FormContainer";
 
 const GroupDetail = () => {
   const [formData, setFormData] = useState(null);
@@ -25,7 +27,7 @@ const GroupDetail = () => {
   const { id } = useParams();
   const navigate = useNavigate();
 
-  const handleSubmit = async ({ formData }) => {
+  const handleSubmit = async (formData) => {
     updateGroup(formData).then(() => {
       setIsEdit(false);
     });
@@ -38,7 +40,7 @@ const GroupDetail = () => {
       setFormData(result);
     };
     fetchGroup();
-  }, [id]);
+  }, [id, isEdit]);
 
   useEffect(() => {
     const fetchLeader = async () => {
@@ -101,17 +103,20 @@ const GroupDetail = () => {
             </ul>
           </div>
         ) : (
-          <Form
+          <FormContainer
             schema={{ ...groupFormSchema, button: "Update" }}
             formData={formData}
+            setFormData={setFormData}
             onChange={(e) => setFormData(e.formData)}
             validator={validator}
             templates={{
               ObjectFieldTemplate,
               ButtonTemplates: { SubmitButton },
-              ArrayFieldTemplate,
+              GroupArrayFieldTemplate,
+              // GroupArrayFieldTemplate,
             }}
-            onSubmit={handleSubmit}
+            onSubmitAction={handleSubmit}
+            arrayFieldTemplate={GroupArrayFieldTemplate}
           />
         )}
 

@@ -11,8 +11,9 @@ const FormContainer = ({
   uiSchema,
   onSubmitAction,
   arrayFieldTemplate,
+  formData: initialFormData,
 }) => {
-  const [formData, setFormData] = useState(null);
+  const [formData, setFormData] = useState(initialFormData);
 
   const handleSubmit = async () => {
     onSubmitAction(formData);
