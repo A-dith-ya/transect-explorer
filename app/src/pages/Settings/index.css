@@ -1,6 +1,7 @@
 .page {
   display: flex;
   flex-flow: row nowrap;
+
 }
 
 div.panel {
@@ -9,6 +10,8 @@ div.panel {
 
   height: 100vh;
   min-width: 360px;
+
+  background-color: #d3d3d3;
 }
 
 div.panel button {
