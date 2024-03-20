@@ -10,25 +10,21 @@ const fetchTransectsForGroup = async (groupId) => {
     {
       id: 1,
       transectName: "Transect A",
-      description: "Description A",
       location: "Region 1",
-      coordinate: "Coord A",
+      created_at: "Some day",
     },
     {
       id: 2,
       transectName: "Transect B",
-      description: "Description B",
       location: "Region 1",
-      coordinate: "Coord B",
+      created_at: "Some day",
     },
     {
       id: 3,
       transectName: "Transect C",
-      description: "Description C",
       location: "Region 2",
-      coordinate: "Coord C",
+      created_at: "Some day",
     },
-    // Add more transects as needed
   ];
 
   // Simulating fetching transects related to the selected group
@@ -88,7 +84,6 @@ const TransectList = ({ selectedGroupId }) => {
                     <i class="fa-solid fa-arrows-alt-v"></i>
                   </button>
                 </th>
-                <th>Description</th>
                 <th onClick={() => sortTransects("location")}>
                   Location
                   <button
@@ -98,7 +93,7 @@ const TransectList = ({ selectedGroupId }) => {
                     <i class="fa-solid fa-arrows-alt-v"></i>
                   </button>
                 </th>
-                <th>Coordinate</th>
+                <th>Date Created</th>
               </tr>
             </thead>
             <tbody>
@@ -108,9 +103,8 @@ const TransectList = ({ selectedGroupId }) => {
                   onClick={() => navigate("/region/transect")}
                 >
                   <td>{transect.transectName}</td>
-                  <td>{transect.description}</td>
                   <td>{transect.location}</td>
-                  <td>{transect.coordinate}</td>
+                  <td>{transect.created_at}</td>
                 </tr>
               ))}
             </tbody>
