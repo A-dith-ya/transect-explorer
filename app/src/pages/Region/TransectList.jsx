@@ -71,11 +71,8 @@ const TransectList = ({ selectedGroupId }) => {
 
   return (
     <>
-      <div>
-        <h1 className="page_title">Transect List</h1>
-      </div>
+      <h1>Transect List</h1>
       <div className="page_div">
-        <div className="page_div_table">
           <table>
             <thead>
               <tr>
@@ -115,7 +112,6 @@ const TransectList = ({ selectedGroupId }) => {
               ))}
             </tbody>
           </table>
-        </div>
       </div>
     </>
   );
