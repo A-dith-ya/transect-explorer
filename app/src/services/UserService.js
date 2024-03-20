@@ -1,5 +1,5 @@
 import axios from "axios";
-import { toast } from "react-toastify";
+import { toast } from 'react-toastify';
 
 const baseURL = "http://localhost:8080/users/";
 
@@ -15,7 +15,7 @@ const registerUser = async (formData, navigate) => {
     });
 };
 
-const loginUser = async (formData, navigate, login) => {
+const loginUser = async (formData, navigate) => {
   await axios
     .post(`${baseURL}auth/login`, formData)
     .then((response) => {
@@ -23,7 +23,6 @@ const loginUser = async (formData, navigate, login) => {
       sessionStorage.setItem("userEmail", response.data.userEmail);
       sessionStorage.setItem("username", response.data.username);
       toast.success("Welcome back " + response.data.username + "!");
-      login();
       navigate("/");
     })
     .catch((error) => {
