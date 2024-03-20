@@ -20,7 +20,7 @@ const ArrayFieldTemplate = (props) => {
       return {
         ...element,
         children: [
-          React.cloneElement(element.children, {key: index,  title: transformItemTitle(props.title, element.children.props.title) })
+          React.cloneElement(element.children, { key: index, title: transformItemTitle(props.title, element.children.props.title) })
         ]
       };
     })
@@ -33,20 +33,19 @@ const ArrayFieldTemplate = (props) => {
         <h3>{props.title}</h3>
         {props.canAdd && (
           <button className="arrayfield__add-button" onClick={props.onAddClick}>
-            Add
+            <i class="fa-solid fa-plus"></i>
           </button>
         )}
       </div>
-      {props.items.map((element) => (
+      {updatedProps.items.map((element) => (
         <div className="arrayfield__item" key={element.key}>
-          {console.log(updatedProps)}
           {element.children}
           {element.hasRemove && (
             <button
               className="arrayfield__remove-button"
               onClick={element.onDropIndexClick(element.index)}
             >
-              Remove
+              <i class="fa-solid fa-xmark"></i>
             </button>
           )}
         </div>
