@@ -39,7 +39,7 @@ const TransectDetail = () => {
   return (
     <div className="edit">
       <div className="edit-title">
-        <button onClick={() => navigate("/region")}>
+        <button className="icon-btn" onClick={() => navigate("/region")}>
           <i className="fa-solid fa-arrow-left"></i>
         </button>
         <h2>Transect Name</h2>

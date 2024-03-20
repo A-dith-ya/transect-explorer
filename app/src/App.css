@@ -60,6 +60,7 @@
 
 .icon-btn:hover {
   transition: 0.5s;
+  cursor: pointer;
 
   background-color: #d3d3d3;
 
