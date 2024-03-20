@@ -5,6 +5,7 @@
     height: 5rem;
     background-color: #2A6041;
     text-align: center;
+    z-index: 10;
   }
   
   .navbar-list {
@@ -18,16 +19,21 @@
 
   }
 
-  .navbar-list-item {
+  .navbar-list li{
     filter: grayscale(100%) opacity(0.7);
     transition: 400ms;
     height: 100%;
     padding-top: .5rem;
+    -webkit-tap-highlight-color: transparent !important;;
   }
 
-  .navbar-list-item:hover{
+  .navbar-list li.active{
     filter: grayscale(0%) opacity(1);
     background-color: #1a3b28;
+  }
+
+  .navbar :focus{
+    outline: none !important;
   }
   
   .icon {

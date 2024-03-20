@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { getGroupUser } from "../../services/GroupService";
 import { useNavigate } from "react-router-dom";
 import GroupCard from "../../components/group/GroupCard";
-import "./style.css";
+import "./index.css";
 
 const Group = () => {
   const userId = sessionStorage.getItem("id").toString();
@@ -25,7 +25,7 @@ const Group = () => {
           <GroupCard key={group.id} group={group} />
         ))}
         <button
-          onClick={() => navigate("/create-group")}
+          onClick={() => navigate("/group/create-group")}
           className="group__button--create"
         >
           <i className="fa-solid fa-plus" />

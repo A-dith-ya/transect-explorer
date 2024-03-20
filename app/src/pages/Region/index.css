@@ -1,0 +1,93 @@
+.page_title {
+  text-align: center;
+  font-size: 2.5rem;
+  margin-top: 20px;
+  margin-bottom: 20px;
+  color: #333;
+  font-weight: normal;
+}
+
+.page_div {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+}
+
+.edit {
+  text-align: left;
+  padding: 2rem 1rem;
+  display: flex;
+  flex-flow: column wrap;
+  
+  align-items: start;
+}
+
+.edit div.title {
+  display: flex;
+  flex-flow: row nowrap;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 10px;
+
+  padding: 0;
+  margin: 0;
+
+  height: 70px;
+}
+
+.edit div.title button {
+  width: 40px;
+  height: 40px;
+
+  border-style: none;
+}
+
+.edit div.title button::hover {
+  background-color: red;
+
+}
+
+#cool-map {
+  height: 100%;
+  width: 100%;
+
+  position: relative;
+  z-index: 3;
+}
+
+th {
+  background-color: #2ceaa3;
+  text-align: left;
+  padding: 12px;
+  cursor: pointer;
+}
+
+td {
+  padding: 10px;
+  border-bottom: 1px solid #ddd;
+  text-align: left;
+}
+
+tr:hover {
+  background-color: #d3d3d3;
+}
+
+.button_arrows {
+  margin-left: 8px;
+  cursor: pointer;
+  background-color: transparent;
+  border: none;
+  padding: 0;
+}
+
+.page_div_table {
+  overflow: hidden;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  border-radius: 10px;
+}

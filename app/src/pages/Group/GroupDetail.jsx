@@ -10,8 +10,9 @@ import {
   getGroupId,
   updateGroup,
 } from "../../services/GroupService";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { getUser } from "../../services/UserService";
+import "./index.css";
 
 const GroupDetail = () => {
   const [formData, setFormData] = useState(null);
@@ -22,17 +23,17 @@ const GroupDetail = () => {
   const username = sessionStorage.getItem("username");
 
   const { id } = useParams();
+  const navigate = useNavigate();
 
   const handleSubmit = async ({ formData }) => {
-    updateGroup(formData);
+    updateGroup(formData).then(() => {
+      setIsEdit(false);
+    });
   };
 
   useEffect(() => {
     const fetchGroup = async () => {
       const result = await getGroupId(id);
-
-      if (!result || result === undefined)
-        return (window.location.href = "/group");
       setGroup(result);
       setFormData(result);
     };
@@ -54,13 +55,25 @@ const GroupDetail = () => {
   };
   const handleDelete = () => {
     if (confirm("Are you sure you want to delete " + group.groupName)) {
-      deleteGroup(group.id);
+      deleteGroup(group.id, navigate);
     }
   };
 
   return (
     <div className="group__detail">
-      <h4 className="group__detail__title">{group?.groupName} group</h4>
+      {/* <button
+        className="group__detail__button--back"
+        onClick={() => navigate("/group")}
+      >
+        <i className="fa-solid fa-arrow-left"></i>
+      </button> */}
+      <button
+        className="group__detail__button--repeat"
+        onClick={() => navigate("/group")}
+      >
+        <i className="fa-solid fa-repeat"></i>
+      </button>
+      <h1 className="group__detail__title">{group?.groupName} group</h1>
 
       <h5 className="group__detail__subtitle">
         {username === leader?.username ? "You are " : leader?.username + " is"}{" "}
@@ -70,17 +83,18 @@ const GroupDetail = () => {
       <div className="group__detail__information">
         {!isEdit ? (
           <div>
-            <h4>Leader</h4>
-            <p className="group__detail__information--border">
-              {leader?.userEmail}({leader?.username})
+            <h2>Leader</h2>
+            <p className="member__item">
+              {leader?.userEmail} - {leader?.username}
             </p>
             <hr />
-            <h4>Members</h4>
+            <h2>Members</h2>
             <ul className="members__list">
               {group?.groupUserEmails.map((member) => {
+                const username = member.split("@")[0]; // Extracts the part before the '@'
                 return (
                   <li key={member} className="member__item">
-                    {member}
+                    {member} - {username}
                   </li>
                 );
               })}
