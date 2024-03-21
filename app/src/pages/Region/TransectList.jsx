@@ -72,7 +72,7 @@ const TransectList = ({ selectedGroupId }) => {
   return (
     <>
       <h1>Transect List</h1>
-      <div className="page_div">
+      <div className="table-div">
           <table>
             <thead>
               <tr>
@@ -82,7 +82,7 @@ const TransectList = ({ selectedGroupId }) => {
                     className="button_arrows"
                     onClick={() => sortTransects("transectName")}
                   >
-                    <i class="fa-solid fa-arrows-alt-v"></i>
+                    <i className="fa-solid fa-arrows-alt-v" />
                   </button>
                 </th>
                 <th>Description</th>
@@ -92,7 +92,7 @@ const TransectList = ({ selectedGroupId }) => {
                     className="button_arrows"
                     onClick={() => sortTransects("transectName")}
                   >
-                    <i class="fa-solid fa-arrows-alt-v"></i>
+                    <i className="fa-solid fa-arrows-alt-v"></i>
                   </button>
                 </th>
                 <th>Coordinate</th>

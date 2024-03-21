@@ -1,234 +1,36 @@
-.group,
-.group__form {
-  display: flex;
-  justify-content: center;
-  margin-top: 50px;
-  flex-direction: column;
-  gap: 30px;
-}
-
-.group__nav {
-  display: flex;
-  justify-content: center;
-  gap: 20px;
-}
-
-.group__nav__btn {
-  width: 200px;
-  padding: 10px 5px;
-  cursor: pointer;
-  font-size: 20px;
-  background: none;
-  border: none;
-  border-radius: 10px;
-}
-
-.all__groups {
-  background-color: #547ed925;
-}
-
-.all__groups:hover {
-  background-color: #547ed9;
-}
-
-.group__leader {
-  background-color: #e79c552a;
-}
-
-.group__leader:hover {
-  background-color: #e79c55;
-}
-
-.group__box {
-  display: flex;
-  padding: 5px;
-  gap: 10px;
-  justify-content: center;
-  flex-wrap: wrap;
-}
-
-.group__box .group__button--create {
-  padding: 3;
-  cursor: pointer;
-  min-width: 150px;
-  border: 1px dotted #2ceaa3;
-  background: none;
-  border-radius: 10px;
-  margin-left: 5px;
-  min-height: 100px;
-}
-
-.container .group__form__container {
-  position: relative;
-  width: max-content;
-}
-
-.group__form__wrap {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  gap: 10px;
-}
-
-.group__form__content {
+.group-list-page {
   display: flex;
   align-items: center;
-  flex-direction: column;
   justify-content: center;
-  gap: 5px;
-  border: 2px solid #ddd;
-  padding: 20px;
-  border-radius: 10px;
+  flex-flow: column wrap;
 }
 
-.group__detail {
+.group-list-page .title {
   display: flex;
-  flex-direction: column;
-  justify-content: center;
+  flex-flow: row nowrap;
   align-items: center;
-}
-
-.group__detail__title {
-  color: white;
-  font-family: "Open Sans Condensed", sans-serif;
-  font-size: 64px;
-  font-weight: 700;
-  line-height: 64px;
-  margin: 0 0 0;
-  padding: 20px 30px;
-  text-align: center;
-  text-transform: uppercase;
-}
-
-.group__detail__subtitle {
-  font-style: italic;
-  border: 2px solid #547ed9;
-  padding: 10px;
-  border-radius: 10px;
-}
-
-.group__detail__information {
-  border: 1px solid #2ceaa3;
-  padding: 20px;
-  border-radius: 20px;
-  min-width: 300px;
-}
-
-.group-detail-information hr {
-  width: 100%;
-  border: 1px solid #2ceaa3;
-}
-
-.group__detail__information--border {
-  font-size: 20px;
-  border: 2px solid #547ed9;
-  border-radius: 50px;
-  padding: 5px;
-}
-
-.group__detail__information .members__list {
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-  justify-content: center;
-  padding: 0;
-}
-
-.group__detail__information .member__item {
-  border: 1px solid #555;
-  padding: 10px;
-  border-radius: 50px;
-  display: flex;
-  flex-direction: column;
   justify-content: space-between;
-  overflow: auto;
-  font-size: 20px;
+  width: 500px;
 }
 
-.group__detail__information .detail__buttons {
-  display: flex;
-  flex-direction: row;
-  gap: 10px;
-  justify-content: center;
-  padding-top: 20px;
+div.group-list {
+  width: 500px;
 }
 
-.group__detail__information button {
-  background: none;
-  border-radius: 5px;
-  padding: 5px 10px;
-  cursor: pointer;
-  width: 100px;
-  outline: none;
-  border: none;
-  font-size: 20px;
+div.group-list table {
+  min-width: 500px;
 }
 
-/* button */
-.group__detail__button--back {
-  padding: 10px;
-  margin-top: 10px;
-  background-color: #333;
-  border-radius: 10px;
-  outline: none;
-  border: none;
-  cursor: pointer;
-  position: absolute;
-  top: -20px;
-  left: -1px;
-}
+ @media only screen and (max-width: 600px) {
+   .group-list-page .title {
+     width: 300px;
+   }
 
-.group__detail__button--repeat {
-  /* padding: 10px;
-  margin-top: 10px;
-  background-color: #333;
-  border-radius: 10px;
-  outline: none;
-  border: none;
-  cursor: pointer;
-  position: absolute;
-  top: -20px;
-  right: -5px; */
-  padding: 10px;
-  margin-top: 10px;
-  background-color: #333;
-  border-radius: 10px;
-  outline: none;
-  border: none;
-  cursor: pointer;
-  position: absolute;
-  top: 20px;
-  right: 5px;
-}
+   div.group-list {
+     width: 300px;
+   }
 
-.group__detail__button--back i,
-.group__detail__button--repeat i {
-  color: #2ceaa3;
-}
-
-.group__detail__information .detail__buttons--delete {
-  background: #f3f0bb;
-  color: #000;
-}
-
-.group__detail__information .detail__buttons--edit {
-  border: 1px solid #e79c55;
-  color: #fff;
-}
-
-.group .group__card {
-  cursor: pointer;
-  min-width: 130px;
-  position: relative;
-  box-shadow: #2a6041 0px 5px 15px;
-  padding: 10px;
-  border-radius: 10px;
-}
-
-.group .group__card i {
-  position: absolute;
-  top: 10px;
-  right: 10px;
-  font-size: 20px;
-  color: #2ceaa3;
-}
+   div.group-list table {
+     min-width: 300px;
+   }
+ }

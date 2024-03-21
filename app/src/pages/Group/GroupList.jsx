@@ -5,7 +5,7 @@ import GroupCard from "../../components/group/GroupCard";
 import "./index.css";
 
 
-const groups = [
+const testGroups = [
   {
     role: "Leader",
     name: "Kool Kids Klub"
@@ -23,23 +23,75 @@ const groups = [
 
 const GroupList = () => {
   const userId = sessionStorage.getItem("id")?.toString();
-  const [groupsData, setGroupsData] = useState({
-    userGroups: [],
-    leaderGroups: [],
-  });
+  const [data, setData] = useState([]);
+  const [groups, setGroups] = useState([]);
 
   const navigate = useNavigate();
 
   useEffect(() => {
     const fetchGroups = async () => {
       const response = await getUserGroup(userId);
-      setGroupsData(response);
+      console.log(response);
+      const arr = [];
+      response.userGroups.forEach((item) => {
+        arr.push({
+          id: item.id,
+          role: 'Member',
+          name: item.groupName
+        });
+      });
+      response.leaderGroups.forEach((item) => {
+        arr.push({
+          id: item.id,
+          role: 'Leader',
+          name: item.groupName
+        });
+      })
+      setData(arr);
     };
     fetchGroups();
   }, [userId]);
 
   return (
-    <div className="group">
+    <div className='group-list-page'>
+
+      <div className='title'>
+        <h3>Groups</h3>
+      </div>
+
+      <div className='table-div group-list'>
+        <table>
+          <thead>
+            <tr>
+              <th>Role</th>
+              <th>Group</th>
+            </tr>
+          </thead>
+          <tbody>
+            {data.map((item) =><tr key={item.id} onClick={() => navigate(`/group/${item.id}`)}> 
+                <td key={Math.random()}>{item.role.charAt(0)}</td>
+                <td key={Math.random()}>{item.name}</td>
+              </tr>
+            )}
+          </tbody>
+        </table>
+      </div>
+
+      <div className='title'>
+        <h3>Add Group</h3>
+          <button className='icon-btn'>
+            <i className="fa-solid fa-plus" />
+        </button>
+      </div>
+
+    </div>
+  );
+};
+
+export default GroupList;
+
+/**
+
       <div className="group__section">
         <h2 className="group__section__title">User groups</h2>
         <div className="group__box">
@@ -63,26 +115,4 @@ const GroupList = () => {
           </button>
         </div>
       </div>
-
-      <div>
-
-        <table>
-          <thead>
-            <th>Role</th>
-            <th>Name</th>
-          </thead>
-          <tbody>
-            {groups.map((item) => <tr> 
-                <td>{item.role.charAt(0)}</td>
-                <td>{item.name}</td>
-              </tr>)}
-          </tbody>
-        </table>
-        
-      </div>
-
-    </div>
-  );
-};
-
-export default GroupList;
+*/
