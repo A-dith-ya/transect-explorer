@@ -26,14 +26,17 @@ const ArrayFieldTemplate = (props) => {
     })
   };
 
+  const addButtonIcon = props.registry.templates.addButtonIcon || "fa-solid fa-plus";
+  const removeButtonIcon = props.registry.templates.removeButtonIcon || "fa-solid fa-xmark";
 
+  console.log(props);
   return (
     <div className="arrayfield">
       <div className="arrayfield__title">
         <h3>{props.title}</h3>
         {props.canAdd && (
           <button className="arrayfield__add-button" onClick={props.onAddClick}>
-            <i class="fa-solid fa-plus"></i>
+            <i className={`${addButtonIcon}`}></i>
           </button>
         )}
       </div>
@@ -45,7 +48,7 @@ const ArrayFieldTemplate = (props) => {
               className="arrayfield__remove-button"
               onClick={element.onDropIndexClick(element.index)}
             >
-              <i class="fa-solid fa-xmark"></i>
+              <i className={`${removeButtonIcon}`}></i>
             </button>
           )}
         </div>
