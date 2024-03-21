@@ -11,4 +11,6 @@ public interface GroupRepository extends CrudRepository<Group, Long> {
     List<Group> findByGroupLeader(User groupLeader);
 
     List<GroupListDTO> findDtoByGroupLeader(User user);
+
+    boolean existsByIdAndGroupLeader_UserName(Long groupId, String userName);
 }

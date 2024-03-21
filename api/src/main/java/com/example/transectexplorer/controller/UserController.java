@@ -54,6 +54,7 @@ public class UserController {
     }
 
     @PutMapping("/{id}")
+    @PreAuthorize("@authenticationService.authorizeUser(#id)")
     public ResponseEntity<UserDTO> updateUser(@PathVariable Long id, @RequestBody RegistrationDTO user) {
         Optional<User> userOptional = userRepository.findById(id);
 
@@ -74,6 +75,7 @@ public class UserController {
     }
 
     @DeleteMapping("/{id}")
+    @PreAuthorize("@authenticationService.authorizeUser(#id)")
     public ResponseEntity<UserDTO> deleteUser(@PathVariable Long id) {
         Optional<User> userOptional = userRepository.findById(id);
 

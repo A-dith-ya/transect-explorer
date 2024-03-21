@@ -51,6 +51,10 @@ public class Group extends BaseEntity {
     return groupLeader.getId();
   }
 
+  public User getGroupLeader() {
+    return groupLeader;
+  }
+
   public void setGroupLeader(User groupLeader) {
     this.groupLeader = groupLeader;
   }

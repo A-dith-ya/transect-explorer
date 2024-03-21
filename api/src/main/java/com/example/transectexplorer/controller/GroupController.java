@@ -8,9 +8,11 @@ import com.example.transectexplorer.repository.GroupUserRepository;
 import com.example.transectexplorer.repository.GroupRepository;
 import com.example.transectexplorer.model.User;
 import com.example.transectexplorer.repository.UserRepository;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Optional;
@@ -31,6 +33,7 @@ public class GroupController {
     private UserRepository userRepository;
 
     @GetMapping("/{id}")
+    @PreAuthorize("@authenticationService.authorizeGroupUser(#id)")
     public ResponseEntity<GroupDTO> getGroupById(@PathVariable Long id) {
         Optional<Group> group = groupRepository.findById(id);
 
@@ -51,6 +54,7 @@ public class GroupController {
     }
 
     @GetMapping("/groupLeader/{userId}")
+    @PreAuthorize("@authenticationService.authorizeUser(#userId)")
     public ResponseEntity<List<Group>> getGroupsByGroupLeaderId(@PathVariable Long userId) {
         Optional<User> user = userRepository.findById(userId);
 
@@ -62,6 +66,7 @@ public class GroupController {
     }
 
     @GetMapping("/groupUser/{userId}")
+    @PreAuthorize("@authenticationService.authorizeUser(#userId)")
     public ResponseEntity<List<Group>> getGroupsByGroupUserId(@PathVariable Long userId) {
         Optional<User> user = userRepository.findById(userId);
 
@@ -81,6 +86,7 @@ public class GroupController {
     }
 
     @GetMapping("/userGroups/{userId}")
+    @PreAuthorize("@authenticationService.authorizeUser(#userId)")
     public ResponseEntity<UserGroupsDTO> getUserGroups(@PathVariable Long userId) {
         Optional<User> user = userRepository.findById(userId);
 
@@ -92,6 +98,7 @@ public class GroupController {
     }
 
     @PostMapping
+    @PreAuthorize("@authenticationService.authorizeUser(#groupDTO.getGroupLeaderId())")
     public ResponseEntity<GroupDTO> createGroup(@RequestBody GroupDTO groupDTO) {
         Optional<User> groupLeader = userRepository.findById(groupDTO.getGroupLeaderId());
 
@@ -119,6 +126,7 @@ public class GroupController {
     }
 
     @PutMapping("/{id}")
+    @PreAuthorize("@authenticationService.authorizeUser(#group.getGroupLeaderId())")
     public ResponseEntity<GroupDTO> updateGroup(@RequestBody GroupDTO group) {
         Optional<Group> existingGroup = groupRepository.findById(group.getId());
 
@@ -161,6 +169,7 @@ public class GroupController {
     }
 
     @DeleteMapping("/{id}")
+    @PreAuthorize("@authenticationService.authorizeGroupOwner(#id)")
     public ResponseEntity<GroupDTO> deleteGroup(@PathVariable Long id) {
         Optional<Group> group = groupRepository.findById(id);
 

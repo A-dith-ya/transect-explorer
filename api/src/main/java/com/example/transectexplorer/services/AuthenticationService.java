@@ -13,6 +13,8 @@ import org.springframework.transaction.annotation.Transactional;
 import com.example.transectexplorer.dto.UserDTO;
 import com.example.transectexplorer.dto.RegistrationDTO;
 import com.example.transectexplorer.model.User;
+import com.example.transectexplorer.repository.GroupRepository;
+import com.example.transectexplorer.repository.GroupUserRepository;
 import com.example.transectexplorer.repository.UserRepository;
 
 import jakarta.servlet.http.Cookie;
@@ -29,6 +31,12 @@ public class AuthenticationService {
 
     @Autowired
     private UserRepository userRepository;
+
+    @Autowired
+    private GroupRepository groupRepository;
+
+    @Autowired
+    private GroupUserRepository groupUserRepository;
 
     @Autowired
     private PasswordEncoder passwordEncoder;
@@ -77,5 +85,25 @@ public class AuthenticationService {
         return userRepository.findById(id)
                 .map(user -> user.getUsername().equals(auth.getName()))
                 .orElse(false);
+    }
+
+    public boolean authorizeGroupOwner(Long groupId) {
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        if (auth == null) {
+            return false;
+        }
+
+        return groupRepository.existsByIdAndGroupLeader_UserName(groupId, auth.getName());
+    }
+
+    public boolean authorizeGroupUser(Long groupId) {
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        if (auth == null) {
+            return false;
+        }
+
+        // Check if the auth user is in the group
+        return groupUserRepository.existsByGroup_IdAndGroupUser_UserName(groupId, auth.getName())
+                || authorizeGroupOwner(groupId);
     }
 }
