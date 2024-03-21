@@ -1,5 +1,5 @@
 export const groupFormSchema = {
-  title: "Group Form",
+  title: "Add Group",
   type: "object",
   required: ["groupName"],
   properties: {
@@ -9,7 +9,8 @@ export const groupFormSchema = {
     },
     groupUserEmails: {
       type: "array",
-      title: "Group Members Email Addresses",
+      title: "Member Emails",
+      minItems: 1,
       items: {
         type: "string",
       },

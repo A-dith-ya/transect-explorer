@@ -21,16 +21,62 @@ div.group-list table {
   min-width: 500px;
 }
 
- @media only screen and (max-width: 600px) {
-   .group-list-page .title {
-     width: 300px;
-   }
+/* button */
+.group__detail__button--back {
+  padding: 10px;
+  margin: 30px 10px;
+  background-color: #333;
+  border-radius: 10px;
+  outline: none;
+  border: none;
+  cursor: pointer;
+  position: absolute;
+  top: -20px;
+  left: -1px;
+}
 
-   div.group-list {
-     width: 300px;
-   }
+.group__detail__button--back i,
+.group__detail__button--repeat i {
+  color: #2ceaa3;
+}
 
-   div.group-list table {
-     min-width: 300px;
-   }
+.group__detail__information .detail__buttons--delete {
+  background: #f3f0bb;
+  color: #000;
+}
+
+.group__detail__information .detail__buttons--edit {
+  border: 1px solid #e79c55;
+  color: #fff;
+}
+
+.group .group__card {
+  cursor: pointer;
+  min-width: 130px;
+  position: relative;
+  box-shadow: #2a6041 0px 5px 15px;
+  padding: 10px;
+  border-radius: 10px;
+}
+
+.group .group__card i {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  font-size: 20px;
+  color: #2ceaa3;
+}
+
+@media only screen and (max-width: 600px) {
+ .group-list-page .title {
+   width: 300px;
  }
+
+ div.group-list {
+   width: 300px;
+ }
+
+ div.group-list table {
+   min-width: 300px;
+ }
+}
