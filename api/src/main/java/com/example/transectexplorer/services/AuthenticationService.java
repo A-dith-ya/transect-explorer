@@ -5,6 +5,7 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -64,5 +65,17 @@ public class AuthenticationService {
         } catch (AuthenticationException e) {
             throw new RuntimeException("Invalid username or password");
         }
+    }
+
+    public boolean authorizeUser(Long id) {
+        // Get the current user's auth details
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        if (auth == null) {
+            return false;
+        }
+        // Check if the auth user is same as the user with the id
+        return userRepository.findById(id)
+                .map(user -> user.getUsername().equals(auth.getName()))
+                .orElse(false);
     }
 }

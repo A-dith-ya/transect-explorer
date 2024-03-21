@@ -27,7 +27,7 @@ public class UserController {
     private AuthenticationService authenticationService;
 
     @GetMapping("/{id}")
-    @PreAuthorize("#id == authentication.principal.id")
+    @PreAuthorize("@authenticationService.authorizeUser(#id)")
     public ResponseEntity<UserDTO> getUserById(@PathVariable Long id) {
         return userRepository.findById(id)
                 .map(user -> new UserDTO(user.getId(), user.getUsername(), user.getUserEmail()))
