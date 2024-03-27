@@ -15,6 +15,7 @@ const SubmitButton = (props) => {
       className="submit-button"
 
     > Submit
+      <i className="fa-solid fa-check-to-slot"></i>
       {props.registry.rootSchema.button}
     </button>
   );

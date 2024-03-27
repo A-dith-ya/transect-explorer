@@ -3,7 +3,7 @@
   margin-top: 60px;
 }
 
-a:hover {
+.div_notfound a:hover {
   background-color: #d3d3d3;
   cursor: pointer;
 }

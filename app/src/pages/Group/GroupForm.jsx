@@ -30,7 +30,8 @@ const GroupForm = () => {
           <FormContainer
             schema={groupFormSchema}
             onSubmitAction={handleCreateGroup}
-            arrayFieldTemplate={GroupArrayFieldTemplate}
+            addButtonIcon="fa-solid fa-user-plus"
+            removeButtonIcon="fa-solid fa-user-slash"
           />
         </div>
         {/* <button
