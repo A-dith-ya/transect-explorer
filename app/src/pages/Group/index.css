@@ -167,7 +167,7 @@
 /* button */
 .group__detail__button--back {
   padding: 10px;
-  margin: 30px 10px;
+  margin-top: 10px;
   background-color: #333;
   border-radius: 10px;
   outline: none;
@@ -231,4 +231,43 @@
   right: 10px;
   font-size: 20px;
   color: #2ceaa3;
+}
+
+/***** GROUP LIST *****/
+
+.group-list-page {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-flow: column wrap;
+}
+
+.group-list-page .title {
+  display: flex;
+  flex-flow: row nowrap;
+  align-items: center;
+  justify-content: space-between;
+  width: 500px;
+}
+
+div.group-list {
+  width: 500px;
+}
+
+div.group-list table {
+  min-width: 500px;
+}
+
+@media only screen and (max-width: 600px) {
+ .group-list-page .title {
+   width: 300px;
+ }
+
+ div.group-list {
+   width: 300px;
+ }
+
+ div.group-list table {
+   min-width: 300px;
+ }
 }

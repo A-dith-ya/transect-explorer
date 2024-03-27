@@ -56,12 +56,46 @@
   height: 40px;
 
   border-style: none;
+  border-radius: 5px;
 }
 
 .icon-btn:hover {
   transition: 0.5s;
+  cursor: pointer;
 
   background-color: #d3d3d3;
 
   color: #333;
+}
+
+.table-div {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+}
+
+.table-div table {
+  overflow: hidden;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+
+  border-collapse: collapse;
+  border-radius: 10px;
+}
+
+.table-div th {
+  background-color: #2ceaa3;
+  text-align: left;
+  padding: 12px;
+  cursor: pointer;
+}
+
+.table-div td {
+  padding: 10px;
+  border-bottom: 1px solid #ddd;
+  text-align: left;
+}
+
+.table-div tr:hover {
+  background-color: #d3d3d3;
 }
