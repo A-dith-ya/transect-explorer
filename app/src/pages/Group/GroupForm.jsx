@@ -11,8 +11,8 @@ const GroupForm = () => {
   const userEmail = sessionStorage.getItem("userEmail");
 
   const handleCreateGroup = (formData) => {
-    if (!userEmail) return;
-    formData.groupUserEmails.push(userEmail);
+    // if (!userEmail) return;
+    // formData.groupUserEmails.push(userEmail);
     createGroup(formData, navigate);
   };
   return (
