@@ -79,7 +79,7 @@ const GroupList = () => {
 
       <div className='title'>
         <h3>Add Group</h3>
-          <button className='icon-btn'>
+        <button className='icon-btn' onClick={() => navigate('/group/create-group')}>
             <i className="fa-solid fa-plus" />
         </button>
       </div>
