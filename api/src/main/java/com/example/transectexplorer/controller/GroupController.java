@@ -55,38 +55,6 @@ public class GroupController {
         return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 
-    @GetMapping("/groupLeader/{userId}")
-    @PreAuthorize("@authenticationService.authorizeUser(#userId)")
-    public ResponseEntity<List<Group>> getGroupsByGroupLeaderId(@PathVariable Long userId) {
-        Optional<User> user = userRepository.findById(userId);
-
-        if (user.isPresent()) {
-            return new ResponseEntity<>(groupRepository.findByGroupLeader(user.get()), HttpStatus.OK);
-        }
-
-        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-    }
-
-    @GetMapping("/groupUser/{userId}")
-    @PreAuthorize("@authenticationService.authorizeUser(#userId)")
-    public ResponseEntity<List<Group>> getGroupsByGroupUserId(@PathVariable Long userId) {
-        Optional<User> user = userRepository.findById(userId);
-
-        if (user.isPresent()) {
-            List<GroupUser> groupUsers = groupUserRepository.findByGroupUser(user.get());
-
-            // Get the groups that the user is in
-            List<Group> groups = new ArrayList<>();
-            for (GroupUser groupUser : groupUsers) {
-                groups.add(groupUser.getGroup());
-            }
-
-            return new ResponseEntity<>(groups, HttpStatus.OK);
-        }
-
-        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-    }
-
     @GetMapping("/userGroups/{userId}")
     @PreAuthorize("@authenticationService.authorizeUser(#userId)")
     public ResponseEntity<UserGroupsDTO> getUserGroups(@PathVariable Long userId) {
