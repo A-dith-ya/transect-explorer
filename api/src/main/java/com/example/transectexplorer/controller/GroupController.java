@@ -40,14 +40,16 @@ public class GroupController {
         if (group.isPresent()) {
             List<GroupUser> groupUsers = groupUserRepository.findByGroup(group.get());
 
-            // Get the emails of the users in the group
+            // Get the usernames and emails of the users in the group
             List<String> groupUserEmails = new ArrayList<>();
+            List<String> groupUserNames = new ArrayList<>();
             for (GroupUser groupUser : groupUsers) {
                 groupUserEmails.add(groupUser.getUser().getUserEmail());
+                groupUserNames.add(groupUser.getUser().getUsername());
             }
 
             return new ResponseEntity<>(new GroupDTO(group.get().getId(), group.get().getGroupName(),
-                    group.get().getGroupLeaderId(), groupUserEmails), HttpStatus.OK);
+                    group.get().getGroupLeaderId(), groupUserEmails, groupUserNames), HttpStatus.OK);
         }
 
         return new ResponseEntity<>(HttpStatus.NOT_FOUND);
@@ -147,19 +149,22 @@ public class GroupController {
                     groupUserRepository.delete(groupUser);
                 }
 
-                // Add the users to the group by their email
                 List<String> groupUserEmails = new ArrayList<>();
+                List<String> groupUserNames = new ArrayList<>();
+
+                // Add the users to the group by their email
                 for (String email : group.getGroupUserEmails()) {
                     Optional<User> user = userRepository.findByUserEmail(email);
                     if (user.isPresent()) {
                         GroupUser groupUser = new GroupUser(updatedGroup, user.get());
                         groupUserRepository.save(groupUser);
                         groupUserEmails.add(groupUser.getUser().getUserEmail());
+                        groupUserNames.add(groupUser.getUser().getUsername());
                     }
                 }
 
                 return new ResponseEntity<>(new GroupDTO(updatedGroup.getId(), updatedGroup.getGroupName(),
-                        groupLeader.get().getId(), groupUserEmails), HttpStatus.OK);
+                        groupLeader.get().getId(), groupUserEmails, groupUserNames), HttpStatus.OK);
             }
 
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
