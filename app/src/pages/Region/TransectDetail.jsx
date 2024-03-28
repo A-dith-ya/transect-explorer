@@ -37,8 +37,8 @@ const TransectDetail = () => {
   const geoCenter = calculateCenter(testGeo.geometry.coordinates[0]);
 
   return (
-    <div className="edit">
-      <div className="edit-title">
+    <div className="details-page">
+      <div className="details-page-title">
         <button className="icon-btn" onClick={() => navigate("/region")}>
           <i className="fa-solid fa-arrow-left"></i>
         </button>
