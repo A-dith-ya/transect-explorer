@@ -6,10 +6,10 @@ axios.defaults.withCredentials = true;
 const createTransect = async (formData, navigate) => {
   try {
     const transectData = {
-      groupId: 1,
+      groupId: formData.group,
       userCreatorId: formData.creatorId,
       transectName: formData.transectName,
-      description: formData.observation,
+      description: formData.observation || null,
       location: formData.region,
       coordinate: formData.coordinates,
       userCreatorName: formData.creatorName,
