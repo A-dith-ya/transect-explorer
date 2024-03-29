@@ -31,24 +31,41 @@
 }
 
 .text-btn {
-  height: 50px;
-  min-width: 100px;
-  width: auto;
-  background-color: #2A6041;
-  color: #fff;
+  width: 35%;
+  padding: 10px;
+  margin-top: 30px;
 
-  font-size: calc(.875rem*var(--ifm-button-size-multiplier));
+  background-color: #2ceaa3;
+  color: white;
+  font-size: 18px;
 
-  border-style: none;
+  cursor: pointer;
+
+  outline: none;
   border-radius: 5px;
+  border: none;
 }
 
 .text-btn:hover {
-  transition: 0.5s;
+  transition: 0.25s;
 
   background-color: #d3d3d3;
 
   color: #333;
+}
+
+/***** FOR TWO BUTTON DIV *****/
+
+div.btn-div {
+  width: 500px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 50px;
+}
+
+div.btn-div button.text-btn {
+  width: 100px;
 }
 
 .icon-btn {
@@ -98,4 +115,27 @@
 
 .table-div tr:hover {
   background-color: #d3d3d3;
+}
+
+div.details-page {
+  text-align: left;
+  padding: 2rem 1rem;
+  display: flex;
+  flex-flow: column wrap;
+  
+  align-items: start;
+  align-content: center;
+}
+
+div.details-page-title {
+  display: flex;
+  flex-flow: row nowrap;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 10px;
+
+  padding: 0;
+  margin: 0;
+
+  height: 70px;
 }
