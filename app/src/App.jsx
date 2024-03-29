@@ -17,6 +17,8 @@ import NotFound from "./pages/Error/NotFound";
 import "./App.css";
 import EditPreferences from "./pages/Settings/Edit/EditPreferences";
 import GroupList from "./pages/Group/GroupList";
+import ProtectedRoute from "./components/routing/ProtectedRoute";
+
 function App() {
   return (
     <Router>
@@ -25,7 +27,14 @@ function App() {
         <Route path="/" element={<HomePage />} />
         <Route path="/login" element={<LoginForm />} />
         <Route path="/register" element={<RegisterForm />} />
-        <Route path="/region" element={<TransectList />} />
+        <Route
+          path="/region"
+          element={
+            <ProtectedRoute>
+              <TransectList />
+            </ProtectedRoute>
+          }
+        />
         <Route path="/region/transect" element={<TransectDetail />} />
         <Route path="/map" element={<MapPage />} />
         <Route path="/group" element={<GroupList />} />
