@@ -15,5 +15,5 @@ public interface TransectRepository extends CrudRepository<Transect, Long> {
     @Query("SELECT new com.example.transectexplorer.dto.TransectDTO(t.id, t.transectName, t.description, t.location, t.coordinate, t.userCreator.userName) FROM Transect t WHERE t.group = ?1")
     List<TransectDTO> findByGroup(Group group);
 
-    List<Transect> findByCreator(User userCreator);
+    List<Transect> findByUserCreator(User userCreator);
 }
