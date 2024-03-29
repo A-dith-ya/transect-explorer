@@ -1,39 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import { getTransectsByCreatorId } from "../../services/TransectService";
 import "./index.css";
-
-// Mock function to simulate fetching transects for a specific group
-// Replace this with your actual API call
-const fetchTransectsForGroup = async (groupId) => {
-  // Example transects fetched from the backend for a specific group
-  const transects = [
-    {
-      id: 1,
-      transectName: "Transect A",
-      description: "Description A",
-      location: "Region 1",
-      coordinate: "Coord A",
-    },
-    {
-      id: 2,
-      transectName: "Transect B",
-      description: "Description B",
-      location: "Region 1",
-      coordinate: "Coord B",
-    },
-    {
-      id: 3,
-      transectName: "Transect C",
-      description: "Description C",
-      location: "Region 2",
-      coordinate: "Coord C",
-    },
-    // Add more transects as needed
-  ];
-
-  // Simulating fetching transects related to the selected group
-  return transects;
-};
 
 const TransectList = ({ selectedGroupId }) => {
   const [transects, setTransects] = useState([]);
@@ -42,12 +10,18 @@ const TransectList = ({ selectedGroupId }) => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    const fetchAndSetTransects = async () => {
-      const fetchedTransects = await fetchTransectsForGroup(selectedGroupId);
-      setTransects(fetchedTransects);
+    const fetchTransects = async () => {
+      try {
+        const fetchedTransects = await getTransectsByCreatorId();
+        if (fetchedTransects) {
+          setTransects(fetchedTransects);
+        }
+      } catch (error) {
+        console.error("Error fetching transects:", error);
+      }
     };
 
-    fetchAndSetTransects();
+    fetchTransects();
   }, [selectedGroupId]);
 
   const sortTransects = (columnName) => {
@@ -86,11 +60,11 @@ const TransectList = ({ selectedGroupId }) => {
                 </button>
               </th>
               <th>Description</th>
-              <th onClick={() => sortTransects("location")}>
+              <th>
                 Location
                 <button
                   className="button_arrows"
-                  onClick={() => sortTransects("transectName")}
+                  onClick={() => sortTransects("location")}
                 >
                   <i className="fa-solid fa-arrows-alt-v"></i>
                 </button>
