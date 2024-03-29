@@ -1,5 +1,5 @@
 import axios from "axios";
-import { toast } from 'react-toastify';
+import { toast } from "react-toastify";
 
 const baseURL = "http://localhost:8080/transects";
 axios.defaults.withCredentials = true;
@@ -18,23 +18,25 @@ const createTransect = async (formData, navigate) => {
 
     console.log(transectData);
 
-    await axios.post(baseURL, transectData);
-
-    navigate("/"); // FUTUREWORK navigate to the transect list page
+    await axios.post(baseURL, transectData).then((response) => {
+      console.log(response);
+      toast.success(transectData.transectName + " Created!");
+      navigate("/region"); // FUTUREWORK navigate to the transect list page
+    });
   } catch (error) {
     console.log(error);
-    toast.error("Error creating group: " + error.message);
+    toast.error("Error creating transect: " + error.message);
   }
 };
 
-async function getTransects (uri_endpoint) {
+async function getTransects(uri_endpoint) {
   try {
     const result = await axios.get(`${baseURL}/${uri_endpoint}`);
     return result.data;
   } catch (error) {
     console.log(error);
   }
-};
+}
 
 const getTransectID = async (id) => {
   try {
@@ -56,9 +58,4 @@ const deleteTransect = async (id, navigate) => {
   }
 };
 
-export {
-  createTransect,
-  getTransects,
-  getTransectID,
-  deleteTransect,
-};
+export { createTransect, getTransects, getTransectID, deleteTransect };
