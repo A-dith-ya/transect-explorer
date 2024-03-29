@@ -19,3 +19,9 @@ node_modules/
 
 ### VS Code ###
 .vscode/
+
+# Ignore platform-specific directories
+android/
+
+# Ignore build output
+dist/
