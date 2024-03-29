@@ -14,7 +14,18 @@ export const addTransectFormSchema = (groupOptions) => {
       },
       region: {
         title: "Region",
-        enum: ["Option 1", "Option 2", "Option 3"],
+        enum: [
+          "Northeast Pacific",
+          "Coast and Mountains",
+          "Georgian Depression",
+          "Central Interior",
+          "Sub-Boreal Interior",
+          "Southern Interior Mountains",
+          "Southern Alaska Mountains",
+          "Southern Interior",
+          "Boreal Plains",
+          "Taiga Plains",
+        ],
       },
       observation: {
         title: "Observation",
