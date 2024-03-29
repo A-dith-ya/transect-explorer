@@ -25,13 +25,13 @@ public class Transect extends BaseEntity {
     @Column(nullable = false, length = 50)
     private String transectName;
 
-    @Column(nullable = false, length = 50)
+    @Column(nullable = true, length = 250)
     private String description;
 
     @Column(nullable = false, length = 50)
     private String location;
 
-    @Column(nullable = false, length = 50)
+    @Column(nullable = false, length = 200)
     private String coordinate;
 
     protected Transect() {
