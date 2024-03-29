@@ -13,7 +13,7 @@ import ObjectFieldTemplate from "../../components/rjsf/template/ObjectFieldTempl
 import GroupArrayFieldTemplate from "../../components/rjsf/template/GroupArrayFieldTemplate";
 import SubmitButton from "../../components/rjsf/template/SubmitButton";
 import TransectList from '../../components/transects/TransectList';
-import GroupList from '../../components/group/GroupList';
+import MemberList from '../../components/group/MemberList';
 import "./index.css";
 
 const GroupDetail = () => {
@@ -92,7 +92,7 @@ const GroupDetail = () => {
         <h1>{formData?.groupName}</h1>
       </div>
 
-      <div style={{minWidth: 500}}>
+      <div>
         {editable && (
           <FormContainer
             schema={{ ...groupFormSchema, button: "Update" }}
@@ -115,7 +115,7 @@ const GroupDetail = () => {
         <>
           <div>
             <h2>Members</h2>
-            <GroupList data={members} />
+            <MemberList data={members} />
           </div>
 
           <div>

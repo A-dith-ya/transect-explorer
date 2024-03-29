@@ -1,13 +1,13 @@
 
 
-export default GroupList
+export default MemberList
 
-function GroupList ({data}) {
+function MemberList ({data}) {
 
   console.log(data);
 
   return (
-    <div className='table-div'>
+    <div className='table-div member-list'>
       <table>
         <thead>
           <tr>
