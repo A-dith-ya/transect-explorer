@@ -9,6 +9,21 @@ const getTransectID = async (id) => {
     return result.data;
   } catch (error) {
     console.log(error);
-    toast.error("Error getting group ID: " + error.message);
+    toast.error("Error getting transectID: " + error.message);
   }
 };
+const deleteTransect = async (id, navigate) => {
+  try {
+    await axios.delete(`${baseURL}/${id}`);
+    navigate("/transect");
+  } catch (error) {
+    console.log(error);
+    toast.error("Error deleting transect: " + error.message);
+  }
+};
+export {
+  getTransectID,
+  deleteTransect,
+};
+
+
