@@ -92,7 +92,7 @@ public class TransectController {
     }
 
     @GetMapping("/users/{id}")
-    public ResponseEntity<List<TransectDTO>> getTransectsByUserCreatorId(@PathVariable Long id) {
+    public ResponseEntity<List<TransectDTO>> getTransectsByCreatorId(@PathVariable Long id) {
         Optional<User> user = userRepository.findById(id);
         if (user.isPresent()) {
             List<Transect> transects = transectRepository.findByUserCreator(user.get());

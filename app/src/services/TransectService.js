@@ -56,7 +56,7 @@ const deleteTransect = async (id, navigate) => {
   }
 };
 
-const getTransectsByUserCreatorId = async () => {
+const getTransectsByCreatorId = async () => {
   try {
     const userCreatorId = sessionStorage.getItem("id");
     if (userCreatorId) {
@@ -77,5 +77,5 @@ export {
   getTransects,
   getTransectID,
   deleteTransect,
-  getTransectsByUserCreatorId,
+  getTransectsByCreatorId,
 };

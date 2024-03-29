@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { getTransectsByUserCreatorId } from "../../services/TransectService";
+import { getTransectsByCreatorId } from "../../services/TransectService";
 import "./index.css";
 
 const TransectList = ({ selectedGroupId }) => {
@@ -12,7 +12,7 @@ const TransectList = ({ selectedGroupId }) => {
   useEffect(() => {
     const fetchTransects = async () => {
       try {
-        const fetchedTransects = await getTransectsByUserCreatorId();
+        const fetchedTransects = await getTransectsByCreatorId();
         if (fetchedTransects) {
           setTransects(fetchedTransects);
         }
