@@ -2,12 +2,13 @@ import React from "react";
 import addIcon from "../../../assets/add-item-icon.png";
 
 const ArrayFieldTemplate = (props) => {
-
   const transformItemTitle = (arrayTitle, title) => {
     // Remove the "s" at the end of the arrayTitle if it exists
-    arrayTitle = arrayTitle.endsWith("s") ? arrayTitle.slice(0, -1) : arrayTitle;
+    arrayTitle = arrayTitle.endsWith("s")
+      ? arrayTitle.slice(0, -1)
+      : arrayTitle;
     // Split the title by '-'
-    const parts = title.split('-');
+    const parts = title.split("-");
     // Convert the second part to an integer
     const index = parseInt(parts[1]);
     // Return the transformed title
@@ -20,16 +21,23 @@ const ArrayFieldTemplate = (props) => {
       return {
         ...element,
         children: [
-          React.cloneElement(element.children, { key: index, title: transformItemTitle(props.title, element.children.props.title) })
-        ]
+          React.cloneElement(element.children, {
+            key: index,
+            title: transformItemTitle(
+              props.title,
+              element.children.props.title
+            ),
+          }),
+        ],
       };
-    })
+    }),
   };
 
-  const addButtonIcon = props.registry.templates.addButtonIcon || "fa-solid fa-plus";
-  const removeButtonIcon = props.registry.templates.removeButtonIcon || "fa-solid fa-xmark";
+  const addButtonIcon =
+    props.registry.templates.addButtonIcon || "fa-solid fa-plus";
+  const removeButtonIcon =
+    props.registry.templates.removeButtonIcon || "fa-solid fa-xmark";
 
-  console.log(props);
   return (
     <div className="arrayfield">
       <div className="arrayfield__title">

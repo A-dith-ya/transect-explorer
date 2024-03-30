@@ -90,4 +90,26 @@ public class TransectController {
 
         return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
+
+    @GetMapping("/users/{id}")
+    public ResponseEntity<List<TransectDTO>> getTransectsByCreatorId(@PathVariable Long id) {
+        Optional<User> user = userRepository.findById(id);
+        if (user.isPresent()) {
+            List<Transect> transects = transectRepository.findByUserCreator(user.get());
+            List<TransectDTO> transectDTOs = transects.stream()
+                    .map(transect -> new TransectDTO(
+                            transect.getId(),
+                            transect.getGroup().getId(),
+                            transect.getUserCreator().getId(),
+                            transect.getTransectName(),
+                            transect.getDescription(),
+                            transect.getLocation(),
+                            transect.getCoordinate(),
+                            transect.getUserCreator().getUsername()
+                    ))
+                    .toList();
+            return new ResponseEntity<>(transectDTOs, HttpStatus.OK);
+        }
+        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+    }
 }
