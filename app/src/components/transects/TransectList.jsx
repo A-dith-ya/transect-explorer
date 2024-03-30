@@ -48,7 +48,7 @@ function TransectList ({ group_id=undefined, user_id=undefined }) {
   };
 
   return (
-    <div className="table-div">
+    <div className="table-div transect-list">
       <table>
         <thead>
           <tr>

@@ -73,6 +73,6 @@ jwt=$(echo "$login_response" | grep 'Set-Cookie: jwt=' | awk -F ' ' '{print $2}'
 
 echo -e "\nTOKEN: \"$jwt\""
 
-group_post_response=$(curl -i -X POST -b "jwt=$jwt" -H "Content-Type: application/json" -d '{"groupLeaderId": "5", "groupName": "Qool Quan Qlub", "groupUserEmails": ["ad@gmail.com", "brian@gmail.com"]}' "$url/groups")
+group_post_response=$(curl -i -X POST -b "jwt=$jwt" -H "Content-Type: application/json" -d '{"groupLeaderId": "2", "groupName": "Qool Quan Qlub", "groupUserEmails": ["ad@gmail.com", "brian@gmail.com"]}' "$url/groups")
 
 echo -e "\n\n$group_post_response"
