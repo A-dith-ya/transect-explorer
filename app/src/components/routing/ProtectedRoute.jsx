@@ -3,7 +3,11 @@ import { useContext } from "react";
 import AuthContext from "../../contexts/AuthContext";
 
 const ProtectedRoute = ({ children }) => {
-  const { isAuthenticated } = useContext(AuthContext);
+  const { isAuthenticated, isAuthenticating } = useContext(AuthContext);
+
+  if (isAuthenticating) {
+    return <div>Have patience my G... </div>;
+  }
 
   if (isAuthenticated) {
     return children;

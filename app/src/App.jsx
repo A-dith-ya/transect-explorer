@@ -35,13 +35,62 @@ function App() {
             </ProtectedRoute>
           }
         />
-        <Route path="/region/transect" element={<TransectDetail />} />
-        <Route path="/map" element={<MapPage />} />
-        <Route path="/group" element={<GroupList />} />
-        <Route path="/group/create-group" element={<GroupForm />} />
-        <Route path="/group/:id" element={<GroupDetail />} />
-        <Route path="/settings" element={<SettingsPage />} />
-        <Route path="/add" element={<AddTransect />} />
+        <Route
+          path="/region/transect"
+          element={
+            <ProtectedRoute>
+              <TransectDetail />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/map"
+          element={
+            <ProtectedRoute>
+              <MapPage />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/group"
+          element={
+            <ProtectedRoute>
+              <GroupList />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/group/create-group"
+          element={
+            <ProtectedRoute>
+              <GroupForm />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/group/:id"
+          element={
+            <ProtectedRoute>
+              <GroupDetail />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/settings"
+          element={
+            <ProtectedRoute>
+              <SettingsPage />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/add"
+          element={
+            <ProtectedRoute>
+              <AddTransect />
+            </ProtectedRoute>
+          }
+        />
         <Route path="*" element={<NotFound />} />
       </Routes>
     </Router>
