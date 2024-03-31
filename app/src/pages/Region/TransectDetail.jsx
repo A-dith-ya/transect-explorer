@@ -1,39 +1,43 @@
 import React, { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { MapContainer, TileLayer, GeoJSON } from "react-leaflet";
 import { calculateCenter } from "../../components/map/helpers/Calculate";
 import "./index.css";
+import { getTransectID } from "../../services/TransectService";
 
 const testGeo = {
-  "type": "Feature",
-  "properties": {},
-  "geometry": {
-    "coordinates": [
+  type: "Feature",
+  properties: {},
+  geometry: {
+    coordinates: [
       [
-        [
-          -120.37587910166974,
-          50.67866461714672
-        ],
-        [
-          -120.36082002098189,
-          50.675189966985414
-        ],
-        [
-          -120.36656837136101,
-          50.68346898565048
-        ],
-        [
-          -120.37587910166974,
-          50.67866461714672
-        ]
-      ]
+        [-120.37587910166974, 50.67866461714672],
+        [-120.36082002098189, 50.675189966985414],
+        [-120.36656837136101, 50.68346898565048],
+        [-120.37587910166974, 50.67866461714672],
+      ],
     ],
-    "type": "Polygon"
-  }
-}
+    type: "Polygon",
+  },
+};
 
 const TransectDetail = () => {
   const navigate = useNavigate();
+  const { id } = useParams();
+  const [transect, setTransect] = useState(null);
+
+  useEffect(() => {
+    const fetchTransect = async () => {
+      try {
+        const fetchedTransect = await getTransectID(id);
+        setTransect(fetchedTransect);
+      } catch (error) {
+        console.error("Error fetching transect:", error);
+      }
+    };
+    fetchTransect();
+  }, [id]);
+
   const geoCenter = calculateCenter(testGeo.geometry.coordinates[0]);
 
   return (
@@ -42,30 +46,28 @@ const TransectDetail = () => {
         <button className="icon-btn" onClick={() => navigate("/region")}>
           <i className="fa-solid fa-arrow-left"></i>
         </button>
-        <h2>Transect Name</h2>
+        <h2>{transect.transectName}</h2>
       </div>
 
       <h3>Region</h3>
-      <p>Interior</p>
+      <p>{transect.location}</p>
 
       <h3>Description</h3>
-      <p>Lorem ipsum" is a placeholder text commonly used in the design and publishing industries to demonstrate the visual form of a document or a typeface without relying on meaningful content. It allows designers to focus on the layout and design aspects without being distracted by the actual content.</p>
+      <p>{transect.description}</p>
 
-      <div style={{ width: '90vw', height: '350px', paddingBottom: '5rem' }}>
+      <div style={{ width: "90vw", height: "350px", paddingBottom: "5rem" }}>
         <MapContainer
           id="cool-map"
           center={geoCenter}
           zoom={13}
           scrollWheelZoom={true}
-          zoomControl={false}>
-
-          <TileLayer url='https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png' />
+          zoomControl={false}
+        >
+          <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
 
           <GeoJSON key={Math.random()} data={testGeo} />
-
         </MapContainer>
       </div>
-
     </div>
   );
 };

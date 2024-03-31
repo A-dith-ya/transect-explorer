@@ -36,7 +36,7 @@ function App() {
           }
         />
         <Route
-          path="/region/transect"
+          path="/region/transect/:id"
           element={
             <ProtectedRoute>
               <TransectDetail />
