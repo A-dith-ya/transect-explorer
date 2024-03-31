@@ -76,7 +76,7 @@ const TransectList = ({ selectedGroupId }) => {
             {transects.map((transect) => (
               <tr
                 key={transect.id}
-                onClick={() => navigate("/region/transect")}
+                onClick={() => navigate(`/region/transect/${transect.id}`)}
               >
                 <td>{transect.transectName}</td>
                 <td>{transect.description}</td>
