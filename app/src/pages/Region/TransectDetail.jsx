@@ -46,14 +46,14 @@ const TransectDetail = () => {
         <button className="icon-btn" onClick={() => navigate("/region")}>
           <i className="fa-solid fa-arrow-left"></i>
         </button>
-        <h2>{transect.transectName}</h2>
+        <h2>{transect ? transect.transectName : "Loading ..."}</h2>
       </div>
 
       <h3>Region</h3>
-      <p>{transect.location}</p>
+      <p>{transect ? transect.location : "Loading ..."}</p>
 
       <h3>Description</h3>
-      <p>{transect.description}</p>
+      <p>{transect ? transect.description : "Loading ..."}</p>
 
       <div style={{ width: "90vw", height: "350px", paddingBottom: "5rem" }}>
         <MapContainer
