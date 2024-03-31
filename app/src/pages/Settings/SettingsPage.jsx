@@ -7,6 +7,15 @@ import { useRef } from "react";
 const SettingsPage = () => {
   const [userData, setUserData] = useState(null);
   const dialogRef = useRef();
+  const [selected, setSelected] = useState(null);
+
+  const toggle = (index) => {
+    if (selected == index) {
+      return setSelected(null);
+    }
+
+    setSelected(index);
+  };
 
   useEffect(() => {
     const fetchUserData = async () => {
@@ -20,123 +29,59 @@ const SettingsPage = () => {
     fetchUserData();
   }, []);
 
-  return (
-    <div className="page">
-      <div className="panel">
-        <button style={{
-        }}>
-          Account
-        </button>
-        <button>
-          Preferences
-        </button>
-        <button id="deactivate" className="text-btn"
-          onClick={function () {
-            dialogRef.current.showModal();
-          }}
-        >
-          Deactivate Account
-        </button>
-      </div>
-      <div>
-      <div className="settings" style={{display: 'flex', flexFlow: 'column wrap', alignItems: 'start'}}>
-        <h3> Account Settings </h3>
-        <form>
-          {userData ? (
-            <p> {userData.username} </p>
-          ) : (
-            <ul>
-              <li>
-                {" "}
-                <h5>Username:</h5> <input />{" "}
-              </li>
-              <li>
-                {" "}
-                <h5>Email:</h5> <input />{" "}
-              </li>
-              <li>
-                {" "}
-                <h5>Password:</h5> <input />
-              </li>
-            </ul>
-          )}
-          <div className="edit" style={{display: 'flex', flexFlow: 'row nowrap'}}>
-            <button className="text-btn"> Save </button>
+  const data = [
+    {
+      title: "Username",
+      value: "TestUser",
+    },
+    {
+      title: "Email",
+      value: "UserEmailAddress",
+    },
+    {
+      title: "Password",
+      value: "Change password",
+    },
+    {
+      title: "Logout",
+      value: "Are you sure you want to logout?",
+    },
+  ];
 
-            <button className="text-btn"> Cancel </button>
-          </div>
-        </form>
-        <div id="myModal" className="modal">
-          {" "}
+  return (
+    <div className="settings-page">
+      <div className="settings-page-title">Account Settings</div>
+      <div className="wrapper">
+        <div className="accordion">
+          {data.map((item, index) => (
+            <div className="accordion-item">
+              <div
+                className="accordion-item-title"
+                onClick={() => toggle(index)}
+              >
+                <h2>{item.title}</h2>
+                {selected === index ? (
+                  <i className="fa-solid fa-caret-up"></i> // Use different icon when selected
+                ) : (
+                  <i className="fa-solid fa-caret-down"></i>
+                )}
+              </div>
+              <div
+                className={
+                  selected === index
+                    ? "accordion-item-content show"
+                    : "accordion-item-content"
+                }
+              >
+                {item.value}
+                <button>Button</button>
+              </div>
+            </div>
+          ))}
         </div>
       </div>
-      <dialog ref={dialogRef}>
-        <form method="dialog">
-          Are you sure you want to deactivate your account?
-          <div className="dialog">
-            <button>Yes</button>
-            <button
-              onClick={function () {
-                dialogRef.current.close();
-              }}
-            >
-              No
-            </button>
-          </div>
-        </form>
-      </dialog></div>
     </div>
   );
 };
 
 export default SettingsPage;
-
-/**
-      <div className="settings">
-        <h3> Account Settings </h3>
-        <SettingsList />
-        <form>
-          {userData ? (
-            <p> {userData.username} </p>
-          ) : (
-            <ul>
-              <li>
-                {" "}
-                <h5>Username:</h5> <input />{" "}
-              </li>
-              <li>
-                {" "}
-                <h5>Email:</h5> <input />{" "}
-              </li>
-              <li>
-                {" "}
-                <h5>Password:</h5> <input />
-              </li>
-            </ul>
-          )}
-          <div className="edit">
-            <button style={{ }} className="text-btn">Save</button>
-
-            <button className="text-btn">Cancel</button>
-          </div>
-        </form>
-        <div id="myModal" className="modal">
-          {" "}
-        </div>
-      </div>
-      <dialog ref={dialogRef}>
-        <form method="dialog">
-          Are you sure you want to deactivate your account?
-          <div className="dialog">
-            <button>Yes</button>
-            <button
-              onClick={function () {
-                dialogRef.current.close();
-              }}
-            >
-              No
-            </button>
-          </div>
-        </form>
-      </dialog>
- */
