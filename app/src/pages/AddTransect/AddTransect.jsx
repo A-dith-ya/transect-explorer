@@ -4,7 +4,11 @@ import FormContainer from "../../components/rjsf/FormContainer";
 import { addTransectFormSchema } from "../../components/rjsf/schema/AddTransectFormSchema";
 import UISchemas from "../../components/rjsf/UISchema/UISchema";
 import { useNavigate, useParams } from "react-router-dom";
-import { createTransect, getTransectID } from "../../services/TransectService";
+import {
+  createTransect,
+  getTransectID,
+  updateTransect,
+} from "../../services/TransectService";
 import { getUserGroup } from "../../services/GroupService";
 
 const AddTransect = () => {
@@ -75,8 +79,7 @@ const AddTransect = () => {
     };
 
     try {
-      // await updateTransect(formDataUpdated);
-      setEditable(false);
+      await updateTransect(formDataUpdated, id, navigate);
     } catch (error) {
       console.error("Error updating transect:", error);
     }
