@@ -101,9 +101,9 @@ const AddTransect = () => {
   return (
     <div className='page'>
 
-      <div className='title'>
+      {/*<div className='title'>
         <h2>Create transect</h2>
-      </div>
+        </div>*/}
 
       <FormContainer
         uiSchema={UISchemas.addTransectUISchema}
