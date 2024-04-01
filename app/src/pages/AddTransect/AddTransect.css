@@ -6,3 +6,17 @@
     height: calc(100vh - 5rem); /* Adjust for navbar height */
     margin-bottom: 5rem;
 }
+
+div.page {
+  display: flex;
+  flex-flow: column wrap;
+  align-items: center;
+  padding-bottom: 7rem;
+}
+
+#transect-map {
+  width: 70vw;
+  height: 600px;
+  padding-bottom: 1rem;
+  z-index: 5;
+}

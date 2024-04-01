@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import "./AddTransect.css";
 import FormContainer from "../../components/rjsf/FormContainer";
 import { addTransectFormSchema } from "../../components/rjsf/schema/AddTransectFormSchema";
@@ -10,6 +10,11 @@ import {
   updateTransect,
 } from "../../services/TransectService";
 import { getUserGroup } from "../../services/GroupService";
+/***** MAP IMPORTS *****/
+import { MapContainer, TileLayer, GeoJSON } from "react-leaflet";
+import DrawingBar from "../../components/map/DrawingBar";
+import DrawPoly from "../../components/map/buttons/DrawPoly";
+import FetchPosition from "../../components/map/buttons/FetchPosition";
 
 const AddTransect = () => {
   const navigate = useNavigate();
@@ -173,11 +178,37 @@ const AddTransect = () => {
           />
         </>
       ) : (
-        <FormContainer
-          uiSchema={UISchemas.addTransectUISchema}
-          schema={addTransectFormSchema(groupOptions)}
-          onSubmitAction={handleCreateTransect}
-        />
+        <div className='page'>
+
+          {/*<div className='title'>
+            <h2>Create transect</h2>
+            </div>*/}
+
+          <FormContainer
+            uiSchema={UISchemas.addTransectUISchema}
+            schema={addTransectFormSchema(groupOptions)}
+            onSubmitAction={handleCreateTransect}
+          />
+
+          <div>
+            <MapContainer
+              id="transect-map"
+              center={[55,-122]}
+              zoom={7}
+              scrollWheelZoom={true}
+              zoomControl={false}>
+
+              <DrawingBar>
+                <DrawPoly />
+                <FetchPosition />
+              </DrawingBar>
+
+              <TileLayer url='https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png' />
+
+            </MapContainer>
+          </div>
+
+        </div>
       )}
     </>
   );

@@ -12,8 +12,6 @@ function MapPage() {
       scrollWheelZoom={true}
       zoomControl={false}>
 
-      <DrawingBar />
-
       <TileLayer
         url='https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png' />
 
