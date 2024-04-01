@@ -45,6 +45,17 @@ public class TransectDTO {
         this.userCreatorName = userCreatorName;
     }
 
+    public TransectDTO(Long id, Long groupId, String transectName, String description, String location, String coordinate,
+            String userCreatorName) {
+        this.id = id;
+        this.groupId = groupId;
+        this.transectName = transectName;
+        this.description = description;
+        this.location = location;
+        this.coordinate = coordinate;
+        this.userCreatorName = userCreatorName;
+    }
+
     public Long getId() {
         return id;
     }

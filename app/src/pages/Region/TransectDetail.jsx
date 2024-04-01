@@ -68,6 +68,12 @@ const TransectDetail = () => {
           <GeoJSON key={Math.random()} data={testGeo} />
         </MapContainer>
       </div>
+      <button
+        className="text-btn"
+        onClick={() => navigate(`/add/${transect.id}`)}
+      >
+        {"Edit"}
+      </button>
     </div>
   );
 };
