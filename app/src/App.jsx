@@ -91,6 +91,14 @@ function App() {
             </ProtectedRoute>
           }
         />
+        <Route
+          path="/add/:id"
+          element={
+            <ProtectedRoute>
+              <AddTransect />
+            </ProtectedRoute>
+          }
+        />
         <Route path="*" element={<NotFound />} />
       </Routes>
     </Router>

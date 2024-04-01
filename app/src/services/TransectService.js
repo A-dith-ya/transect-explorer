@@ -29,6 +29,30 @@ const createTransect = async (formData, navigate) => {
   }
 };
 
+const updateTransect = async (formData, id, navigate) => {
+  try {
+    const transectData = {
+      id: id,
+      groupId: formData.group,
+      transectName: formData.transectName,
+      description: formData.observation || null,
+      location: formData.region,
+      coordinate: formData.coordinates,
+    };
+
+    console.log(transectData);
+
+    await axios.put(`${baseURL}/${id}`, transectData).then((response) => {
+      console.log(response);
+      toast.success(transectData.transectName + " Updated!");
+      navigate(`/region/transect/${id}`);
+    });
+  } catch (error) {
+    console.log(error);
+    toast.error("Error updating transect: " + error.message);
+  }
+};
+
 async function getTransects(uri_endpoint) {
   try {
     const result = await axios.get(`${baseURL}/${uri_endpoint}`);
@@ -80,4 +104,5 @@ export {
   getTransectID,
   deleteTransect,
   getTransectsByCreatorId,
+  updateTransect,
 };
