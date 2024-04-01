@@ -23,7 +23,7 @@ const GroupArrayFieldTemplate = (props) => {
       </div>
 
       {props.items?.length ? (
-        <div className="form-group-item" style={{}}>
+        <div className="form-group-item">
           {props.items.map((element, index) => (
             <div key={element.key}>
               <div className="form-group-content-item">

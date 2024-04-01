@@ -48,8 +48,13 @@ public class TransectController {
     @GetMapping("/{id}")
     public ResponseEntity<TransectDTO> getTransectById(@PathVariable Long id) {
         return transectRepository.findById(id)
-                .map(transect -> new TransectDTO(transect.getId(), transect.getTransectName(),
-                        transect.getDescription(), transect.getLocation(), transect.getCoordinate(),
+                .map(transect -> new TransectDTO(
+                        transect.getId(), 
+                        transect.getGroup().getId(), 
+                        transect.getTransectName(),
+                        transect.getDescription(), 
+                        transect.getLocation(), 
+                        transect.getCoordinate(),
                         transect.getUserCreator().getUsername()))
                 .map(transectDTO -> new ResponseEntity<>(transectDTO, HttpStatus.OK))
                 .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
