@@ -36,6 +36,17 @@
   border-radius: 5px;
 }
 
+.accordion-item-title.show {
+  display: flex;
+  color: black;
+  background-color: #2ceaa3;
+  width: -webkit-fill-available;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0px 10px;
+  border-radius: 5px 5px 0 0;
+}
+
 .accordion-item-title h2 {
   font-size: 1rem;
 }

@@ -1,13 +1,19 @@
 import React, { useEffect, useState } from "react";
-import SettingsList from "../../components/layout/sidebar/SettingsSidebar";
 import "./index.css";
 import { getUser } from "../../services/UserService";
-import { useRef } from "react";
+import Modal from "../../components/Modal/Modal";
+import UISchemas from "../../components/rjsf/UISchema/UISchema";
+import { resetUsernameFormSchema } from "../../components/rjsf/schema/ResetUsernameFormSchema";
+import { resetEmailFormSchema } from "../../components/rjsf/schema/ResetEmailFormSchema";
+import { resetPasswordFormSchema } from "../../components/rjsf/schema/ResetPasswordFormSchema";
 
 const SettingsPage = () => {
   const [userData, setUserData] = useState(null);
   const [data, setData] = useState([]);
   const [selected, setSelected] = useState(null);
+  const [userModal, setUserModal] = useState(false);
+  const [emailModal, setEmailModal] = useState(false);
+  const [passwordModal, setPasswordModal] = useState(false);
   const id = sessionStorage.getItem("id");
   console.log(userData);
 
@@ -40,6 +46,9 @@ const SettingsPage = () => {
           buttonName: "Username",
           buttonIcon: "fa-solid fa-pen-to-square",
           buttonType: "edit-button",
+          onClick: () => {
+            setUserModal(true);
+          },
         },
         {
           title: "Email",
@@ -47,6 +56,9 @@ const SettingsPage = () => {
           buttonName: "Email",
           buttonIcon: "fa-solid fa-pen-to-square",
           buttonType: "edit-button",
+          onClick: () => {
+            setEmailModal(true);
+          },
         },
         {
           title: "Password",
@@ -54,6 +66,9 @@ const SettingsPage = () => {
           buttonName: " Password",
           buttonIcon: "fa-solid fa-pen-to-square",
           buttonType: "edit-button",
+          onClick: () => {
+            setPasswordModal(true);
+          },
         },
         {
           title: "Logout",
@@ -61,6 +76,10 @@ const SettingsPage = () => {
           buttonName: "Logout",
           buttonIcon: "fa-solid fa-arrow-right-from-bracket",
           buttonType: "delete-button",
+          onClick: () => {
+            // Your function for logout
+            console.log("Logging out");
+          },
         },
       ];
       setData(data);
@@ -75,7 +94,11 @@ const SettingsPage = () => {
           {data.map((item, index) => (
             <div className="accordion-item" key={`${item.title}-${index}`}>
               <div
-                className="accordion-item-title"
+                className={
+                  selected === index
+                    ? "accordion-item-title show"
+                    : "accordion-item-title"
+                }
                 onClick={() => toggle(index)}
               >
                 <h2>{item.title}</h2>
@@ -93,7 +116,7 @@ const SettingsPage = () => {
                 }
               >
                 <div className="accordion-value">{item.value}</div>
-                <button className={item.buttonType}>
+                <button className={item.buttonType} onClick={item.onClick}>
                   {" "}
                   <i className={item.buttonIcon}></i> {item.buttonName}
                 </button>
@@ -102,6 +125,33 @@ const SettingsPage = () => {
           ))}
         </div>
       </div>
+
+      {userModal && (
+        <Modal
+          modal={userModal}
+          setModal={setUserModal}
+          formSchema={resetUsernameFormSchema}
+          uiSchemas={UISchemas.resetUsernameUISchema}
+        />
+      )}
+
+      {emailModal && (
+        <Modal
+          modal={emailModal}
+          setModal={setEmailModal}
+          formSchema={resetEmailFormSchema}
+          uiSchemas={UISchemas.resetEmailUISchema}
+        />
+      )}
+
+      {passwordModal && (
+        <Modal
+          modal={passwordModal}
+          setModal={setPasswordModal}
+          formSchema={resetPasswordFormSchema}
+          uiSchemas={UISchemas.resetPasswordUISchema}
+        />
+      )}
     </div>
   );
 };
