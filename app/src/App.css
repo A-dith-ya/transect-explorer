@@ -12,7 +12,6 @@
   left: 0;
   width: 100%;
   height: calc(100vh - 5rem); /* Adjust for navbar height */
-  margin-bottom: 5rem;
 }
 
 #leaflet-button {
