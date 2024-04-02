@@ -12,7 +12,7 @@ const AuthLayout = () => {
     } else {
       navigate("/");
     }
-  }, []);
+  }, [navigate, user]);
 
   return isLoading ? <p>Loading...</p> : <Outlet />;
 };

@@ -10,9 +10,9 @@ const UserLayout = () => {
     if (user) {
       setIsLoading(false);
     } else {
-      navigate("/");
+      navigate("/login");
     }
-  }, []);
+  }, [user, navigate]);
 
   return isLoading ? <p>Loading...</p> : <Outlet />;
 };
