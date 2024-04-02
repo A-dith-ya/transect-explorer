@@ -4,6 +4,20 @@ import { toast } from "react-toastify";
 const baseURL = "http://localhost:8080/users/";
 
 const registerUser = async (formData, navigate) => {
+    if (formData.username.trim().length < 6)
+      return toast.error("Username must be at least 6 characters");
+
+    if (
+      formData.userEmail &&
+      !/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(formData.userEmail)
+    ) {
+      return toast.error("Invalid Email Address");
+    }
+
+    if (formData.password.trim().length < 6)
+      return toast.error("Password must be at least 6 characters");
+
+
   await axios
     .post(`${baseURL}auth/register`, formData)
     .then((response) => {
@@ -15,7 +29,7 @@ const registerUser = async (formData, navigate) => {
     });
 };
 
-const loginUser = async (formData, navigate, login) => {
+const loginUser = async (formData, navigate) => {
   await axios
     .post(`${baseURL}auth/login`, formData)
     .then((response) => {
@@ -23,8 +37,9 @@ const loginUser = async (formData, navigate, login) => {
       sessionStorage.setItem("userEmail", response.data.userEmail);
       sessionStorage.setItem("username", response.data.username);
       toast.success("Welcome back " + response.data.username + "!");
-      login();
-      navigate("/");
+      // navigate("/");
+
+      window.location.href = '/'
     })
     .catch((error) => {
       console.log(error);

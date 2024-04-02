@@ -9,13 +9,13 @@ const RegisterForm = () => {
   const navigate = useNavigate();
 
   return (
-    <div>
+    <div className="container">
       <FormContainer
         schema={registerFormSchema}
         uiSchema={UISchemas.registerUISchema}
         onSubmitAction={(formData) => registerUser(formData, navigate)}
       />
-      <div mt={5}>
+      <div style={{ paddingBottom: "30px" }}>
         Have an account?{" "}
         <Link
           style={{
