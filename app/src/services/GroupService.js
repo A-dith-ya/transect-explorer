@@ -1,5 +1,6 @@
 import axios from "axios";
-import { toast } from 'react-toastify';
+import { toast } from "react-toastify";
+import { storeGroups } from "./GroupIndexedDBService";
 
 const baseURL = "http://localhost:8080/groups";
 axios.defaults.withCredentials = true;
@@ -22,6 +23,7 @@ const createGroup = async (formData, navigate) => {
 const getUserGroup = async (userId) => {
   try {
     const result = await axios.get(`${baseURL}/userGroups/${userId}`);
+    storeGroups(userId, result.data);
     return result.data;
   } catch (error) {
     console.log(error);
