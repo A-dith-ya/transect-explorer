@@ -5,21 +5,23 @@
   padding-top: 5rem;
   padding-bottom: 7rem;
   margin-top: auto;
-  height: calc(100vh - 5rem); /* Adjust for navbar height */
+  height: calc(100vh - 5rem);
+  /* Adjust for navbar height */
   flex-direction: column;
   align-self: center;
   overflow-y: auto;
 }
 
-.title{
-  text-align: center;
-  font-size: larger;
+.title {
+  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+  display: flex;
+
+  padding-bottom: 1rem;
+  font-size: 2rem;
   font-weight: bold;
-  color: #2a6041;
-  margin-bottom: 2rem;
 }
 
-.login-form .form-group   {
+.login-form .form-group {
   display: flex;
   flex-direction: column;
   text-align: start;
@@ -37,27 +39,27 @@
   min-width: 300px;
 }
 
-.login-form .panel.panel-danger.errors{
+.login-form .panel.panel-danger.errors {
   visibility: hidden;
 }
 
-.login-form .text-danger{
-  color:#ea2c2c;
+.login-form .text-danger {
+  color: #ea2c2c;
   max-width: 250px;
 }
 
-.login-form .control-label{
+.login-form .control-label {
   display: flex;
   flex-direction: row-reverse;
   justify-content: flex-end;
 }
 
-.login-form .required{
+.login-form .required {
   color: #ea2c2c;
   margin-right: 0.1rem;
 }
 
-.login-form textarea{
+.login-form textarea {
   padding: 10px;
   margin-bottom: 10px;
   background-color: white;
@@ -72,7 +74,7 @@
   max-width: 300px;
 }
 
-.btn.btn-danger.array-item-remove{
+.btn.btn-danger.array-item-remove {
   background-color: #ea2c2c;
   outline: none;
   border: none;
@@ -82,27 +84,32 @@
 }
 
 .login-form .submit-button {
-  width: 20%;
+  width: 35%;
   padding: 10px;
   margin-top: 30px;
   background-color: #2ceaa3;
+  color: white;
   border-radius: 5px;
   outline: none;
   border: none;
   cursor: pointer;
-  font-size: "18px";
+  font-size: 18px;
 }
 
-.login-form label{
+.login-form .submit-button i {
+  margin-left: 10px;
+}
+
+.login-form label {
   font-weight: bold;
-  font-size: 18px; /*match h3 size*/
+  font-size: 18px;
+  /*match h3 size*/
 }
 
-.arrayfield__item label{
-  font-weight:400;
+.arrayfield__item label {
+  font-weight: 400;
   font-size: 16px;
 }
-
 
 .link-btn {
   padding: 10px;
@@ -111,28 +118,33 @@
   border-radius: 10px;
 }
 
-
-.arrayfield__title{
+.arrayfield__title {
   display: flex;
-  justify-content: space-between;
+  align-items: center;
 }
-.arrayfield__add-button{
-  width: 30%;
-  margin: 22px 0px;
+
+.arrayfield__add-button {
+  margin: 22px 10px;
   padding: 0px 15px;
   background-color: #2ceaa3;
+  height: 30px;
+  width: 30px;
+  color: white;
   border-radius: 5px;
   outline: none;
   border: none;
   cursor: pointer;
-  font-size: "18px";
+  font-size: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
-.arrayfield__item{
+.arrayfield__item {
   display: flex;
 }
 
-.arrayfield__item input[type="text"]{
+.arrayfield__item input[type="text"] {
   padding: 10px;
   margin-bottom: 10px;
   background-color: white;
@@ -142,20 +154,21 @@
   min-width: 234px;
 }
 
-.arrayfield__remove-button{
-  width: fit-content;
+.arrayfield__remove-button {
+  width: 18%;
   margin-top: 22px;
   margin-bottom: 10px;
   margin-left: auto;
   background-color: #ea2c2c;
+  color: white;
   border-radius: 5px;
   outline: none;
   border: none;
   cursor: pointer;
-  font-size: "18px";
+  font-size: 18px;
 }
 
-.arrayfield__item input[type="file"]{
+.arrayfield__item input[type="file"] {
   width: 30%;
   margin: 22px 0px;
   padding: 0px 15px;

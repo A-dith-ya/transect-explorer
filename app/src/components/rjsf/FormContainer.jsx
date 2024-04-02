@@ -11,8 +11,13 @@ const FormContainer = ({
   uiSchema,
   onSubmitAction,
   arrayFieldTemplate,
+
+  formData: initialFormData,
+
+  addButtonIcon,
+  removeButtonIcon,
 }) => {
-  const [formData, setFormData] = useState(null);
+  const [formData, setFormData] = useState(initialFormData);
 
   const handleSubmit = async () => {
     onSubmitAction(formData);
@@ -31,6 +36,8 @@ const FormContainer = ({
           ObjectFieldTemplate,
           ArrayFieldTemplate: arrayFieldTemplate || ArrayFieldTemplate,
           ButtonTemplates: { SubmitButton },
+          addButtonIcon,
+          removeButtonIcon,
         }}
         onSubmit={handleSubmit}
       />

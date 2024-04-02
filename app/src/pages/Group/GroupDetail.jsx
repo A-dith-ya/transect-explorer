@@ -1,131 +1,144 @@
-import React, { useEffect, useState } from "react";
-import Form from "@rjsf/core";
-import validator from "@rjsf/validator-ajv8";
+import { useEffect, useState } from "react";
+import { useNavigate, useParams } from "react-router-dom";
 import { groupFormSchema } from "../../components/rjsf/schema/GroupFormSchema";
-import ObjectFieldTemplate from "../../components/rjsf/template/ObjectFieldTemplate";
-import ArrayFieldTemplate from "../../components/rjsf/template/ArrayFieldTemplate";
-import SubmitButton from "../../components/rjsf/template/SubmitButton";
+import { getUser } from "../../services/UserService";
 import {
   deleteGroup,
   getGroupId,
   updateGroup,
 } from "../../services/GroupService";
-import { useNavigate, useParams } from "react-router-dom";
-import { getUser } from "../../services/UserService";
+import FormContainer from "../../components/rjsf/FormContainer";
+import validator from "@rjsf/validator-ajv8";
+import ObjectFieldTemplate from "../../components/rjsf/template/ObjectFieldTemplate";
+import GroupArrayFieldTemplate from "../../components/rjsf/template/GroupArrayFieldTemplate";
+import SubmitButton from "../../components/rjsf/template/SubmitButton";
+import TransectList from '../../components/transects/TransectList';
+import MemberList from '../../components/group/MemberList';
 import "./index.css";
 
 const GroupDetail = () => {
   const [formData, setFormData] = useState(null);
-  const [group, setGroup] = useState(null);
-  const [leader, setLeader] = useState(null);
-  const [isEdit, setIsEdit] = useState(false);
+  const [editable, setEditable] = useState(false);
+  const [members, setMembers] = useState([])
 
   const username = sessionStorage.getItem("username");
 
   const { id } = useParams();
   const navigate = useNavigate();
 
-  const handleSubmit = async ({ formData }) => {
+  const handleSubmit = async (formData) => {
     updateGroup(formData).then(() => {
       setIsEdit(false);
     });
   };
 
   useEffect(() => {
-    const fetchGroup = async () => {
-      const result = await getGroupId(id);
-      setGroup(result);
-      setFormData(result);
-    };
-    fetchGroup();
-  }, [id]);
+    async function fetchLeader() {
+      const leader = await getUser(formData?.groupLeaderId);
+      const temp = [];
+      console.log(leader);
+      
+      temp.push({
+        role: 'Leader',
+        name: leader.username,
+        email: leader.userEmail
+      });
+
+      formData.groupUserEmails.forEach((item) => {
+        temp.push({
+          role: 'Member',
+          name: 'N/A',
+          email: item
+        });
+      });
+
+      setMembers(temp);
+    }
+
+    if (formData && members.length === 0) {
+      fetchLeader();
+    }
+
+  }, [formData, members]);
 
   useEffect(() => {
-    const fetchLeader = async () => {
-      if (group) {
-        const result = await getUser(group.groupLeaderId);
-        setLeader(result);
-      }
+    const fetchGroup = async () => {
+      const result = await getGroupId(id);
+      setFormData(result);
     };
-    fetchLeader();
-  }, [group]);
+
+    fetchGroup();
+  }, [id, editable]);
 
   const handleEdit = () => {
-    setIsEdit(!isEdit);
+    setEditable(!editable);
   };
+
   const handleDelete = () => {
-    if (confirm("Are you sure you want to delete " + group.groupName)) {
-      deleteGroup(group.id, navigate);
+    if (confirm("Are you sure you want to delete " + formData.groupName)) {
+      deleteGroup(formData.id, navigate);
     }
   };
 
   return (
-    <div className="group__detail">
-      {/* <button
-        className="group__detail__button--back"
-        onClick={() => navigate("/group")}
-      >
-        <i className="fa-solid fa-arrow-left"></i>
-      </button> */}
-      <button
-        className="group__detail__button--repeat"
-        onClick={() => navigate("/group")}
-      >
-        <i className="fa-solid fa-repeat"></i>
-      </button>
-      <h1 className="group__detail__title">{group?.groupName} group</h1>
+    <div className='details-page'>
 
-      <h5 className="group__detail__subtitle">
-        {username === leader?.username ? "You are " : leader?.username + " is"}{" "}
-        admin
-      </h5>
+      <div className='details-page-title'>
+        <button
+          className='icon-btn'
+          onClick={() => navigate("/group")}>
+          <i className="fa-solid fa-arrow-left"></i>
+        </button>
+        <h1>{formData?.groupName}</h1>
+      </div>
 
-      <div className="group__detail__information">
-        {!isEdit ? (
-          <div>
-            <h2>Leader</h2>
-            <p className="member__item">
-              {leader?.userEmail} - {leader?.username}
-            </p>
-            <hr />
-            <h2>Members</h2>
-            <ul className="members__list">
-              {group?.groupUserEmails.map((member) => {
-                const username = member.split("@")[0]; // Extracts the part before the '@'
-                return (
-                  <li key={member} className="member__item">
-                    {member} - {username}
-                  </li>
-                );
-              })}
-            </ul>
-          </div>
-        ) : (
-          <Form
+      <div>
+        {editable && (
+          <FormContainer
             schema={{ ...groupFormSchema, button: "Update" }}
             formData={formData}
+            setFormData={setFormData}
             onChange={(e) => setFormData(e.formData)}
             validator={validator}
             templates={{
               ObjectFieldTemplate,
               ButtonTemplates: { SubmitButton },
-              ArrayFieldTemplate,
+              GroupArrayFieldTemplate,
             }}
-            onSubmit={handleSubmit}
+            onSubmitAction={handleSubmit}
+            arrayFieldTemplate={GroupArrayFieldTemplate}
           />
         )}
-
-        {username === leader?.username && (
-          <div className="detail__buttons">
-            <button className="detail__buttons--delete" onClick={handleDelete}>
-              Delete
-            </button>
-            <button className="detail__buttons--edit" onClick={handleEdit}>
-              {isEdit ? "Cancel" : "Edit"}
-            </button>
-          </div>
-        )}
       </div>
+
+      {!editable && (
+        <>
+          <div>
+            <h2>Members</h2>
+            <MemberList data={members} />
+          </div>
+
+          <div>
+            <h2>Transects</h2>
+            <TransectList group_id={id} />
+          </div>
+        </>
+      )}
+
+      {username === members[0]?.name && (
+        <div className='btn-div'>
+          <button
+          className='text-btn'
+          onClick={handleDelete}>
+            Delete
+          </button>
+          <button
+          className='text-btn'
+          onClick={handleEdit}>
+            {editable ? "Cancel" : "Edit"}
+          </button>
+        </div>
+      )}
 
       {/* <GroupTransects onAddClick={() => {}} /> */}
     </div>

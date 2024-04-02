@@ -12,7 +12,6 @@
   left: 0;
   width: 100%;
   height: calc(100vh - 5rem); /* Adjust for navbar height */
-  margin-bottom: 5rem;
 }
 
 #leaflet-button {
@@ -30,11 +29,112 @@
   border-color: transparent;
 }
 
-.title{
-  text-align: center;
-  font-weight: bold;
-  font-family: monospace;
-  color: #2a6041;
-  margin: 0;
+.text-btn {
+  width: 35%;
+  padding: 10px;
+  margin-top: 30px;
+
+  background-color: #2ceaa3;
+  color: white;
+  font-size: 18px;
+
+  cursor: pointer;
+
+  outline: none;
+  border-radius: 5px;
+  border: none;
+}
+
+.text-btn:hover {
+  transition: 0.25s;
+
+  background-color: #d3d3d3;
+
+  color: #333;
+}
+
+/***** FOR TWO BUTTON DIV *****/
+
+div.btn-div {
+  width: 500px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 50px;
+}
+
+div.btn-div button.text-btn {
+  width: 100px;
+}
+
+.icon-btn {
+  width: 40px;
+  height: 40px;
+
+  border-style: none;
+  border-radius: 5px;
+}
+
+.icon-btn:hover {
+  transition: 0.5s;
+  cursor: pointer;
+
+  background-color: #d3d3d3;
+
+  color: #333;
+}
+
+.table-div {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+}
+
+.table-div table {
+  overflow: hidden;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+
+  border-collapse: collapse;
+  border-radius: 10px;
+}
+
+.table-div th {
+  background-color: #2ceaa3;
+  text-align: left;
+  padding: 12px;
+  cursor: pointer;
+}
+
+.table-div td {
+  padding: 10px;
+  border-bottom: 1px solid #ddd;
+  text-align: left;
+}
+
+.table-div tr:hover {
+  background-color: #d3d3d3;
+}
+
+div.details-page {
+  text-align: left;
+  padding: 2rem 1rem;
+  display: flex;
+  flex-flow: column wrap;
   
+  align-items: start;
+  align-content: center;
+}
+
+div.details-page-title {
+  display: flex;
+  flex-flow: row nowrap;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 10px;
+
+  padding: 0;
+  margin: 0;
+
+  height: 70px;
 }

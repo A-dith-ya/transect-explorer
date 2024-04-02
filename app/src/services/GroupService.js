@@ -18,6 +18,7 @@ const createGroup = async (formData, navigate) => {
     toast.error("Error creating group: " + error.message);
   }
 };
+
 const getUserGroup = async (userId) => {
   try {
     const result = await axios.get(`${baseURL}/userGroups/${userId}`);
@@ -26,6 +27,7 @@ const getUserGroup = async (userId) => {
     console.log(error);
   }
 };
+
 const getGroupUser = async (userId) => {
   try {
     const result = await axios.get(`${baseURL}/groupUser/${userId}`);

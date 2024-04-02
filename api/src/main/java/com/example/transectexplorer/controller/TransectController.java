@@ -10,6 +10,7 @@ import com.example.transectexplorer.repository.GroupRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -29,6 +30,7 @@ public class TransectController {
     private UserRepository userRepository;
 
     @PostMapping
+    @PreAuthorize("@authenticationService.authorizeGroupUser(#transectDTO.getGroupId())")
     public ResponseEntity<TransectDTO> createTransect(@RequestBody TransectDTO transectDTO) {
         Optional<Group> group = groupRepository.findById(transectDTO.getGroupId());
         Optional<User> user = userRepository.findById(transectDTO.getUserCreatorId());
@@ -46,16 +48,23 @@ public class TransectController {
     }
 
     @GetMapping("/{id}")
+    @PreAuthorize("@authenticationService.authorizeTransect(#id)")
     public ResponseEntity<TransectDTO> getTransectById(@PathVariable Long id) {
         return transectRepository.findById(id)
-                .map(transect -> new TransectDTO(transect.getId(), transect.getTransectName(),
-                        transect.getDescription(), transect.getLocation(), transect.getCoordinate(),
+                .map(transect -> new TransectDTO(
+                        transect.getId(),
+                        transect.getGroup().getId(),
+                        transect.getTransectName(),
+                        transect.getDescription(),
+                        transect.getLocation(),
+                        transect.getCoordinate(),
                         transect.getUserCreator().getUsername()))
                 .map(transectDTO -> new ResponseEntity<>(transectDTO, HttpStatus.OK))
                 .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
 
     @GetMapping("/groups/{groupId}")
+    @PreAuthorize("@authenticationService.authorizeGroupUser(#groupId)")
     public ResponseEntity<List<TransectDTO>> getTransectsByGroupId(@PathVariable Long groupId) {
         return groupRepository.findById(groupId)
                 .map(group -> transectRepository.findByGroup(group))
@@ -64,6 +73,7 @@ public class TransectController {
     }
 
     @PutMapping("/{id}")
+    @PreAuthorize("@authenticationService.authorizeGroupUser(#transectDTO.getGroupId())")
     public ResponseEntity<TransectDTO> updateTransect(@RequestBody TransectDTO transectDTO) {
         Optional<Transect> transect = transectRepository.findById(transectDTO.getId());
 
@@ -82,12 +92,35 @@ public class TransectController {
     }
 
     @DeleteMapping("/{id}")
+    @PreAuthorize("@authenticationService.authorizeTransect(#id)")
     public ResponseEntity<Void> deleteTransect(@PathVariable Long id) {
         if (transectRepository.existsById(id)) {
             transectRepository.deleteById(id);
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         }
 
+        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+    }
+
+    @GetMapping("/users/{id}")
+    @PreAuthorize("@authenticationService.authorizeUser(#id)")
+    public ResponseEntity<List<TransectDTO>> getTransectsByCreatorId(@PathVariable Long id) {
+        Optional<User> user = userRepository.findById(id);
+        if (user.isPresent()) {
+            List<Transect> transects = transectRepository.findByUserCreator(user.get());
+            List<TransectDTO> transectDTOs = transects.stream()
+                    .map(transect -> new TransectDTO(
+                            transect.getId(),
+                            transect.getGroup().getId(),
+                            transect.getUserCreator().getId(),
+                            transect.getTransectName(),
+                            transect.getDescription(),
+                            transect.getLocation(),
+                            transect.getCoordinate(),
+                            transect.getUserCreator().getUsername()))
+                    .toList();
+            return new ResponseEntity<>(transectDTOs, HttpStatus.OK);
+        }
         return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 }

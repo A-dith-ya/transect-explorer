@@ -15,8 +15,42 @@ body {
 }
 
 button {
-  background-color: var(--bg-darkgreen);
+  background-color: #2ceaa3;
 }
-h3 {
-  color: #2a6041;
+
+.page-title {
+  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+  display: flex;
+  margin: 5rem 2.2rem;
+  padding-bottom: 1rem;
+  font-size: 2rem;
+  font-weight: bold;
+}
+
+.edit-button {
+  display: flex;
+  align-items: center;
+  background-color: #e7c055;
+  color: white;
+  padding: 10px;
+  border-radius: 5px;
+  outline: none;
+  border: none;
+  cursor: pointer;
+  height: fit-content;
+  gap: 5px;
+}
+
+.delete-button {
+  background-color: #ea2c2c;
+  display: flex;
+  align-items: center;
+  color: white;
+  padding: 10px;
+  border-radius: 5px;
+  outline: none;
+  border: none;
+  cursor: pointer;
+  height: fit-content;
+  gap: 5px;
 }
