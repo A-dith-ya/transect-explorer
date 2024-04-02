@@ -1,4 +1,4 @@
-import { map_modes, map_types } from '../constants/Map'
+import { map_modes } from '../constants/Map'
 import {
   BUFFERED_EXTENTS_INITIALIZE,
   BUFFERED_EXTENTS_REMOVE_FURTHEST,

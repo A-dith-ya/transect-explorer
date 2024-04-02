@@ -1,9 +1,9 @@
 import poly from '../../../images/icons/polygon.png';
 import { useEffect, useContext, useState } from 'react';
-//import { geometry_types, map_modes } from '../../../constants/Map'
+import { map_modes } from '../../../constants/Map'
 import { useMapEvents } from 'react-leaflet';
 import { toGeoJSON } from '../helpers/GeoJSON';
-import { DRAW_POLY, NONE, PUSH_POSITION } from '../../../state/actions';
+import { DRAW_POLY, NONE, ADD_COORDINATE } from '../../../state/actions';
 import { MapContext } from '../../../contexts/MapContext';
 
 export default function DrawPoly() {
@@ -48,28 +48,23 @@ export default function DrawPoly() {
 
   useMapEvents({
     click(e) {
-      //      if (map_modes.polygon === mode) {
-      //  let newVerticies = verticies
-      //  newVerticies.push([e.latlng.lng, e.latlng.lat])
-      //  dispatch({
-      //    type: PUSH_POSITION, payload: {
-      //      verticies: newVerticies
-      //    }
-      //  })
-      if (state.mode === DRAW_POLY) {
-        const coordinate = e.latlng
+      if (state.mode === map_modes.polygon) {
 
-        setCoords([
-          ...coords,
-          [coordinate.lng, coordinate.lat]
-        ]);
+        const newCoordinates = [...state.coordinates, e.latlng];
+
+        dispatch({
+          type: ADD_COORDINATE,
+          payload: {
+            coordinates: newCoordinates
+          }
+        });
 
       }
     }
   })
 
   function handleClick() {
-    if (state.mode === DRAW_POLY) {
+    if (state.mode === map_modes.polygon) {
     //let geo = null
       //if (coordinates.length > 1)
       //geo = toGeoJSON(verticies, geometry_types.polygon)
