@@ -122,4 +122,13 @@ public class AuthenticationService {
                 .map(transect -> authorizeGroupUser(transect.getGroup().getId()))
                 .orElse(false);
     }
+
+    public void logout(HttpServletResponse response) {
+        Cookie cookie = new Cookie("jwt", null);
+        cookie.setMaxAge(0);
+        cookie.setHttpOnly(true);
+        cookie.setSecure(true);
+        cookie.setPath("/");
+        response.addCookie(cookie);
+    }
 }
