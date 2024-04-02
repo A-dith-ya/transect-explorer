@@ -72,10 +72,9 @@ const getTransectID = async (id) => {
   }
 };
 
-const deleteTransect = async (id, navigate) => {
+const deleteTransect = async (id) => {
   try {
     await axios.delete(`${baseURL}/${id}`);
-    navigate("/transect");
   } catch (error) {
     console.log(error);
     toast.error("Error deleting transect: " + error.message);
