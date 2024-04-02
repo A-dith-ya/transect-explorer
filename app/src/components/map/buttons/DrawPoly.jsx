@@ -1,12 +1,13 @@
-import poly from '../../../images/icons/polygon.png'
-import { useEffect, useState } from 'react'
-//import { MapContext } from '../../../contexts/MapContext'
+import poly from '../../../images/icons/polygon.png';
+import { useEffect, useContext, useState } from 'react';
 //import { geometry_types, map_modes } from '../../../constants/Map'
-import { useMapEvents } from 'react-leaflet'
-import { toGeoJSON } from '../helpers/GeoJSON'
-//import { DRAW_POLY, NONE, PUSH_POSITION } from '../../../state/actions'
+import { useMapEvents } from 'react-leaflet';
+import { toGeoJSON } from '../helpers/GeoJSON';
+import { DRAW_POLY, NONE, PUSH_POSITION } from '../../../state/actions';
+import { MapContext } from '../../../contexts/MapContext';
 
 export default function DrawPoly() {
+  const { state, dispatch } = useContext(MapContext);
   const [draw, setDraw] = useState(false);
   const [coords, setCoords] = useState([]);
   const [geo, setGeo] = useState(null);
@@ -55,7 +56,7 @@ export default function DrawPoly() {
       //      verticies: newVerticies
       //    }
       //  })
-      if (draw) {
+      if (state.mode === DRAW_POLY) {
         const coordinate = e.latlng
 
         setCoords([
@@ -68,20 +69,23 @@ export default function DrawPoly() {
   })
 
   function handleClick() {
-    /*if (map_modes.polygon === mode) {
-            let geo = null
-      if (verticies.length > 1)
-        geo = toGeoJSON(verticies, geometry_types.polygon)
+    if (state.mode === DRAW_POLY) {
+    //let geo = null
+      //if (coordinates.length > 1)
+      //geo = toGeoJSON(verticies, geometry_types.polygon)
 
       dispatch({
         type: NONE,
         payload: {
-          geojson: geo
+          geojson: null
         }
       })
-    } else {
+    }
+    else
+    {
       dispatch({ type: DRAW_POLY })
-    }*/
+    }
+
     setDraw(!draw);
   }
 

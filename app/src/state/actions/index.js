@@ -1,15 +1,10 @@
 // Map Reducer Actions
-export const DRAW_BOX = 'DRAW_BOX'
 export const DRAW_POLY = 'DRAW_POLY'
 export const MEASURE_DISTANCE = 'MEASURE_DISTANCE'
 export const NONE = 'NONE'
+export const ADD_COORDINATE = 'ADD_COORDINATE'
+export const CLEAR_COORDINATES = 'CLEAR_COORDINATES'
 export const PUSH_POSITION = 'PUSH_POSITION'
-export const MAIN = 'MAIN'
-export const PROOF = 'PROOF'
-export const FETCH_POSITION_START = 'FETCH_POSITION_START'
-export const FETCH_POSITION_STOP = 'FETCH_POSITION_STOP'
-export const RECORD_POSITION_START = 'RECORD_POSITION_START'
-export const RECORD_POSITION_STOP = 'RECORD_POSITION_STOP'
 export const CURRENT_POSITION_UPDATE = 'CURRENT_POSITION_UPDATE'
 
 // User Bound Actions

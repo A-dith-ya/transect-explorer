@@ -8,29 +8,21 @@ import {
   BUFFERED_EXTENTS_UPDATE_ON_TWO_INTERSECTIONS,
   CACHED_DATA_UPDATE,
   CURRENT_POSITION_UPDATE,
-  DRAW_BOX,
   DRAW_POLY,
-  FETCH_POSITION_START,
-  FETCH_POSITION_STOP,
-  MAIN,
+  ADD_COORDINATE,
+  CLEAR_COORDINATES,
   MEASURE_DISTANCE,
   NONE,
-  PROOF,
-  PUSH_POSITION,
-  RECORD_POSITION_START,
-  RECORD_POSITION_STOP,
   USER_BOUND_UPDATE_ON_MOVE,
   USER_BOUND_UPDATE_ON_ZOOM
 } from './actions'
 
 export const initialState = {
-  map: map_types.main,
-  mode: map_modes.none,
-  fetch_position: false,
+  mode: NONE,
   geojson: null,
   fetch_geojson: null,
   current_position: null,
-  verticies: [],
+  coordinates: [],
   user_bound: null,
   buffered_extents: {
     feature_collection: {
@@ -46,15 +38,8 @@ export const initialState = {
 }
 
 export default function MapReducer (state, action) {
-  console.log(action.type, action.payload)
+  console.log('ACTION DISPATCH:',action.type, action.payload)
   switch (action.type) {
-    case DRAW_BOX:
-      return {
-        ...state,
-        mode: map_modes.box,
-        geojson: null,
-        verticies: []
-      }
     case DRAW_POLY:
       return {
         ...state,
@@ -76,44 +61,16 @@ export default function MapReducer (state, action) {
         geojson: action.payload.geojson,
         verticies: []
       }
-    case PUSH_POSITION:
+    case ADD_COORDINATE:
       return {
         ...state,
-        verticies: action.payload.verticies
+        coordinates: action.payload.coordinates
       }
-    case MAIN:
+    case CLEAR_COORDINATES:
       return {
         ...state,
-        map: map_types.main
-      }
-    case PROOF:
-      return {
-        ...state,
-        map: map_types.proof
-      }
-    case FETCH_POSITION_START:
-      return {
-        ...state,
-        record_position: false,
-        fetch_position: true
-      }
-    case FETCH_POSITION_STOP:
-      return {
-        ...state,
-        fetch_position: false,
-        current_position: null
-      }
-    case RECORD_POSITION_START:
-      return {
-        ...state,
-        fetch_position: false,
-        record_position: true,
-        verticies: []
-      }
-    case RECORD_POSITION_STOP:
-      return {
-        ...state,
-        record_position: false
+        mode: NONE,
+        coordinates: []
       }
     case CURRENT_POSITION_UPDATE:
       return {

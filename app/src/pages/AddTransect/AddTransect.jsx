@@ -15,6 +15,7 @@ import { MapContainer, TileLayer, GeoJSON } from "react-leaflet";
 import DrawingBar from "../../components/map/DrawingBar";
 import DrawPoly from "../../components/map/buttons/DrawPoly";
 import FetchPosition from "../../components/map/buttons/FetchPosition";
+import ClickMarkers from "../../components/map/renders/ClickMarkers";
 
 const AddTransect = () => {
   const navigate = useNavigate();
@@ -202,6 +203,8 @@ const AddTransect = () => {
                 <DrawPoly />
                 <FetchPosition />
               </DrawingBar>
+
+              <ClickMarkers />
 
               <TileLayer url='https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png' />
 
