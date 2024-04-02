@@ -16,7 +16,6 @@ const FormContainer = ({
 
   addButtonIcon,
   removeButtonIcon,
-
 }) => {
   const [formData, setFormData] = useState(initialFormData);
 
