@@ -13,9 +13,10 @@ import org.springframework.transaction.annotation.Transactional;
 import com.example.transectexplorer.dto.UserDTO;
 import com.example.transectexplorer.dto.RegistrationDTO;
 import com.example.transectexplorer.model.User;
+import com.example.transectexplorer.repository.UserRepository;
 import com.example.transectexplorer.repository.GroupRepository;
 import com.example.transectexplorer.repository.GroupUserRepository;
-import com.example.transectexplorer.repository.UserRepository;
+import com.example.transectexplorer.repository.TransectRepository;
 
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletResponse;
@@ -37,6 +38,9 @@ public class AuthenticationService {
 
     @Autowired
     private GroupUserRepository groupUserRepository;
+
+    @Autowired
+    private TransectRepository transectRepository;
 
     @Autowired
     private PasswordEncoder passwordEncoder;
@@ -105,5 +109,17 @@ public class AuthenticationService {
         // Check if the auth user is in the group
         return groupUserRepository.existsByGroup_IdAndGroupUser_UserName(groupId, auth.getName())
                 || authorizeGroupOwner(groupId);
+    }
+
+    public boolean authorizeTransect(Long transectId) {
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        if (auth == null) {
+            return false;
+        }
+
+        // Check if the auth user is in the group that owns the transect
+        return transectRepository.findById(transectId)
+                .map(transect -> authorizeGroupUser(transect.getGroup().getId()))
+                .orElse(false);
     }
 }
