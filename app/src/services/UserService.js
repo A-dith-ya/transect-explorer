@@ -4,19 +4,26 @@ import { toast } from "react-toastify";
 const baseURL = "http://localhost:8080/users/";
 
 const registerUser = async (formData, navigate) => {
-  if (formData.username.trim().length < 6)
-    return toast.error("Username must be at least 6 characters");
+// Username validation
+// Username validation
+if (formData.username.trim().length < 6) {
+  return toast.error("Username must be at least 6 characters long.");
+}
 
-  if (
-    formData.userEmail &&
-    !/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(formData.userEmail)
-  ) {
-    return toast.error("Invalid Email Address");
-  }
+// Email validation
+if (!/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(formData.userEmail)) {
+  return toast.error("Invalid Email Address.");
+}
 
-  if (formData.password.trim().length < 6)
-    return toast.error("Password must be at least 6 characters");
+// Password length validation
+if (formData.password.trim().length < 6) {
+  return toast.error("Password must be at least 6 characters long.");
+}
 
+// Password disallowed characters validation: no spaces, periods, or underscores
+if (/[\s._]/.test(formData.password)) {
+  return toast.error("Password cannot contain spaces, periods, or underscores.");
+}
   await axios
     .post(`${baseURL}auth/register`, formData)
     .then((response) => {
