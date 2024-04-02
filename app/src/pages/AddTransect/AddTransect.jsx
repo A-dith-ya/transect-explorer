@@ -31,8 +31,14 @@ const AddTransect = () => {
         coordinate.split(",").map(parseFloat)
       ),
     ];
-    // Add the first coordinate to the end to close the polygon
-    coordinatesGeoJSON[0].push(coordinatesGeoJSON[0][0]);
+    // Add the first coordinate to the end to close the polygon if it's not already closed
+    if (
+      coordinatesGeoJSON[0][0][0] !==
+      coordinatesGeoJSON[0][coordinatesGeoJSON[0].length - 1][0]
+    ) {
+      coordinatesGeoJSON[0].push(coordinatesGeoJSON[0][0]);
+    }
+
     const geoJSON = {
       type: "Feature",
       geometry: {
@@ -62,7 +68,13 @@ const AddTransect = () => {
         coordinate.split(",").map(parseFloat)
       ),
     ];
-    coordinatesGeoJSON[0].push(coordinatesGeoJSON[0][0]);
+    // Add the first coordinate to the end to close the polygon if it's not already closed
+    if (
+      coordinatesGeoJSON[0][0][0] !==
+      coordinatesGeoJSON[0][coordinatesGeoJSON[0].length - 1][0]
+    ) {
+      coordinatesGeoJSON[0].push(coordinatesGeoJSON[0][0]);
+    }
 
     const geoJSON = {
       type: "Feature",
@@ -178,8 +190,7 @@ const AddTransect = () => {
           />
         </>
       ) : (
-        <div className='page'>
-
+        <div className="page">
           {/*<div className='title'>
             <h2>Create transect</h2>
             </div>*/}
@@ -193,21 +204,19 @@ const AddTransect = () => {
           <div>
             <MapContainer
               id="transect-map"
-              center={[55,-122]}
+              center={[55, -122]}
               zoom={7}
               scrollWheelZoom={true}
-              zoomControl={false}>
-
+              zoomControl={false}
+            >
               <DrawingBar>
                 <DrawPoly />
                 <FetchPosition />
               </DrawingBar>
 
-              <TileLayer url='https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png' />
-
+              <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
             </MapContainer>
           </div>
-
         </div>
       )}
     </>
