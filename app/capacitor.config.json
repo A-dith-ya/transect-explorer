@@ -3,6 +3,9 @@
   "appName": "transectExplorer",
   "webDir": "dist",
   "server": {
-    "androidScheme": "https"
+    "androidScheme": "https",
+    "allowNavigation": [
+      "transect-explorer.onrender.com"
+    ]
   }
 }
