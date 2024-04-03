@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import "./index.css";
 import {
   getUser,
@@ -11,6 +11,8 @@ import UISchemas from "../../components/rjsf/UISchema/UISchema";
 import { resetUsernameFormSchema } from "../../components/rjsf/schema/ResetUsernameFormSchema";
 import { resetEmailFormSchema } from "../../components/rjsf/schema/ResetEmailFormSchema";
 import { resetPasswordFormSchema } from "../../components/rjsf/schema/ResetPasswordFormSchema";
+import AuthContext from "../../contexts/AuthContext";
+import { logoutUser } from "../../services/UserService";
 import { toFormData } from "axios";
 import { useNavigate } from "react-router-dom";
 
@@ -23,6 +25,8 @@ const SettingsPage = () => {
   const [passwordModal, setPasswordModal] = useState(false);
   const id = sessionStorage.getItem("id");
   const navigate = useNavigate();
+  const { logout } = useContext(AuthContext);
+  console.log(userData);
 
   const toggle = (index) => {
     if (selected == index) {
@@ -83,9 +87,8 @@ const SettingsPage = () => {
           buttonName: "Logout",
           buttonIcon: "fa-solid fa-arrow-right-from-bracket",
           buttonType: "delete-button",
-          onClick: () => {
-            // Your function for logout
-            console.log("Logging out");
+          onClick: async () => {
+            await logoutUser(logout, navigate);
           },
         },
       ];

@@ -51,10 +51,17 @@ const addTransectUISchema = {
   },
 };
 
+const deleteTransectUISchema = {
+  delete: {
+    "ui:widget": "text",
+  },
+};
+
 const UISchemas = {
   registerUISchema,
   loginUISchema,
   addTransectUISchema,
+  deleteTransectUISchema,
   resetUsernameUISchema,
   resetEmailUISchema,
   resetPasswordUISchema,
