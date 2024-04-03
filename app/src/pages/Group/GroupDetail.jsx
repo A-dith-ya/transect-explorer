@@ -44,13 +44,18 @@ const GroupDetail = () => {
         email: leader.userEmail
       });
 
-      formData.groupUserEmails.forEach((item) => {
-        temp.push({
-          role: 'Member',
-          name: 'N/A',
-          email: item
-        });
+    // Assuming you have an array called formData.groupUserNames that corresponds to formData.groupUserEmails
+    formData.groupUserEmails.forEach((email, index) => {
+      // Assuming 'N/A' is a placeholder and formData.groupUserNames is defined and has the same length as formData.groupUserEmails
+      const name = formData.groupUserNames[index] || 'N/A'; // Use the name if available, otherwise 'N/A'
+      
+      temp.push({
+        role: 'Member',
+        name: name,
+        email: email
       });
+    });
+
 
       setMembers(temp);
     }
