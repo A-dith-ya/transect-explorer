@@ -1,15 +1,13 @@
 import getIndexedDatabase from "./IndexedDatabase";
 
 /**
- * Stores user transects
+ * Creates a new user transect
  * @param {{id: number, groupId: number, userCreatorId: number, transectName: string, description: string, location: string, coordinate: string, userCreatorName: string}[]} data
  */
-const storeUserTransects = async (transects) => {
+const createUserTransect = async (transect) => {
   try {
     const db = await getIndexedDatabase();
-    transects.forEach(async (transect) => {
-      await db.put("transects", transect, transect.id);
-    });
+    await db.put("transects", transect);
   } catch (error) {
     console.log(error);
   }
@@ -30,4 +28,41 @@ const getTransect = async (transectId) => {
   }
 };
 
-export { storeUserTransects, getTransect };
+/**
+ * Retrieves all user transects
+ * @returns @param {{id: number, groupId: number, userCreatorId: number, transectName: string, description: string, location: string, coordinate: string, userCreatorName: string}[]}
+ */
+const getAllUserTransects = async () => {
+  try {
+    const db = await getIndexedDatabase();
+    const transects = await db.getAll("transects");
+    const userTransects = transects.filter(
+      (transect) => transect.userCreatorId === sessionStorage.getItem("id")
+    );
+    return userTransects;
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+/**
+ * Stores user transects
+ * @param {{id: number, groupId: number, userCreatorId: number, transectName: string, description: string, location: string, coordinate: string, userCreatorName: string}[]} data
+ */
+const storeUserTransects = async (transects) => {
+  try {
+    const db = await getIndexedDatabase();
+    transects.forEach(async (transect) => {
+      await db.put("transects", transect, transect.id);
+    });
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export {
+  createUserTransect,
+  getTransect,
+  getAllUserTransects,
+  storeUserTransects,
+};
