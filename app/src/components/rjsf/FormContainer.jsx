@@ -1,10 +1,11 @@
-import { useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import Form from "@rjsf/core";
 import validator from "@rjsf/validator-ajv8";
 import ObjectFieldTemplate from "./template/ObjectFieldTemplate";
 import ArrayFieldTemplate from "./template/ArrayFieldTemplate";
 import SubmitButton from "./template/SubmitButton";
 import "./FormContainer.css";
+import { MapContext } from "../../contexts/MapContext";
 
 const FormContainer = ({
   schema,
@@ -18,11 +19,26 @@ const FormContainer = ({
   removeButtonIcon,
 
 }) => {
+  const {state, dispatch} = useContext(MapContext);
   const [formData, setFormData] = useState(initialFormData);
+
+  useEffect(() => {
+  }, [form]);
+
+  useEffect(() => {
+    console.log('FORM', schema);
+    if (schema.title === 'Add Transect') {
+      setFormData({...formData, coordinates: state.coordinates.map((coord) => coord.join(","))});
+    }
+  }, [state]);
 
   const handleSubmit = async () => {
     onSubmitAction(formData);
   };
+
+  function handleChange({formData}) {
+    setFormData(formData);
+  }
 
   return (
     <div className="container">
@@ -31,7 +47,7 @@ const FormContainer = ({
         schema={schema}
         uiSchema={uiSchema}
         formData={formData}
-        onChange={({ formData }) => setFormData(formData)}
+        onChange={handleChange}
         validator={validator}
         templates={{
           ObjectFieldTemplate,

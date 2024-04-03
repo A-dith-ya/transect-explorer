@@ -12,45 +12,11 @@ export default function DrawPoly() {
   const [coords, setCoords] = useState([]);
   const [geo, setGeo] = useState(null);
 
-  useEffect(() => {
-    console.log('GEO: ', geo);
-  }, [geo]);
-
-  useEffect(() => {
-    console.log('Coordinates: ', coords);
-
-    if (2 < coords.length)
-    {
-      setGeo({
-        type: "Feature",
-        geometry: {
-          type: "Polygon",
-          coordinates: [
-            [
-              ...coords,
-              coords[0]
-            ]
-          ]
-        },
-        properties: {
-          name: "Dinagat Islands"
-        }
-      });
-    }
-
-  }, [coords]);
-
-  //  const { state, dispatch } = useContext(MapContext)
-    /*  const {
-    mode,
-    verticies
-  } = state*/
-
   useMapEvents({
     click(e) {
       if (state.mode === map_modes.polygon) {
 
-        const newCoordinates = [...state.coordinates, e.latlng];
+        const newCoordinates = [...state.coordinates, [e.latlng.lng, e.latlng.lat]];
 
         dispatch({
           type: ADD_COORDINATE,
@@ -65,14 +31,16 @@ export default function DrawPoly() {
 
   function handleClick() {
     if (state.mode === map_modes.polygon) {
-    //let geo = null
-      //if (coordinates.length > 1)
-      //geo = toGeoJSON(verticies, geometry_types.polygon)
+      let geo = null
+      if (state.coordinates.length > 1) {
+        console.log(state.coordinates);
+        geo = toGeoJSON(state.coordinates, 'Polygon')
+      }
 
       dispatch({
         type: NONE,
         payload: {
-          geojson: null
+          geojson: geo
         }
       })
     }

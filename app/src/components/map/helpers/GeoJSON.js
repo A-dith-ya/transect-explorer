@@ -7,28 +7,30 @@ const length = 0.745201235056549
 const width = 1.135711669921875
 
 export function toGeoJSON (
-  vertices, geometryType
+  verticies, geometryType
 ) {
-  let coordinates = vertices
-  let distance = calculateDistance(vertices)
+  let coordinates = verticies
+  console.log(coordinates);
+
+  //let distance = calculateDistance(vertices)
   const center = calculateCenter(coordinates)
 
   if (geometry_types.polygon === geometryType) {
-    coordinates.push(vertices[0])
-    coordinates = [coordinates]
+    coordinates.push(verticies[0])
+    console.log(coordinates);
   }
   
   return {
     type: 'Feature',
     geometry: {
       type: geometryType,
-      coordinates: coordinates
+      coordinates: [coordinates]
     },
     properties: {
       name: 'Example Polyline',
       center: center,
       utm: calculateUTM(center),
-      distance: geometry_types.linestring && distance
+      //distance: geometry_types.linestring && distance
       // Add additional properties if needed
     }
   }

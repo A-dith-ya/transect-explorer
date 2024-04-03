@@ -6,11 +6,10 @@ import { MapContext } from '../../../contexts/MapContext';
 
 const ClickMarkers = () => {
   const { state } = useContext(MapContext);
-  const icon = new Icon({iconUrl: marker});
 
   return (state.coordinates.length > 0 && 
       state.coordinates.map((item) => 
-        <Marker icon={icon} position={{lat: item.lat, lng: item.lng}} />
+        <Marker position={{lat: item[1], lng: item[0]}} />
       )
   )
 }
