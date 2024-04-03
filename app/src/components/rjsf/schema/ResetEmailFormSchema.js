@@ -1,19 +1,20 @@
 export const resetEmailFormSchema = {
   title: "Reset Email",
   type: "object",
-  required: ["email", "emailNew", "password"],
+  required: ["username", "emailNew", "password"],
   properties: {
-    email: {
+    username: {
       type: "string",
-      title: "Email",
-    },
-    emailNew: {
-      type: "string",
-      title: "New Email",
+      title: "Username",
     },
     password: {
       type: "string",
       title: "Password",
+      format: "password",
+    },
+    emailNew: {
+      type: "string",
+      title: "New Email",
     },
   },
 };

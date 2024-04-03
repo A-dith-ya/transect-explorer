@@ -14,6 +14,7 @@ export const resetUsernameFormSchema = {
     password: {
       type: "string",
       title: "Password",
+      format: "password",
     },
   },
 };

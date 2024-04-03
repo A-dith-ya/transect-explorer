@@ -1,11 +1,18 @@
 import React, { useEffect, useState } from "react";
 import "./index.css";
-import { getUser } from "../../services/UserService";
+import {
+  getUser,
+  updateUser,
+  updateEmail,
+  updatePassword,
+} from "../../services/UserService";
 import Modal from "../../components/Modal/Modal";
 import UISchemas from "../../components/rjsf/UISchema/UISchema";
 import { resetUsernameFormSchema } from "../../components/rjsf/schema/ResetUsernameFormSchema";
 import { resetEmailFormSchema } from "../../components/rjsf/schema/ResetEmailFormSchema";
 import { resetPasswordFormSchema } from "../../components/rjsf/schema/ResetPasswordFormSchema";
+import { toFormData } from "axios";
+import { useNavigate } from "react-router-dom";
 
 const SettingsPage = () => {
   const [userData, setUserData] = useState(null);
@@ -15,7 +22,7 @@ const SettingsPage = () => {
   const [emailModal, setEmailModal] = useState(false);
   const [passwordModal, setPasswordModal] = useState(false);
   const id = sessionStorage.getItem("id");
-  console.log(userData);
+  const navigate = useNavigate();
 
   const toggle = (index) => {
     if (selected == index) {
@@ -86,6 +93,23 @@ const SettingsPage = () => {
     }
   }, [userData]);
 
+  const handleResetUserSubmit = (formData) => {
+    updateUser(formData, id, navigate);
+  };
+
+  const handleResetEmailSubmit = (formData) => {
+    console.log(userData.userEmail);
+    const email = userData.userEmail;
+    const newformData = { ...formData, email };
+    console.log(newformData);
+    updateEmail(newformData, id, navigate);
+  };
+
+  const handleResetPasswordSubmit = (formData) => {
+    console.log(formData);
+    updatePassword(formData, id, navigate);
+  };
+
   return (
     <div className="settings-page">
       <div className="page-title">Account Settings</div>
@@ -132,6 +156,7 @@ const SettingsPage = () => {
           setModal={setUserModal}
           formSchema={resetUsernameFormSchema}
           uiSchemas={UISchemas.resetUsernameUISchema}
+          submitForm={handleResetUserSubmit}
         />
       )}
 
@@ -141,6 +166,7 @@ const SettingsPage = () => {
           setModal={setEmailModal}
           formSchema={resetEmailFormSchema}
           uiSchemas={UISchemas.resetEmailUISchema}
+          submitForm={handleResetEmailSubmit}
         />
       )}
 
@@ -150,6 +176,7 @@ const SettingsPage = () => {
           setModal={setPasswordModal}
           formSchema={resetPasswordFormSchema}
           uiSchemas={UISchemas.resetPasswordUISchema}
+          submitForm={handleResetPasswordSubmit}
         />
       )}
     </div>

@@ -53,6 +53,11 @@ public class AuthenticationService {
         return new RegistrationDTO(userName, userEmail, userPassword);
     }
 
+    public String hashPassword(String userPassword){
+        String hashedPassword = passwordEncoder.encode(userPassword);
+        return hashedPassword;
+    }
+
     // Authenticate a user with the provided username and password
     public UserDTO login(String username, String password, HttpServletResponse response) {
         try {
@@ -106,4 +111,6 @@ public class AuthenticationService {
         return groupUserRepository.existsByGroup_IdAndGroupUser_UserName(groupId, auth.getName())
                 || authorizeGroupOwner(groupId);
     }
+
+
 }

@@ -10,10 +10,12 @@ export const resetPasswordFormSchema = {
     password: {
       type: "string",
       title: "Password",
+      format: "password",
     },
     passwordNew: {
       type: "string",
       title: "New Password",
+      format: "password",
     },
   },
 };

@@ -1,5 +1,5 @@
 .settings-page-title {
-  margin: 5rem 0rem;
+  margin: 7rem 0rem;
   padding-bottom: 2rem;
 }
 
@@ -14,7 +14,7 @@
 .accordion {
   display: flex;
   flex-direction: column;
-  width: 350px;
+  width: 400px;
 }
 
 .accordion-item {
