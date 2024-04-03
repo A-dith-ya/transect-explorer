@@ -23,7 +23,7 @@ const LoginForm = () => {
         uiSchema={UISchemas.loginUISchema}
         onSubmitAction={(formData) => handleLogin(formData, navigate)}
       />
-      <div className="paddingBottom"> 
+      <div className=" registerLinkContainer"> 
         Don't have an account? <Link to={"/register"}>Register</Link>
       </div>
     </div>

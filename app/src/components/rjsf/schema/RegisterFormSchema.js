@@ -17,7 +17,7 @@ export const registerFormSchema = {
     password: {
       type: "string",
       title: "Password",
-      minLength: 6,
+      minLength: 8,
       maxLength: 20,
     },
   },
