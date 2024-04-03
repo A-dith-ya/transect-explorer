@@ -5,6 +5,7 @@ const getIndexedDatabase = async () => {
   return openDB("transectExplorerDatabase", 2, {
     upgrade(db) {
       db.createObjectStore("users");
+      db.createObjectStore("groups");
     },
   });
 };
