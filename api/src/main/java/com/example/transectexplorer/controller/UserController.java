@@ -67,9 +67,15 @@ public class UserController {
         if (userOptional.isPresent()) {
             User updatedUser = userOptional.get();
 
+        if (user.getUsername() != null) {
             updatedUser.setUsername(user.getUsername());
+        }
+        if (user.getUserEmail() != null) {
             updatedUser.setUserEmail(user.getUserEmail());
-            updatedUser.setPassword(user.getPassword());
+        }
+        if (user.getPassword() != null) {
+            updatedUser.setPassword(authenticationService.hashPassword(user.getPassword()));
+        }
             userRepository.save(updatedUser);
 
             return new ResponseEntity<>(

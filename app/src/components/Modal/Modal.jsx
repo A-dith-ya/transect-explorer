@@ -1,15 +1,13 @@
 import React, { useState } from "react";
 import "./Modal.css";
 import FormContainer from "../rjsf/FormContainer";
-import UISchemas from "../rjsf/UISchema/UISchema";
-import { loginFormSchema } from "../rjsf/schema/LoginFormSchema";
 
 export default function Modal({
   modal,
   setModal,
   formSchema,
   uiSchema,
-  handleSubmit,
+  submitForm,
 }) {
   const toggleModal = () => {
     setModal(!modal);
@@ -30,7 +28,7 @@ export default function Modal({
             <FormContainer
               schema={formSchema}
               uiSchema={uiSchema}
-              onSubmitAction={handleSubmit}
+              onSubmitAction={submitForm}
             />
             <button className="close-modal" onClick={toggleModal}>
               <i className="fa-solid fa-xmark"></i>
