@@ -1,4 +1,5 @@
 import React from "react";
+import "./login.css";
 import FormContainer from "../../components/rjsf/FormContainer";
 import { loginFormSchema } from "../../components/rjsf/schema/LoginFormSchema";
 import UISchemas from "../../components/rjsf/UISchema/UISchema";
@@ -22,7 +23,7 @@ const LoginForm = () => {
         uiSchema={UISchemas.loginUISchema}
         onSubmitAction={(formData) => handleLogin(formData, navigate)}
       />
-      <div>
+      <div className=" registerLinkContainer"> 
         Don't have an account? <Link to={"/register"}>Register</Link>
       </div>
     </div>
