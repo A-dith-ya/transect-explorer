@@ -5,10 +5,10 @@ import getIndexedDatabase from "./IndexedDatabase";
  * @param {string} userId
  * @param {{userGroups: {id: number, groupName: string, createdAt: string}[], leaderGroups: {id: number, groupName: string, createdAt: string}[]}} data
  */
-const storeGroups = async (userId, data) => {
+const storeUserGroups = async (userId, data) => {
   try {
     const db = await getIndexedDatabase();
-    await db.put("groups", data, userId);
+    await db.put("users", data, userId);
   } catch (error) {
     console.log(error);
   }
@@ -19,14 +19,14 @@ const storeGroups = async (userId, data) => {
  * @param {string} userId
  * @returns {{userGroups: {id: number, groupName: string, createdAt: string}[], leaderGroups: {id: number, groupName: string, createdAt: string}[]}}
  */
-const getGroups = async (userId) => {
+const getUserGroups = async (userId) => {
   try {
     const db = await getIndexedDatabase();
-    const data = await db.get("groups", userId);
+    const data = await db.get("users", userId);
     return data;
   } catch (error) {
     console.log(error);
   }
 };
 
-export { storeGroups, getGroups };
+export { storeUserGroups, getUserGroups };
