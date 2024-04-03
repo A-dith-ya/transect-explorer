@@ -7,6 +7,8 @@ export const addTransectFormSchema = (groupOptions) => {
       transectName: {
         type: "string",
         title: "Transect Name",
+        minLength: 3,
+        maxLength: 50,
       },
       group: {
         title: "Group",
@@ -31,6 +33,8 @@ export const addTransectFormSchema = (groupOptions) => {
         title: "Observation",
         type: "string",
         widget: "textarea",
+        minLength: 0,
+        maxLength: 250,
       },
       coordinates: {
         type: "array",
@@ -39,6 +43,7 @@ export const addTransectFormSchema = (groupOptions) => {
         items: {
           type: "string",
         },
+        maxLength: 250,
       },
       files: {
         type: "array",
