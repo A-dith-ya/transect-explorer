@@ -1,7 +1,7 @@
 import axios from "axios";
 import { toast } from "react-toastify";
 
-const baseURL = "http://localhost:8080/users/";
+const baseURL = "https://transect-explorer.onrender.com/users/";
 
 const registerUser = async (formData, navigate) => {
 // Username validation

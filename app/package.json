@@ -10,7 +10,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "@capacitor/android": "^5.7.4",
+    "@capacitor/android": "5.7.4",
     "@capacitor/cli": "^5.7.4",
     "@capacitor/core": "^5.7.4",
     "@rjsf/core": "^5.17.0",

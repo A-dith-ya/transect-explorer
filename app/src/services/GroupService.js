@@ -1,7 +1,7 @@
 import axios from "axios";
 import { toast } from 'react-toastify';
 
-const baseURL = "http://localhost:8080/groups";
+const baseURL = "https://transect-explorer.onrender.com/groups";
 axios.defaults.withCredentials = true;
 
 const createGroup = async (formData, navigate) => {
