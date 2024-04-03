@@ -31,7 +31,7 @@ public class Transect extends BaseEntity {
     @Column(nullable = false, length = 50)
     private String location;
 
-    @Column(nullable = false, length = 200)
+    @Column(nullable = false, length = 1000)
     private String coordinate;
 
     protected Transect() {

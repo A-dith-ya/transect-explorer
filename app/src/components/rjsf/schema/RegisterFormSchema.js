@@ -7,7 +7,7 @@ export const registerFormSchema = {
       type: "string",
       title: "Username",
       minLength: 6,
-      maxLength: 20,
+      maxLength: 50,
     },
     userEmail: {
       type: "string",
@@ -18,7 +18,7 @@ export const registerFormSchema = {
       type: "string",
       title: "Password",
       minLength: 8,
-      maxLength: 20,
+      maxLength: 100,
     },
   },
 };
