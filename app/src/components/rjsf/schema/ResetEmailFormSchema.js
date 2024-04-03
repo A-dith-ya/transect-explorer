@@ -15,6 +15,7 @@ export const resetEmailFormSchema = {
     emailNew: {
       type: "string",
       title: "New Email",
+      format: "email",
     },
   },
 };
