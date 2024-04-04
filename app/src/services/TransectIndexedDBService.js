@@ -37,7 +37,8 @@ const getAllUserTransects = async () => {
     const db = await getIndexedDatabase();
     const transects = await db.getAll("transects");
     const userTransects = transects.filter(
-      (transect) => transect.userCreatorId === sessionStorage.getItem("id")
+      (transect) =>
+        transect.userCreatorId === Number(sessionStorage.getItem("id"))
     );
     return userTransects;
   } catch (error) {

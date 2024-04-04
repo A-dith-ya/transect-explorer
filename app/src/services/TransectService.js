@@ -1,6 +1,9 @@
 import axios from "axios";
 import { toast } from "react-toastify";
-import { createUserTransect } from "./TransectIndexedDBService";
+import {
+  createUserTransect,
+  getAllUserTransects,
+} from "./TransectIndexedDBService";
 
 const baseURL = "http://localhost:8080/transects";
 axios.defaults.withCredentials = true;
@@ -89,13 +92,13 @@ const deleteTransect = async (id) => {
 
 const getTransectsByCreatorId = async () => {
   try {
-    const userCreatorId = sessionStorage.getItem("id");
-    if (userCreatorId) {
-      console.log("Session Storage: " + userCreatorId);
+    if (navigator.onLine) {
+      const userCreatorId = sessionStorage.getItem("id");
       const result = await axios.get(`${baseURL}/users/${userCreatorId}`);
       return result.data;
     } else {
-      throw new Error("No User Id in session storage");
+      const result = await getAllUserTransects();
+      return result;
     }
   } catch (error) {
     console.log(error);
