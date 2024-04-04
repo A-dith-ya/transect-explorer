@@ -13,6 +13,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -123,4 +124,41 @@ public class TransectController {
         }
         return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
+
+    @PostMapping("/sync")
+    public ResponseEntity<List<TransectDTO>> createMultipleTransects(@RequestBody List<TransectDTO> transectDTOs) {
+        List<TransectDTO> createdTransects = new ArrayList<>();
+
+        for (TransectDTO transectDTO : transectDTOs) {
+            Optional<Group> group = groupRepository.findById(transectDTO.getGroupId());
+            Optional<User> user = userRepository.findById(transectDTO.getUserCreatorId());
+
+            if(group.isPresent() && user.isPresent()) {
+                Transect transect = new Transect(group.get(), user.get(), transectDTO.getTransectName(),
+                transectDTO.getDescription(), transectDTO.getLocation(), transectDTO.getCoordinate());
+                
+                Transect savedTransect = transectRepository.save(transect);
+
+                TransectDTO newTransectDTO = new TransectDTO(
+                
+                transect.getId(),
+                transectDTO.getGroupId(),
+                transectDTO.getUserCreatorId(),
+                transectDTO.getTransectName(),
+                transectDTO.getDescription(),
+                transectDTO.getLocation(),
+                transectDTO.getCoordinate(),
+                transectDTO.getUserCreatorName());
+
+                createdTransects.add(newTransectDTO);
+            }
+        }
+        if (!createdTransects.isEmpty()) {
+            return new ResponseEntity<>(createdTransects, HttpStatus.CREATED);
+        } else {
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+    }
+
+    
 }

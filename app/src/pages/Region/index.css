@@ -48,3 +48,10 @@
 .delete-btn {
   background-color: #ea2c2c;
 }
+
+.container-transect-list {
+  overflow-y: scroll;
+  margin: auto;
+  width: 80%;
+  padding-bottom: 150px;
+}
