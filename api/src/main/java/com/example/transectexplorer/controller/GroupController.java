@@ -36,11 +36,10 @@ public class GroupController {
     @GetMapping("/{id}")
     @PreAuthorize("@authenticationService.authorizeGroupUser(#id)")
     public ResponseEntity<GroupDTO> getGroupById(@PathVariable Long id) {
-        Optional<Group> groupOptional = groupRepository.findById(id);
+        Optional<Group> group = groupRepository.findById(id);
 
-        if (groupOptional.isPresent()) {
-            Group group = groupOptional.get();
-            List<GroupUser> groupUsers = groupUserRepository.findByGroup(group);
+        if (group.isPresent()) {
+            List<GroupUser> groupUsers = groupUserRepository.findByGroup(group.get());
 
             // Get the usernames and emails of the users in the group
             List<String> groupUserEmails = new ArrayList<>();
@@ -50,12 +49,10 @@ public class GroupController {
                 groupUserNames.add(groupUser.getUser().getUsername());
             }
 
-            List<String> groupLeaderDetails = Arrays.asList(group.getGroupLeader().getUserEmail(), group.getGroupLeader().getUsername()
-            );
-
-            GroupDTO groupDTO = new GroupDTO(group.getId(), group.getGroupName(), groupLeaderDetails, groupUserEmails, groupUserNames);
-
-            return new ResponseEntity<>(groupDTO, HttpStatus.OK);
+            List<String> groupLeaderDetails = Arrays.asList(group.get().getGroupLeader().getUserEmail(), group.get().getGroupLeader().getUsername());
+            
+            return new ResponseEntity<>(new GroupDTO(group.get().getId(), group.get().getGroupName(),
+                    group.get().getGroupLeaderId(), groupLeaderDetails, groupUserEmails, groupUserNames), HttpStatus.OK);
         }
 
         return new ResponseEntity<>(HttpStatus.NOT_FOUND);

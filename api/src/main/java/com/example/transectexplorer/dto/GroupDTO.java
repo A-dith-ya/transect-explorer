@@ -28,9 +28,10 @@ public class GroupDTO {
         this.groupUserNames = groupUserNames;
     }
 
-    public GroupDTO(Long id, String groupName, List<String> groupLeader, List<String> groupUserEmails, List<String> groupUserNames) {
+    public GroupDTO(Long id, String groupName, Long groupLeaderId, List<String> groupLeader, List<String> groupUserEmails, List<String> groupUserNames) {
         this.id = id;
         this.groupName = groupName;
+        this.groupLeaderId = groupLeaderId;
         this.groupLeader = groupLeader;
         this.groupUserEmails = groupUserEmails;
         this.groupUserNames = groupUserNames;

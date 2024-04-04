@@ -23,12 +23,21 @@ const GroupDetail = () => {
 
   const username = sessionStorage.getItem("username");
 
+  useEffect(() => {
+    console.log(members);
+    console.log(username);
+  }, [members]);
+
+
+
   const { id } = useParams();
   const navigate = useNavigate();
 
   const handleSubmit = async (formData) => {
     updateGroup(formData).then(() => {
-      setIsEdit(false);
+      
+      setEditable(false);
+      
     });
   };
 
@@ -51,8 +60,8 @@ const GroupDetail = () => {
       // formData.groupLeader.forEach()
       temp.push({
         role: 'Leader',
-        name: leaderEmail,
-        email: leaderName
+        name: leaderName,
+        email: leaderEmail
       });
 
     // Assuming you have an array called formData.groupUserNames that corresponds to formData.groupUserEmails
