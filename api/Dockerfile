@@ -1,12 +1,12 @@
-# Use Eclipse Temurin OpenJDK to build the application
-FROM eclipse-temurin:17-jdk-alpine as build
+ # Use Eclipse Temurin OpenJDK to build the application
+FROM eclipse-temurin:17-jdk as build
 WORKDIR /workspace/app
 
 COPY mvnw .
 COPY .mvn/ .mvn/
 
 # Ensure mvnw script has LF line endings and is executable
-RUN apk add --no-cache dos2unix && \
+RUN apt-get update && apt-get install -y dos2unix && \
     dos2unix ./mvnw && \
     chmod +x ./mvnw
 
@@ -19,7 +19,7 @@ RUN ./mvnw install -DskipTests
 RUN mkdir -p target/dependency && (cd target/dependency; jar -xf ../*.jar)
 
 # Use Eclipse Temurin OpenJDK to run the application
-FROM eclipse-temurin:17-jdk-alpine
+FROM eclipse-temurin:17-jdk
 VOLUME /tmp
 ARG DEPENDENCY=/workspace/app/target/dependency
 
