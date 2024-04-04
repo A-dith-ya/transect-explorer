@@ -99,6 +99,19 @@ const updateUserTransect = async (formData, transectId) => {
 };
 
 /**
+ * Deletes user transect
+ * @param {number} transectId
+ */
+const deleteUserTransect = async (transectId) => {
+  try {
+    const db = await getIndexedDatabase();
+    await db.delete("transects", +transectId);
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+/**
  * Stores user transects
  * @param {{id: number, groupId: number, userCreatorId: number, transectName: string, description: string, location: string, coordinate: string, userCreatorName: string}[]} data
  */
@@ -121,5 +134,6 @@ export {
   getCreatedTransects,
   getUpdatedTransects,
   updateUserTransect,
+  deleteUserTransect,
   storeUserTransects,
 };

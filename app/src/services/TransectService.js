@@ -5,6 +5,7 @@ import {
   getAllUserTransects,
   getTransect,
   updateUserTransect,
+  deleteUserTransect,
   storeUserTransects,
 } from "./TransectIndexedDBService";
 
@@ -87,7 +88,11 @@ const getTransectID = async (id) => {
 
 const deleteTransect = async (id) => {
   try {
-    await axios.delete(`${baseURL}/${id}`);
+    if (navigator.onLine) {
+      await axios.delete(`${baseURL}/${id}`);
+    } else {
+      await deleteUserTransect(id);
+    }
   } catch (error) {
     console.log(error);
     toast.error("Error deleting transect: " + error.message);
