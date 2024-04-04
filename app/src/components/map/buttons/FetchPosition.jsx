@@ -18,10 +18,10 @@ function FetchPosition() {
         dispatch({
           type: ADD_COORDINATE,
           payload: {
-            coordinates: [...state.coordinates, {
-              lat: position.coords.latitude,
-              lng: position.coords.longitude
-            }]
+            coordinates: [...state.coordinates, [
+              position.coords.longitude,
+              position.coords.latitude
+            ]]
           }
         });
 

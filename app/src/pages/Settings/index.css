@@ -1,160 +1,82 @@
-.page {
+.settings-page-title {
+  margin: 5rem 0rem;
+  padding-bottom: 2rem;
+}
+
+.wrapper {
   display: flex;
-  flex-flow: row nowrap;
-
-}
-
-div.panel {
-  display: flex;
-  flex-flow: column wrap;
-
-  height: 100vh;
-  min-width: 360px;
-
-  background-color: #d3d3d3;
-}
-
-div.panel button {
-  border-style: none;
-  border-radius: 5px;
-
-  height: 50px;
-
-  background: transparent;
-  color: black;
-  font-size: calc(.875rem*var(--ifm-button-size-multiplier));
-
-  text-align: left;
-}
-
-.settings {
-  height: 100vh;
+  justify-content: center;
+  align-items: center;
+  height: 30vh;
   width: 100vw;
-  overflow: hidden;
-  display: flex;
-  flex-flow: column wrap;
-  position: relative;
 }
 
-.settings form {
-  text-align: left;
-  display: flex;
-  flex-direction: column wrap;
-  margin: 0;
-  align-items: center;
-  justify-content: center;
-}
-
-.settings form ul {
-  list-style-type: none;
-  margin-bottom: 0;
-  padding: 0;
-}
-
-dialog form {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  position: relative;
-  flex-flow: column wrap;
-}
-
-.dialog {
-  display: flex;
-  justify-content: space-between;
-  flex-flow: row nowrap;
-  gap: 10px;
-}
-
-input {
-  width: 15em;
-  height: 2em;
-}
-.settings h5 {
-  margin: 10px;
-  padding: 0;
-}
-/*button {
-  color: white;
-  outline: none;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-}*/
-
-#deactivate {
-  background-color: #e79c55;
-
-  width: 200px;
-}
-
-#delete {
-  position: absolute;
-  left: 50%;
-  top: 75%;
-  transform: translate(-50%, -50%);
-  background-color: #e79c55;
-  font-size: 15px;
-}
-
-.edit {
-  position: absolute;
-  text-align: center;
-  top: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 10px;
-}
-
-.sidebar button {
-  background-color: #2ceaa3;
-  color: black;
-  position: absolute;
-  left: 5px;
-}
-.sidebar {
-  width: 200px;
-  padding: 10px;
-  position: fixed;
-}
-.sidebar ul {
-  list-style-type: none;
-  padding: 0;
-  background-color: #2a6041;
-}
-.sidebar ul li {
-  cursor: pointer;
-  padding: 5px 10px;
-  color: white;
-}
-.sidebar ul li:hover {
-  background-color: #02111b;
-  cursor: pointer;
-}
-
- /* Style the buttons that are used to open and close the accordion panel */
 .accordion {
-  background-color: #eee;
-  color: #444;
-  cursor: pointer;
-  padding: 18px;
-  width: 100%;
-  text-align: left;
-  border: none;
-  outline: none;
-  transition: 0.4s;
+  display: flex;
+  flex-direction: column;
+  width: 350px;
 }
 
-/* Add a background color to the button if it is clicked on (add the .active class with JS), and when you move the mouse over it (hover) */
-.active, .accordion:hover {
-  background-color: #ccc;
+.accordion-item {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  border-radius: 5px;
+  margin-bottom: 8px;
 }
 
-/* Style the accordion panel. Note: hidden by default */
-.panel {
-  padding: 0 18px;
-  background-color: white;
-  display: none;
+.accordion-item-title {
+  display: flex;
+  color: black;
+  background-color: #2ceaa3;
+  width: -webkit-fill-available;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0px 10px;
+  border-radius: 5px;
+}
+
+.accordion-item-title.show {
+  display: flex;
+  color: black;
+  background-color: #2ceaa3;
+  width: -webkit-fill-available;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0px 10px;
+  border-radius: 5px 5px 0 0;
+}
+
+.accordion-item-title h2 {
+  font-size: 1rem;
+}
+
+.accordion-item-content {
+  display: flex;
+  justify-content: space-between;
+  max-height: 0;
   overflow: hidden;
-} 
+  transition: all 0.5s cubic-bezier(0, 1, 0, 1);
+  /* background-color: #a9e8d1; */
+  background-color: white;
+  width: -webkit-fill-available;
+  padding: 0 10px;
+  border-width: 1px;
+  border-color: black;
+  align-items: center;
+  border-right: 1px solid #d3d3d3; /* Add border only on the right */
+  border-left: 1px solid #d3d3d3; /* Add border only on the right */
+  border-radius: 0 0 5px 5px;
+}
+
+.accordion-item-content.show {
+  height: auto;
+  max-height: 300px;
+  transition: all 0.5s cubic-bezier(0, 1, 0, 1);
+  background-color: white;
+  /* background-color: #a9e8d1; */
+  width: -webkit-fill-available;
+  padding: 10px 10px;
+  border-bottom: 1px solid #d3d3d3; /* Add border only on the bottom */
+  border-radius: 0 0 5px 5px;
+}

@@ -4,6 +4,9 @@ import { toast } from "react-toastify";
 const baseURL = "http://localhost:8080/users/";
 
 const registerUser = async (formData, navigate) => {
+// Username validation
+// Username validation
+
   await axios
     .post(`${baseURL}auth/register`, formData)
     .then((response) => {
@@ -32,6 +35,21 @@ const loginUser = async (formData, navigate, login) => {
     });
 };
 
+const logoutUser = async (logout, navigate) => {
+  try {
+    await axios.post(`${baseURL}auth/logout`);
+    sessionStorage.removeItem("id");
+    sessionStorage.removeItem("userEmail");
+    sessionStorage.removeItem("username");
+    toast.success("Logged out successfully");
+    logout();
+    navigate("/");
+  } catch (error) {
+    console.log(error);
+    toast.error("Logout failed: " + error.message);
+  }
+};
+
 const getUser = async (userId) => {
   try {
     const result = await axios.get(`${baseURL}${userId}`);
@@ -42,4 +60,4 @@ const getUser = async (userId) => {
   }
 };
 
-export { registerUser, loginUser, getUser };
+export { registerUser, loginUser, getUser, logoutUser };

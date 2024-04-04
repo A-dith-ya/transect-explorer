@@ -54,15 +54,9 @@ const AddTransect = () => {
   },  [state]);
 
   const handleCreateTransect = (formData) => {
-    // Convert the coordinates array into GeoJSON format for a Polygon
-    /*const coordinatesGeoJSON = [
-      formData.coordinates.map((coordinate) =>
-        coordinate.split(",").map(parseFloat)
-      ),
-    ];*/
-    // Add the first coordinate to the end to close the polygon
 
     const geoJSON = toGeoJSON(state.coordinates, "Polygon");
+
     const geoJSONString = JSON.stringify(geoJSON);
 
     const selectedGroupValue = formData.group;
@@ -85,7 +79,13 @@ const AddTransect = () => {
         coordinate.split(",").map(parseFloat)
       ),
     ];
-    coordinatesGeoJSON[0].push(coordinatesGeoJSON[0][0]);
+    // Add the first coordinate to the end to close the polygon if it's not already closed
+    if (
+      coordinatesGeoJSON[0][0][0] !==
+      coordinatesGeoJSON[0][coordinatesGeoJSON[0].length - 1][0]
+    ) {
+      coordinatesGeoJSON[0].push(coordinatesGeoJSON[0][0]);
+    }
 
     const geoJSON = toGeoJSON(state.coordinates, 'Polygon');
 
@@ -120,8 +120,8 @@ const AddTransect = () => {
       fetchedGroupsData.userGroups.length > 0
     ) {
       mergedGroups = [
-        ...fetchedGroupsData.userGroups.map((group) => group),
-        ...fetchedGroupsData.leaderGroups.map((group) => group)
+        ...fetchedGroupsData.leaderGroups.map((group) => group),
+        ...fetchedGroupsData.userGroups.map((group) => group)
       ];
     }
 
@@ -209,6 +209,7 @@ const AddTransect = () => {
 };
 
 export default AddTransect;
+
     /*transect ? (
         <>
           <FormContainer

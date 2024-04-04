@@ -3,7 +3,10 @@ import { useNavigate, useParams } from "react-router-dom";
 import { MapContainer, TileLayer, GeoJSON } from "react-leaflet";
 import { calculateCenter } from "../../components/map/helpers/Calculate";
 import "./index.css";
-import { getTransectID } from "../../services/TransectService";
+import { deleteTransect, getTransectID } from "../../services/TransectService";
+import { deleteTransectFormSchema } from "../../components/rjsf/schema/DeleteTransectSchema";
+import UISchemas from "../../components/rjsf/UISchema/UISchema";
+import Modal from "../../components/Modal/Modal";
 
 const testGeo = {
   type: "Feature",
@@ -25,6 +28,7 @@ const TransectDetail = () => {
   const navigate = useNavigate();
   const { id } = useParams();
   const [transect, setTransect] = useState(null);
+  const [deleteModal, setDeleteModal] = useState(false);
 
   useEffect(() => {
     const fetchTransect = async () => {
@@ -37,6 +41,18 @@ const TransectDetail = () => {
     };
     fetchTransect();
   }, [id]);
+
+  const handleDeleteTransect = async (data) => {
+    if (data.delete.toLowerCase() === "delete transect") {
+      console.log(data.delete.toLowerCase());
+      try {
+        await deleteTransect(transect.id);
+        navigate("/region");
+      } catch (error) {
+        console.error("Error deleting transect:", error);
+      }
+    }
+  };
 
   const geoCenter = calculateCenter(testGeo.geometry.coordinates[0]);
 
@@ -55,25 +71,43 @@ const TransectDetail = () => {
       <h3>Description</h3>
       <p>{transect ? transect.description : "Loading ..."}</p>
 
-      <div style={{ width: "90vw", height: "350px", paddingBottom: "5rem" }}>
-        <MapContainer
-          id="cool-map"
-          center={geoCenter}
-          zoom={13}
-          scrollWheelZoom={true}
-          zoomControl={false}
-        >
-          <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
+      {!deleteModal && (
+        <div style={{ width: "90vw", height: "350px", paddingBottom: "5rem" }}>
+          <MapContainer
+            id="cool-map"
+            center={geoCenter}
+            zoom={13}
+            scrollWheelZoom={true}
+            zoomControl={false}
+          >
+            <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
 
-          <GeoJSON key={Math.random()} data={testGeo} />
-        </MapContainer>
-      </div>
+            <GeoJSON key={Math.random()} data={testGeo} />
+          </MapContainer>
+        </div>
+      )}
+
       <button
         className="text-btn"
         onClick={() => navigate(`/add/${transect.id}`)}
       >
         {"Edit"}
       </button>
+      <button
+        className="text-btn delete-btn"
+        onClick={() => setDeleteModal(true)}
+      >
+        Delete
+      </button>
+      {deleteModal && (
+        <Modal
+          modal={deleteModal}
+          setModal={setDeleteModal}
+          formSchema={deleteTransectFormSchema}
+          uiSchemas={UISchemas.deleteTransectUISchema}
+          handleSubmit={handleDeleteTransect}
+        />
+      )}
     </div>
   );
 };

@@ -17,7 +17,6 @@ export function toGeoJSON (
 
   if (geometry_types.polygon === geometryType) {
     coordinates.push(verticies[0])
-    console.log(coordinates);
   }
   
   return {

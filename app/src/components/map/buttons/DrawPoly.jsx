@@ -14,6 +14,7 @@ export default function DrawPoly() {
 
   useMapEvents({
     click(e) {
+      console.log(e);
       if (state.mode === map_modes.polygon) {
 
         const newCoordinates = [...state.coordinates, [e.latlng.lng, e.latlng.lat]];

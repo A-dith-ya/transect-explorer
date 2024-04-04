@@ -6,6 +6,8 @@ import ArrayFieldTemplate from "./template/ArrayFieldTemplate";
 import SubmitButton from "./template/SubmitButton";
 import "./FormContainer.css";
 import { MapContext } from "../../contexts/MapContext";
+import { UPDATE_COORDINATES } from "../../state/actions/index";
+import { map_modes } from "../../constants/Map.ts";
 
 const FormContainer = ({
   schema,
@@ -17,16 +19,24 @@ const FormContainer = ({
 
   addButtonIcon,
   removeButtonIcon,
-
 }) => {
   const {state, dispatch} = useContext(MapContext);
   const [formData, setFormData] = useState(initialFormData);
 
   useEffect(() => {
-  }, [form]);
+    /*
+    if (formData?.coordinates.length > 0 && state.mode !== map_modes.polygon) {
+      dispatch({
+        type: UPDATE_COORDINATES,
+        payload: {
+          coordinates: formData.coordinates
+        }
+      });
+    }
+    */
+  }, [formData]);
 
   useEffect(() => {
-    console.log('FORM', schema);
     if (schema.title === 'Add Transect') {
       setFormData({...formData, coordinates: state.coordinates.map((coord) => coord.join(","))});
     }

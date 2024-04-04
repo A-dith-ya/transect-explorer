@@ -11,6 +11,8 @@ import {
   DRAW_POLY,
   ADD_COORDINATE,
   CLEAR_COORDINATES,
+  UPDATE_COORDINATES,
+  REMOVE_COORDINATE,
   MEASURE_DISTANCE,
   NONE,
   USER_BOUND_UPDATE_ON_MOVE,
@@ -41,27 +43,37 @@ export default function MapReducer (state, action) {
   console.log('ACTION DISPATCH:',action.type, action.payload)
   switch (action.type) {
     case DRAW_POLY:
+      if (state.coordinates.length > 3) {
+        const len = state.coordinates.length;
+        const newCoordinates = state.coordinates.slice(0, len - 1);
+        return {
+          ...state,
+          mode: map_modes.polygon,
+          geojson: null,
+          coordinates: newCoordinates
+        }
+      }
       return {
         ...state,
         mode: map_modes.polygon,
         geojson: null,
-        verticies: []
+        coordinates: []
       }
     case MEASURE_DISTANCE:
       return {
         ...state,
         mode: map_modes.distance,
         geojson: null,
-        verticies: []
       }
     case NONE:
       return {
         ...state,
         mode: map_modes.none,
         geojson: action.payload.geojson,
-        verticies: []
       }
     case ADD_COORDINATE:
+    case UPDATE_COORDINATES:
+    case REMOVE_COORDINATE:
       return {
         ...state,
         coordinates: action.payload.coordinates
