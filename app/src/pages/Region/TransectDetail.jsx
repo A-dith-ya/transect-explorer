@@ -105,7 +105,7 @@ const TransectDetail = () => {
           setModal={setDeleteModal}
           formSchema={deleteTransectFormSchema}
           uiSchemas={UISchemas.deleteTransectUISchema}
-          handleSubmit={handleDeleteTransect}
+          submitForm={handleDeleteTransect}
         />
       )}
     </div>

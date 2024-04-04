@@ -5,6 +5,7 @@ import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import "./index.css";
 import { AuthProvider } from "./contexts/AuthContext.jsx";
+import MapContextProvider from "./contexts/MapContext.jsx";
 
 if ("serviceWorker" in navigator) {
   window.addEventListener("load", () => {
@@ -25,19 +26,21 @@ if ("serviceWorker" in navigator) {
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
     <AuthProvider>
-      <App />
-      <ToastContainer
-        position="top-center"
-        autoClose={5000}
-        hideProgressBar={false}
-        newestOnTop={false}
-        closeOnClick
-        rtl={false}
-        pauseOnFocusLoss
-        draggable
-        pauseOnHover
-        theme="light"
-      />
+      <MapContextProvider>
+        <App />
+        <ToastContainer
+          position="top-center"
+          autoClose={5000}
+          hideProgressBar={false}
+          newestOnTop={false}
+          closeOnClick
+          rtl={false}
+          pauseOnFocusLoss
+          draggable
+          pauseOnHover
+          theme="light"
+        />
+      </MapContextProvider>
     </AuthProvider>
   </React.StrictMode>
 );

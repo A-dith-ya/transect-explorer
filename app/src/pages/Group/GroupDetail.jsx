@@ -12,14 +12,14 @@ import validator from "@rjsf/validator-ajv8";
 import ObjectFieldTemplate from "../../components/rjsf/template/ObjectFieldTemplate";
 import GroupArrayFieldTemplate from "../../components/rjsf/template/GroupArrayFieldTemplate";
 import SubmitButton from "../../components/rjsf/template/SubmitButton";
-import TransectList from '../../components/transects/TransectList';
-import MemberList from '../../components/group/MemberList';
+import TransectList from "../../components/transects/TransectList";
+import MemberList from "../../components/group/MemberList";
 import "./index.css";
 
 const GroupDetail = () => {
   const [formData, setFormData] = useState(false);
   const [editable, setEditable] = useState(false);
-  const [members, setMembers] = useState([])
+  const [members, setMembers] = useState([]);
 
   const username = sessionStorage.getItem("username");
 
@@ -43,6 +43,7 @@ const GroupDetail = () => {
 
     useEffect(() => {
     async function fetchLeader() {
+
 
  
       // // const leader = await getUser(formData?.groupLeaderId);
@@ -74,6 +75,7 @@ const GroupDetail = () => {
         role: 'Member',
         name: name,
         email: email
+
       });
     });
 
@@ -83,7 +85,6 @@ const GroupDetail = () => {
     if (formData && members.length === 0) {
       fetchLeader();
     }
-
   }, [formData, members]);
 
   useEffect(() => {
@@ -107,12 +108,9 @@ const GroupDetail = () => {
   };
 
   return (
-    <div className='details-page'>
-
-      <div className='details-page-title'>
-        <button
-          className='icon-btn'
-          onClick={() => navigate("/group")}>
+    <div className="details-page">
+      <div className="details-page-title">
+        <button className="icon-btn" onClick={() => navigate("/group")}>
           <i className="fa-solid fa-arrow-left"></i>
         </button>
         <h1>{formData?.groupName}</h1>
@@ -152,15 +150,11 @@ const GroupDetail = () => {
       )}
 
       {username === members[0]?.name && (
-        <div className='btn-div'>
-          <button
-          className='text-btn'
-          onClick={handleDelete}>
+        <div className="btn-div">
+          <button className="text-btn" onClick={handleDelete}>
             Delete
           </button>
-          <button
-          className='text-btn'
-          onClick={handleEdit}>
+          <button className="text-btn" onClick={handleEdit}>
             {editable ? "Cancel" : "Edit"}
           </button>
         </div>

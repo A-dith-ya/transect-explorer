@@ -8,10 +8,17 @@ axios.defaults.withCredentials = true;
 
 const createGroup = async (formData, navigate) => {
   try {
-    await axios.post(baseURL, {
+    const response = await axios.post(baseURL, {
       groupLeaderId: Number(sessionStorage.getItem("id")),
       groupName: formData.groupName,
       groupUserEmails: formData.groupUserEmails,
+    });
+    const createdGroup = await getGroupId(response.data.id);
+
+    formData.groupUserEmails.forEach((email) => {
+      if (!createdGroup.groupUserEmails.includes(email)) {
+        toast.error(email + " does not exist!");
+      }
     });
 
     navigate("/group");
