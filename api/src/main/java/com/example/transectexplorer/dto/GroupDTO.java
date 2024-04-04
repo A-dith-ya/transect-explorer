@@ -6,6 +6,7 @@ public class GroupDTO {
     private Long id;
     private String groupName;
     private Long groupLeaderId;
+    private List<String> groupLeader;
     private List<String> groupUserEmails;
     private List<String> groupUserNames;
 
@@ -23,6 +24,14 @@ public class GroupDTO {
         this.id = id;
         this.groupName = groupName;
         this.groupLeaderId = groupLeaderId;
+        this.groupUserEmails = groupUserEmails;
+        this.groupUserNames = groupUserNames;
+    }
+
+    public GroupDTO(Long id, String groupName, List<String> groupLeader, List<String> groupUserEmails, List<String> groupUserNames) {
+        this.id = id;
+        this.groupName = groupName;
+        this.groupLeader = groupLeader;
         this.groupUserEmails = groupUserEmails;
         this.groupUserNames = groupUserNames;
     }
@@ -49,6 +58,14 @@ public class GroupDTO {
 
     public void setGroupLeaderId(Long groupLeaderId) {
         this.groupLeaderId = groupLeaderId;
+    }
+
+    public void setGroupLeader(List<String> groupLeader) {
+        this.groupLeader = groupLeader;
+    }
+
+    public List<String> getGroupLeader() {
+        return groupLeader;
     }
 
     public List<String> getGroupUserEmails() {

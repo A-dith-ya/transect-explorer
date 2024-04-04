@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.Optional;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Arrays;
 
 @RestController
 @RequestMapping("/groups")
@@ -35,10 +36,11 @@ public class GroupController {
     @GetMapping("/{id}")
     @PreAuthorize("@authenticationService.authorizeGroupUser(#id)")
     public ResponseEntity<GroupDTO> getGroupById(@PathVariable Long id) {
-        Optional<Group> group = groupRepository.findById(id);
+        Optional<Group> groupOptional = groupRepository.findById(id);
 
-        if (group.isPresent()) {
-            List<GroupUser> groupUsers = groupUserRepository.findByGroup(group.get());
+        if (groupOptional.isPresent()) {
+            Group group = groupOptional.get();
+            List<GroupUser> groupUsers = groupUserRepository.findByGroup(group);
 
             // Get the usernames and emails of the users in the group
             List<String> groupUserEmails = new ArrayList<>();
@@ -48,8 +50,12 @@ public class GroupController {
                 groupUserNames.add(groupUser.getUser().getUsername());
             }
 
-            return new ResponseEntity<>(new GroupDTO(group.get().getId(), group.get().getGroupName(),
-                    group.get().getGroupLeaderId(), groupUserEmails, groupUserNames), HttpStatus.OK);
+            List<String> groupLeaderDetails = Arrays.asList(group.getGroupLeader().getUserEmail(), group.getGroupLeader().getUsername()
+            );
+
+            GroupDTO groupDTO = new GroupDTO(group.getId(), group.getGroupName(), groupLeaderDetails, groupUserEmails, groupUserNames);
+
+            return new ResponseEntity<>(groupDTO, HttpStatus.OK);
         }
 
         return new ResponseEntity<>(HttpStatus.NOT_FOUND);

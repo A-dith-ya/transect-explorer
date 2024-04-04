@@ -34,7 +34,15 @@ const GroupDetail = () => {
 
   useEffect(() => {
     async function fetchLeader() {
+ 
+      // const leader = await getUser(formData?.groupLeaderId);
+      console.log('formData before getUser call:', formData);
+
       const leader = await getUser(formData?.groupLeaderId);
+
+      console.log('leader after getUser call:', leader);
+
+      
       const temp = [];
       console.log(leader);
       
