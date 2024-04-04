@@ -1,4 +1,7 @@
 import getIndexedDatabase from "./IndexedDatabase";
+
+let currentId = Number.MAX_SAFE_INTEGER;
+
 /**
  * Creates a new user transect
  * @param {{id: number, groupId: number, userCreatorId: number, transectName: string, description: string, location: string, coordinate: string, userCreatorName: string}[]} data
@@ -7,6 +10,7 @@ const createUserTransect = async (transect) => {
   try {
     const db = await getIndexedDatabase();
     transect.isCreated = true;
+    transect.id = currentId--;
     await db.put("transects", transect);
   } catch (error) {
     console.log(error);
@@ -21,7 +25,7 @@ const createUserTransect = async (transect) => {
 const getTransect = async (transectId) => {
   try {
     const db = await getIndexedDatabase();
-    const transects = await db.get("transects", transectId);
+    const transects = await db.get("transects", +transectId);
     return transects;
   } catch (error) {
     console.log(error);
@@ -78,6 +82,23 @@ const getUpdatedTransects = async (userId) => {
 };
 
 /**
+ * Updates user transects
+ * @param {{id: number, groupId: number, userCreatorId: number, transectName: string, description: string, location: string, coordinate: string, userCreatorName: string}} formData
+ * @param {number} transectId
+ */
+const updateUserTransect = async (formData, transectId) => {
+  try {
+    const db = await getIndexedDatabase();
+    const transect = await db.get("transects", +transectId);
+    const updatedTransect = { ...transect, ...formData };
+    updatedTransect.id = +transectId;
+    await db.put("transects", updatedTransect);
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+/**
  * Stores user transects
  * @param {{id: number, groupId: number, userCreatorId: number, transectName: string, description: string, location: string, coordinate: string, userCreatorName: string}[]} data
  */
@@ -99,5 +120,6 @@ export {
   getAllUserTransects,
   getCreatedTransects,
   getUpdatedTransects,
+  updateUserTransect,
   storeUserTransects,
 };

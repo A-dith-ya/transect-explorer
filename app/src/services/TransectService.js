@@ -3,8 +3,9 @@ import { toast } from "react-toastify";
 import {
   createUserTransect,
   getAllUserTransects,
-  storeUserTransects,
   getTransect,
+  updateUserTransect,
+  storeUserTransects,
 } from "./TransectIndexedDBService";
 
 const baseURL = "http://localhost:8080/transects";
@@ -22,14 +23,10 @@ const createTransect = async (formData, navigate) => {
       userCreatorName: formData.creatorName,
     };
 
-    console.log(transectData);
-
     if (navigator.onLine) {
-      await axios.post(baseURL, transectData).then((response) => {
-        console.log(response);
-      });
+      await axios.post(baseURL, transectData);
     } else {
-      createUserTransect(transectData);
+      await createUserTransect(transectData);
     }
 
     toast.success(transectData.transectName + " Created!");
@@ -51,13 +48,14 @@ const updateTransect = async (formData, id, navigate) => {
       coordinate: formData.coordinates,
     };
 
-    console.log(transectData);
+    if (navigator.onLine) {
+      await axios.put(`${baseURL}/${id}`, transectData);
+    } else {
+      await updateUserTransect(transectData, id);
+    }
 
-    await axios.put(`${baseURL}/${id}`, transectData).then((response) => {
-      console.log(response);
-      toast.success(transectData.transectName + " Updated!");
-      navigate(`/region/transect/${id}`);
-    });
+    toast.success(transectData.transectName + " Updated!");
+    navigate(`/region/transect/${id}`);
   } catch (error) {
     console.log(error);
     toast.error("Error updating transect: " + error.message);
@@ -79,8 +77,7 @@ const getTransectID = async (id) => {
       const result = await axios.get(`${baseURL}/${id}`);
       return result.data;
     } else {
-      const result = await getTransect(Number(id));
-      return result;
+      return await getTransect(id);
     }
   } catch (error) {
     console.log(error);
@@ -105,8 +102,7 @@ const getTransectsByCreatorId = async () => {
       storeUserTransects(result.data);
       return result.data;
     } else {
-      const result = await getAllUserTransects(userCreatorId);
-      return result;
+      return await getAllUserTransects(userCreatorId);
     }
   } catch (error) {
     console.log(error);
