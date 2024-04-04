@@ -3,6 +3,8 @@ import { toast } from "react-toastify";
 import {
   createUserTransect,
   getAllUserTransects,
+  storeUserTransects,
+  getTransect,
 } from "./TransectIndexedDBService";
 
 const baseURL = "http://localhost:8080/transects";
@@ -73,8 +75,13 @@ async function getTransects(uri_endpoint) {
 
 const getTransectID = async (id) => {
   try {
-    const result = await axios.get(`${baseURL}/${id}`);
-    return result.data;
+    if (navigator.onLine) {
+      const result = await axios.get(`${baseURL}/${id}`);
+      return result.data;
+    } else {
+      const result = await getTransect(Number(id));
+      return result;
+    }
   } catch (error) {
     console.log(error);
     toast.error("Error getting transectID: " + error.message);
@@ -95,6 +102,7 @@ const getTransectsByCreatorId = async () => {
     if (navigator.onLine) {
       const userCreatorId = sessionStorage.getItem("id");
       const result = await axios.get(`${baseURL}/users/${userCreatorId}`);
+      storeUserTransects(result.data);
       return result.data;
     } else {
       const result = await getAllUserTransects();

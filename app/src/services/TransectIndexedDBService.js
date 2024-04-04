@@ -53,9 +53,9 @@ const getAllUserTransects = async () => {
 const storeUserTransects = async (transects) => {
   try {
     const db = await getIndexedDatabase();
-    transects.forEach(async (transect) => {
-      await db.put("transects", transect, transect.id);
-    });
+    for (const transect of transects) {
+      await db.put("transects", transect);
+    }
   } catch (error) {
     console.log(error);
   }
