@@ -76,12 +76,18 @@ const updateUser = async (formData, id, navigate) => {
     .post(`${baseURL}auth/login`, authorizeRequestData)
     .then((response) => {
       if (response.status === 200) {
-        axios.put(`${baseURL}${id}`, updateData).then((response) => {
-          console.log(response);
-          sessionStorage.setItem("username", response.data.username);
-          toast.success("Username Updated!");
-          navigate(`/settings`);
-        });
+        axios
+          .put(`${baseURL}${id}`, updateData)
+          .then((response) => {
+            console.log(response);
+            sessionStorage.setItem("username", response.data.username);
+            toast.success("Username Updated!");
+            navigate(`/settings`);
+          })
+          .catch((error) => {
+            console.log(error);
+            toast.error("Username already taken: " + error.message);
+          });
       }
     })
     .catch((error) => {
@@ -105,12 +111,18 @@ const updateEmail = async (formData, id, navigate) => {
     .post(`${baseURL}auth/login`, authorizeRequestData)
     .then((response) => {
       if (response.status === 200) {
-        axios.put(`${baseURL}${id}`, updateData).then((response) => {
-          console.log(response);
-          sessionStorage.setItem("userEmail", response.data.email);
-          toast.success("Email Updated!");
-          navigate(`/settings`);
-        });
+        axios
+          .put(`${baseURL}${id}`, updateData)
+          .then((response) => {
+            console.log(response);
+            sessionStorage.setItem("userEmail", response.data.email);
+            toast.success("Email Updated!");
+            navigate(`/settings`);
+          })
+          .catch((error) => {
+            console.log(error);
+            toast.error("Email already taken: " + error.message);
+          });
       }
     })
     .catch((error) => {
