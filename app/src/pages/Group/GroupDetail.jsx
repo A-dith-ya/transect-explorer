@@ -17,32 +17,33 @@ import MemberList from '../../components/group/MemberList';
 import "./index.css";
 
 const GroupDetail = () => {
-  const [formData, setFormData] = useState(null);
+  const [formData, setFormData] = useState(false);
   const [editable, setEditable] = useState(false);
   const [members, setMembers] = useState([])
 
   const username = sessionStorage.getItem("username");
 
-  useEffect(() => {
-    console.log(members);
-    console.log(username);
-  }, [members]);
+  // useEffect(() => {
+  //   console.log(members);
+  //   console.log(username);
+  // }, [members]);
 
 
 
   const { id } = useParams();
   const navigate = useNavigate();
 
-  const handleSubmit = async (formData) => {
+  const handleSubmit =  (formData) => {
+   
     updateGroup(formData).then(() => {
-      
       setEditable(false);
       
     });
   };
 
-  useEffect(() => {
+    useEffect(() => {
     async function fetchLeader() {
+
  
       // // const leader = await getUser(formData?.groupLeaderId);
       // console.log('formData before getUser call:', formData);
@@ -76,7 +77,6 @@ const GroupDetail = () => {
       });
     });
 
-
       setMembers(temp);
     }
 
@@ -89,6 +89,7 @@ const GroupDetail = () => {
   useEffect(() => {
     const fetchGroup = async () => {
       const result = await getGroupId(id);
+      setMembers([])
       setFormData(result);
     };
 
