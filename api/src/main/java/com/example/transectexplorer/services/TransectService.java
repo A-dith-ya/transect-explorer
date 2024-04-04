@@ -5,7 +5,9 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.web.server.ResponseStatusException;
 
 import com.example.transectexplorer.dto.TransectDTO;
 import com.example.transectexplorer.model.Group;
@@ -26,6 +28,9 @@ public class TransectService {
     @Autowired
     private UserRepository userRepository;
 
+    @Autowired
+    private AuthenticationService authenticationService;
+
     private TransectDTO convertToDTO(Transect transect) {
         return new TransectDTO(
                 transect.getId(),
@@ -38,7 +43,17 @@ public class TransectService {
                 transect.getUserCreator().getUsername());
     }
 
+    private void checkGroupAuthorization(List<TransectDTO> transectDTOs) {
+        for (TransectDTO transectDTO : transectDTOs) {
+            if (!authenticationService.authorizeGroupUser(transectDTO.getGroupId())) {
+                throw new ResponseStatusException(HttpStatus.UNAUTHORIZED);
+            }
+        }
+    }
+
     public List<TransectDTO> createTransects(List<TransectDTO> transectDTOs) {
+        checkGroupAuthorization(transectDTOs);
+
         List<Transect> transects = transectDTOs.stream()
                 .map(this::convertToTransect)
                 .collect(Collectors.toList());
@@ -62,6 +77,8 @@ public class TransectService {
     }
 
     public List<TransectDTO> updateTransects(List<TransectDTO> transectDTOs) {
+        checkGroupAuthorization(transectDTOs);
+
         List<Transect> updatedTransects = transectDTOs.stream()
                 .map(this::convertToUpdateTransect)
                 .collect(Collectors.toList());
@@ -89,6 +106,12 @@ public class TransectService {
     }
 
     public void deleteTransects(List<Long> ids) {
+        for (Long id : ids) {
+            if (!authenticationService.authorizeTransect(id)) {
+                throw new ResponseStatusException(HttpStatus.UNAUTHORIZED);
+            }
+        }
+
         transectRepository.deleteAllById(ids);
     }
 }
