@@ -35,21 +35,24 @@ const GroupDetail = () => {
   useEffect(() => {
     async function fetchLeader() {
  
+      // // const leader = await getUser(formData?.groupLeaderId);
+      // console.log('formData before getUser call:', formData);
+
       // const leader = await getUser(formData?.groupLeaderId);
-      console.log('formData before getUser call:', formData);
 
-      const leader = await getUser(formData?.groupLeaderId);
-
-      console.log('leader after getUser call:', leader);
+      // console.log('leader after getUser call:', leader);
 
       
       const temp = [];
-      console.log(leader);
-      
+      // console.log(leader);
+      const groupLeaderDetails = formData.groupLeader;
+      const leaderEmail = groupLeaderDetails[0];
+      const leaderName = groupLeaderDetails[1];
+      // formData.groupLeader.forEach()
       temp.push({
         role: 'Leader',
-        name: leader.username,
-        email: leader.userEmail
+        name: leaderEmail,
+        email: leaderName
       });
 
     // Assuming you have an array called formData.groupUserNames that corresponds to formData.groupUserEmails
