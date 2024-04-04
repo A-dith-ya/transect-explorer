@@ -141,13 +141,8 @@ public class TransectController {
     }
 
     @DeleteMapping("/sync")
-    public ResponseEntity<Void> deleteMultipleTransects(@RequestBody List<Long> transectIds) {
-        for (Long id : transectIds) {
-            if (transectRepository.existsById(id)) {
-                transectRepository.deleteById(id);
-            }
-        }
+    public ResponseEntity<Void> deleteMultipleTransects(@RequestParam List<Long> transectIds) {
+        transectService.deleteTransects(transectIds);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
-
 }

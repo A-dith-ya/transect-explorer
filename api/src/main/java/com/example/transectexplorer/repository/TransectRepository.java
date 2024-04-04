@@ -16,4 +16,6 @@ public interface TransectRepository extends CrudRepository<Transect, Long> {
     List<TransectDTO> findByGroup(Group group);
 
     List<Transect> findByUserCreator(User userCreator);
+
+    void deleteAllByIdIn(List<Long> ids);
 }

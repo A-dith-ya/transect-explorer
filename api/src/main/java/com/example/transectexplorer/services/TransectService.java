@@ -87,4 +87,8 @@ public class TransectService {
 
         return transect;
     }
+
+    public void deleteTransects(List<Long> ids) {
+        transectRepository.deleteAllById(ids);
+    }
 }
