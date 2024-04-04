@@ -99,13 +99,13 @@ const deleteTransect = async (id) => {
 
 const getTransectsByCreatorId = async () => {
   try {
+    const userCreatorId = sessionStorage.getItem("id");
     if (navigator.onLine) {
-      const userCreatorId = sessionStorage.getItem("id");
       const result = await axios.get(`${baseURL}/users/${userCreatorId}`);
       storeUserTransects(result.data);
       return result.data;
     } else {
-      const result = await getAllUserTransects();
+      const result = await getAllUserTransects(userCreatorId);
       return result;
     }
   } catch (error) {

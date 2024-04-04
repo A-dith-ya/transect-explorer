@@ -1,5 +1,4 @@
 import getIndexedDatabase from "./IndexedDatabase";
-
 /**
  * Creates a new user transect
  * @param {{id: number, groupId: number, userCreatorId: number, transectName: string, description: string, location: string, coordinate: string, userCreatorName: string}[]} data
@@ -7,6 +6,7 @@ import getIndexedDatabase from "./IndexedDatabase";
 const createUserTransect = async (transect) => {
   try {
     const db = await getIndexedDatabase();
+    transect.isCreated = true;
     await db.put("transects", transect);
   } catch (error) {
     console.log(error);
@@ -30,17 +30,48 @@ const getTransect = async (transectId) => {
 
 /**
  * Retrieves all user transects
+ * @param {number} userId
  * @returns @param {{id: number, groupId: number, userCreatorId: number, transectName: string, description: string, location: string, coordinate: string, userCreatorName: string}[]}
  */
-const getAllUserTransects = async () => {
+const getAllUserTransects = async (userId) => {
   try {
     const db = await getIndexedDatabase();
     const transects = await db.getAll("transects");
-    const userTransects = transects.filter(
-      (transect) =>
-        transect.userCreatorId === Number(sessionStorage.getItem("id"))
+    return transects.filter((transect) => transect.userCreatorId === +userId);
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+/**
+ * Retrieves all created user transects
+ * @param {number} userId
+ * @returns @param {{id: number, groupId: number, userCreatorId: number, transectName: string, description: string, location: string, coordinate: string, userCreatorName: string}[]}
+ * */
+const getCreatedTransects = async (userId) => {
+  try {
+    const db = await getIndexedDatabase();
+    const transects = await db.getAll("transects");
+    return transects.filter(
+      (transect) => transect.userCreatorId === +userId && transect.isCreated
     );
-    return userTransects;
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+/**
+ * Retrieves all created user transects
+ *  @param {number} userId
+ * @returns @param {{id: number, groupId: number, userCreatorId: number, transectName: string, description: string, location: string, coordinate: string, userCreatorName: string}[]}
+ * */
+const getUpdatedTransects = async (userId) => {
+  try {
+    const db = await getIndexedDatabase();
+    const transects = await db.getAll("transects");
+    return transects.filter(
+      (transect) => transect.userCreatorId === +userId && !transect.isCreated
+    );
   } catch (error) {
     console.log(error);
   }
@@ -54,6 +85,7 @@ const storeUserTransects = async (transects) => {
   try {
     const db = await getIndexedDatabase();
     for (const transect of transects) {
+      transect.isCreated = false;
       await db.put("transects", transect);
     }
   } catch (error) {
@@ -65,5 +97,7 @@ export {
   createUserTransect,
   getTransect,
   getAllUserTransects,
+  getCreatedTransects,
+  getUpdatedTransects,
   storeUserTransects,
 };
