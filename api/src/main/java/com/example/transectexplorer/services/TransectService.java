@@ -26,6 +26,18 @@ public class TransectService {
     @Autowired
     private UserRepository userRepository;
 
+    private TransectDTO convertToDTO(Transect transect) {
+        return new TransectDTO(
+                transect.getId(),
+                transect.getGroup().getId(),
+                transect.getUserCreator().getId(),
+                transect.getTransectName(),
+                transect.getDescription(),
+                transect.getLocation(),
+                transect.getCoordinate(),
+                transect.getUserCreator().getUsername());
+    }
+
     public List<TransectDTO> createTransects(List<TransectDTO> transectDTOs) {
         List<Transect> transects = transectDTOs.stream()
                 .map(this::convertToTransect)
@@ -49,15 +61,30 @@ public class TransectService {
                 transectDTO.getDescription(), transectDTO.getLocation(), transectDTO.getCoordinate());
     }
 
-    private TransectDTO convertToDTO(Transect transect) {
-        return new TransectDTO(
-                transect.getId(),
-                transect.getGroup().getId(),
-                transect.getUserCreator().getId(),
-                transect.getTransectName(),
-                transect.getDescription(),
-                transect.getLocation(),
-                transect.getCoordinate(),
-                transect.getUserCreator().getUsername());
+    public List<TransectDTO> updateTransects(List<TransectDTO> transectDTOs) {
+        List<Transect> updatedTransects = transectDTOs.stream()
+                .map(this::convertToUpdateTransect)
+                .collect(Collectors.toList());
+        List<Transect> savedTransects = (List<Transect>) transectRepository.saveAll(updatedTransects);
+
+        return savedTransects.stream()
+                .map(this::convertToDTO)
+                .collect(Collectors.toList());
+    }
+
+    private Transect convertToUpdateTransect(TransectDTO transectDTO) {
+        Optional<Transect> optionalTransect = transectRepository.findById(transectDTO.getId());
+
+        if (!optionalTransect.isPresent()) {
+            throw new IllegalArgumentException("Invalid transect");
+        }
+
+        Transect transect = optionalTransect.get();
+        transect.setTransectName(transectDTO.getTransectName());
+        transect.setDescription(transectDTO.getDescription());
+        transect.setLocation(transectDTO.getLocation());
+        transect.setCoordinate(transectDTO.getCoordinate());
+
+        return transect;
     }
 }

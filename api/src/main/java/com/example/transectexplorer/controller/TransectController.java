@@ -14,7 +14,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -137,40 +136,7 @@ public class TransectController {
 
     @PutMapping("/sync")
     public ResponseEntity<List<TransectDTO>> updateMultipleTransects(@RequestBody List<TransectDTO> transectDTOs) {
-        List<TransectDTO> updatedTransects = new ArrayList<>();
-
-        for (TransectDTO transectDTO : transectDTOs) {
-            Optional<Transect> transectOptional = transectRepository.findById(transectDTO.getId());
-            Optional<Group> groupOptional = groupRepository.findById(transectDTO.getGroupId());
-
-            if (transectOptional.isPresent()) {
-                Transect existingTransect = transectOptional.get();
-                if (groupOptional.isPresent()) {
-                    existingTransect.setGroup(groupOptional.get());
-                }
-                existingTransect.setTransectName(transectDTO.getTransectName());
-                existingTransect.setDescription(transectDTO.getDescription());
-                existingTransect.setLocation(transectDTO.getLocation());
-                existingTransect.setCoordinate(transectDTO.getCoordinate());
-
-                Transect savedTransect = transectRepository.save(existingTransect);
-
-                TransectDTO updatedTransectDTO = new TransectDTO(
-                        savedTransect.getId(),
-                        savedTransect.getGroup().getId(),
-                        savedTransect.getUserCreator().getId(),
-                        savedTransect.getTransectName(),
-                        savedTransect.getDescription(),
-                        savedTransect.getLocation(),
-                        savedTransect.getCoordinate(),
-                        savedTransect.getUserCreator().getUsername());
-
-                updatedTransects.add(updatedTransectDTO);
-            } else {
-                updatedTransects.add(transectDTO);
-            }
-        }
-
+        List<TransectDTO> updatedTransects = transectService.updateTransects(transectDTOs);
         return new ResponseEntity<>(updatedTransects, HttpStatus.OK);
     }
 
