@@ -6,8 +6,9 @@ import {
   BUFFERED_EXTENTS_UPDATE_ON_ONE_INTERSECTIONS,
   BUFFERED_EXTENTS_UPDATE_ON_THREE_INTERSECTIONS,
   BUFFERED_EXTENTS_UPDATE_ON_TWO_INTERSECTIONS,
+  USER_BOUND_UPDATE_ON_MOVE,
+  USER_BOUND_UPDATE_ON_ZOOM,
   CACHED_DATA_UPDATE,
-  CURRENT_POSITION_UPDATE,
   DRAW_POLY,
   ADD_COORDINATE,
   CLEAR_COORDINATES,
@@ -18,12 +19,14 @@ import {
   NONE,
   DETAILS_PAGE_GEO,
   EDIT_TRANSECT,
-  USER_BOUND_UPDATE_ON_MOVE,
-  USER_BOUND_UPDATE_ON_ZOOM
+  ENABLE_POSITION,
+  DISABLE_POSITION,
+  UPDATE_POSITION
 } from './actions'
 
 export const initialState = {
   mode: NONE,
+  position_enabled: false,
   geojson: null,
   fetch_geojson: null,
   current_position: null,
@@ -107,11 +110,23 @@ export default function MapReducer (state, action) {
         geojson: action.payload.geojson
       };
 
-    case CURRENT_POSITION_UPDATE:
+    case ENABLE_POSITION:
       return {
         ...state,
-        current_position: action.payload.current_position
+        position_enabled: true
       };
+
+    case DISABLE_POSITION:
+      return {
+        ...state,
+        position_enabled: false
+      };
+
+    case UPDATE_POSITION:
+      return {
+        ...state,
+        current_position: action.payload.position
+      }
 
     case USER_BOUND_UPDATE_ON_MOVE:
     case USER_BOUND_UPDATE_ON_ZOOM:
