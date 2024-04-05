@@ -19,6 +19,7 @@ import {
   EDIT_TRANSECT_NAME,
   EDIT_TRANSECT_OBSERVATION,
   EDIT_TRANSECT_REGION,
+  EDIT_TRANSECT_GROUP,
   USER_BOUND_UPDATE_ON_MOVE,
   USER_BOUND_UPDATE_ON_ZOOM,
 } from "./actions";
@@ -33,6 +34,7 @@ export const initialState = {
     transectName: "",
     observation: "",
     region: "",
+    group: "",
   },
   user_bound: null,
   buffered_extents: {
@@ -190,6 +192,17 @@ export default function MapReducer(state, action) {
         form: {
           ...state.form,
           region: transectRegion,
+        },
+      };
+
+    case EDIT_TRANSECT_GROUP:
+      let transectGroup = action.payload.transectGroup;
+      console.log("Setting group: " + transectGroup);
+      return {
+        ...state,
+        form: {
+          ...state.form,
+          group: transectGroup,
         },
       };
 

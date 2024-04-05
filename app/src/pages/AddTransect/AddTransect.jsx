@@ -9,10 +9,12 @@ import {
   getTransectID,
   updateTransect,
 } from "../../services/TransectService";
-import { getUserGroup } from "../../services/GroupService";
+import { getGroupId, getUserGroup } from "../../services/GroupService";
 import {
   EDIT_TRANSECT_OBSERVATION,
   EDIT_TRANSECT_REGION,
+  EDIT_TRANSECT_GROUP,
+  EDIT_TRANSECT_NAME,
   UPDATE_GEOJSON,
 } from "../../state/actions/index";
 
@@ -24,7 +26,6 @@ import FetchPosition from "../../components/map/buttons/FetchPosition";
 import ClickMarkers from "../../components/map/renders/ClickMarkers";
 import { MapContext } from "../../contexts/MapContext";
 import { toGeoJSON } from "../../components/map/helpers/GeoJSON";
-import { EDIT_TRANSECT, EDIT_TRANSECT_NAME } from "../../state/actions/index";
 
 const AddTransect = () => {
   const { state, dispatch } = useContext(MapContext);
@@ -66,11 +67,50 @@ const AddTransect = () => {
               transectRegion: fetchedTransect.location,
             },
           });
+
+          const fetchedGroup = await getGroupId(fetchedTransect.groupId);
+          console.log(`${fetchedTransect.groupId}: ${fetchedGroup.groupName}`);
+          if (fetchedGroup && fetchedTransect) {
+            dispatch({
+              type: EDIT_TRANSECT_GROUP,
+              payload: {
+                transectGroup: `${fetchedTransect.groupId}: ${fetchedGroup.groupName}`,
+              },
+            });
+          }
         } catch (error) {
           console.error("Error fetching transect:", error);
         }
       };
       fetchTransect();
+    } else {
+      dispatch({
+        type: EDIT_TRANSECT_NAME,
+        payload: {
+          transectName: "",
+        },
+      });
+
+      dispatch({
+        type: EDIT_TRANSECT_OBSERVATION,
+        payload: {
+          transectObservation: "",
+        },
+      });
+
+      dispatch({
+        type: EDIT_TRANSECT_REGION,
+        payload: {
+          transectRegion: "",
+        },
+      });
+
+      dispatch({
+        type: EDIT_TRANSECT_GROUP,
+        payload: {
+          transectGroup: "",
+        },
+      });
     }
   }, [setTransect]);
 

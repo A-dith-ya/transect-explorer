@@ -42,6 +42,7 @@ const FormContainer = ({
         ...formData,
         transectName: state.form.transectName ? state.form.transectName : "",
         observation: state.form.observation ? state.form.observation : "",
+        group: state.form.group ? state.form.group : "",
         region: state.form.region ? state.form.region : "",
         coordinates: state.coordinates.map((coord) => coord.join(",")),
       });
