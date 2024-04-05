@@ -42,6 +42,10 @@ export default function DrawPoly() {
         console.log(state.coordinates);
         geo = toGeoJSON(state.coordinates, 'Polygon');
       }
+      else
+      {
+        toast.error("Need at least 3 coordinates to create a geometry");
+      }
 
       dispatch({
         type: NONE,
