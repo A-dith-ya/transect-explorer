@@ -1,4 +1,4 @@
-import { map_modes } from '../constants/Map'
+import { map_modes } from "../constants/Map";
 import {
   BUFFERED_EXTENTS_INITIALIZE,
   BUFFERED_EXTENTS_REMOVE_FURTHEST,
@@ -21,8 +21,14 @@ import {
   EDIT_TRANSECT,
   ENABLE_POSITION,
   DISABLE_POSITION,
-  UPDATE_POSITION
-} from './actions'
+  UPDATE_POSITION,
+  EDIT_TRANSECT_NAME,
+  EDIT_TRANSECT_OBSERVATION,
+  EDIT_TRANSECT_REGION,
+  EDIT_TRANSECT_GROUP,
+  USER_BOUND_UPDATE_ON_MOVE,
+  USER_BOUND_UPDATE_ON_ZOOM,
+} from "./actions";
 
 export const initialState = {
   mode: NONE,
@@ -31,22 +37,28 @@ export const initialState = {
   fetch_geojson: null,
   current_position: null,
   coordinates: [],
+  form: {
+    transectName: "",
+    observation: "",
+    region: "",
+    group: "",
+  },
   user_bound: null,
   buffered_extents: {
     feature_collection: {
-      type: 'FeatureCollection',
-      features: []
+      type: "FeatureCollection",
+      features: [],
     },
-    initialized: false
+    initialized: false,
   },
   cached_data: {
-    type: 'FeatureCollection',
-    features: []
-  }
-}
+    type: "FeatureCollection",
+    features: [],
+  },
+};
 
-export default function MapReducer (state, action) {
-  console.log('ACTION DISPATCH:',action.type, action.payload)
+export default function MapReducer(state, action) {
+  console.log("ACTION DISPATCH:", action.type, action.payload);
   switch (action.type) {
     case DRAW_POLY:
       if (state.coordinates.length > 3) {
@@ -56,15 +68,15 @@ export default function MapReducer (state, action) {
           ...state,
           mode: map_modes.polygon,
           geojson: null,
-          coordinates: newCoordinates
-        }
-      };
+          coordinates: newCoordinates,
+        };
+      }
 
       return {
         ...state,
         mode: map_modes.polygon,
         geojson: null,
-        coordinates: []
+        coordinates: [],
       };
 
     case CREATE_TRANSECT:
@@ -94,14 +106,14 @@ export default function MapReducer (state, action) {
     case REMOVE_COORDINATE:
       return {
         ...state,
-        coordinates: action.payload.coordinates
+        coordinates: action.payload.coordinates,
       };
 
     case CLEAR_COORDINATES:
       return {
         ...state,
         mode: NONE,
-        coordinates: []
+        coordinates: [],
       };
 
     case DETAILS_PAGE_GEO:
@@ -132,7 +144,7 @@ export default function MapReducer (state, action) {
     case USER_BOUND_UPDATE_ON_ZOOM:
       return {
         ...state,
-        user_bound: action.payload.geojson
+        user_bound: action.payload.geojson,
       };
 
     case BUFFERED_EXTENTS_INITIALIZE:
@@ -142,10 +154,10 @@ export default function MapReducer (state, action) {
           initialized: true,
           feature_collection: {
             ...state.buffered_extents.feature_collection,
-            features: action.payload.features
-          }
+            features: action.payload.features,
+          },
         },
-        fetch_geojson: action.payload.fetch_geojson
+        fetch_geojson: action.payload.fetch_geojson,
       };
 
     case BUFFERED_EXTENTS_UPDATE_ON_NO_INTERSECTIONS:
@@ -159,10 +171,10 @@ export default function MapReducer (state, action) {
           ...state.buffered_extents,
           feature_collection: {
             ...state.buffered_extents.feature_collection,
-            features: action.payload.features
-          }
+            features: action.payload.features,
+          },
         },
-        fetch_geojson: action.payload.fetch_geojson
+        fetch_geojson: action.payload.fetch_geojson,
       };
 
     case CACHED_DATA_UPDATE:
@@ -170,19 +182,62 @@ export default function MapReducer (state, action) {
         ...state,
         cached_data: {
           ...state.cached_data,
-          features: action.payload.features
-        }
+          features: action.payload.features,
+        },
       };
 
     case EDIT_TRANSECT:
       let len = action.payload.coordinates.length;
-      const coords = action.payload.coordinates.splice( len - 1, 1 );
+      const coords = action.payload.coordinates.splice(len - 1, 1);
       return {
         ...state,
         mode: map_modes.polygon,
         geojson: null,
-        coordinates: action.payload.coordinates
-      }
+        coordinates: action.payload.coordinates,
+      };
+
+    case EDIT_TRANSECT_NAME:
+      let transectName = action.payload.transectName;
+      return {
+        ...state,
+        form: {
+          ...state.form,
+          transectName: transectName,
+        },
+      };
+
+    case EDIT_TRANSECT_OBSERVATION:
+      let transectObservation = action.payload.transectObservation;
+      console.log("Setting state: " + transectObservation);
+      return {
+        ...state,
+        form: {
+          ...state.form,
+          observation: transectObservation,
+        },
+      };
+
+    case EDIT_TRANSECT_REGION:
+      let transectRegion = action.payload.transectRegion;
+      console.log("Setting region: " + transectRegion);
+      return {
+        ...state,
+        form: {
+          ...state.form,
+          region: transectRegion,
+        },
+      };
+
+    case EDIT_TRANSECT_GROUP:
+      let transectGroup = action.payload.transectGroup;
+      console.log("Setting group: " + transectGroup);
+      return {
+        ...state,
+        form: {
+          ...state.form,
+          group: transectGroup,
+        },
+      };
 
     default:
       return state;

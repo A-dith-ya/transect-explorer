@@ -81,12 +81,12 @@ const TransectList = ({ selectedGroupId }) => {
                 <tr
                   key={transect.id}
                   onClick={() => navigate(`/region/transect/${transect.id}`)}>
-                  <td>{transect.transectName}</td>
-                  <td>{transect.description}</td>
-                  <td>{transect.location}</td>
-                  <td>{utm.zone}</td>
-                  <td>{utm.northing}</td>
-                  <td>{utm.easting}</td>
+                  <td>{transect?.transectName}</td>
+                  <td>{transect?.description}</td>
+                  <td>{transect?.location}</td>
+                  <td>{utm?.zone}</td>
+                  <td>{utm?.northing}</td>
+                  <td>{utm?.easting}</td>
                 </tr>
               );
             })}

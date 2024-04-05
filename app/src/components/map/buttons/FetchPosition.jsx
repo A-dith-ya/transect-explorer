@@ -6,6 +6,7 @@ import {
 import { MapContext } from '../../../contexts/MapContext';
 import iconMarker from '../../../images/icons/maps-and-flags.png';
 import marker from '../../../images/icons/rec.png';
+import { toast } from "react-toastify";
 
 function FetchPosition() {
   const { state, dispatch } = useContext(MapContext);
@@ -15,15 +16,21 @@ function FetchPosition() {
 
       navigator.geolocation.getCurrentPosition((position) => {
 
-        dispatch({
-          type: ADD_COORDINATE,
-          payload: {
-            coordinates: [...state.coordinates, [
-              position.coords.longitude,
-              position.coords.latitude
-            ]]
-          }
-        });
+        if (state.coordinates.length < 10) {
+          dispatch({
+            type: ADD_COORDINATE,
+            payload: {
+              coordinates: [...state.coordinates, [
+                position.coords.longitude,
+                position.coords.latitude
+              ]]
+            }
+          });
+        }
+        else 
+        {
+          toast.error("Can\'t add more than 10 coordinates onto the map.");
+        }
 
       });
 

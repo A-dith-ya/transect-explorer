@@ -40,8 +40,8 @@ const TransectDetail = () => {
       dispatch({
         type: DETAILS_PAGE_GEO,
         payload: {
-          geojson: geojson
-        }
+          geojson: geojson,
+        },
       });
     }
   }, [transect]);
@@ -66,8 +66,8 @@ const TransectDetail = () => {
       type: EDIT_TRANSECT,
       payload: {
         geojson: geojson,
-        coordinates: coordinates
-      }
+        coordinates: coordinates,
+      },
     });
 
     navigate(`/add/${transect.id}`);
@@ -113,15 +113,14 @@ const TransectDetail = () => {
           >
             <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
 
-            {state.geojson && <GeoJSON key={Math.random()} data={state.geojson} />}
+            {state.geojson && (
+              <GeoJSON key={Math.random()} data={state.geojson} />
+            )}
           </MapContainer>
         </div>
       )}
 
-      <button
-        className="text-btn"
-        onClick={handleEdit}
-      >
+      <button className="text-btn-edit" onClick={handleEdit}>
         Edit
       </button>
       <button
