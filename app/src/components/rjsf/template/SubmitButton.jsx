@@ -9,13 +9,9 @@ const SubmitButton = (props) => {
   }
 
   return (
-    <button
-      type="submit"
-      variant="contained"
-      className="submit-button"
-
-    > Submit
+    <button type="submit" variant="contained" className="submit-button">
       <i className="fa-solid fa-check-to-slot"></i>
+      Submit
       {props.registry.rootSchema.button}
     </button>
   );

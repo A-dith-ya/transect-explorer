@@ -10,7 +10,7 @@ import {
 import FormContainer from "../../components/rjsf/FormContainer";
 import validator from "@rjsf/validator-ajv8";
 import ObjectFieldTemplate from "../../components/rjsf/template/ObjectFieldTemplate";
-import GroupArrayFieldTemplate from "../../components/rjsf/template/GroupArrayFieldTemplate";
+import ArrayFieldTemplate from "../../components/rjsf/template/ArrayFieldTemplate";
 import SubmitButton from "../../components/rjsf/template/SubmitButton";
 import TransectList from "../../components/transects/TransectList";
 import MemberList from "../../components/group/MemberList";
@@ -28,24 +28,17 @@ const GroupDetail = () => {
   //   console.log(username);
   // }, [members]);
 
-
-
   const { id } = useParams();
   const navigate = useNavigate();
 
-  const handleSubmit =  (formData) => {
-   
+  const handleSubmit = (formData) => {
     updateGroup(formData).then(() => {
       setEditable(false);
-      
     });
   };
 
-    useEffect(() => {
+  useEffect(() => {
     async function fetchLeader() {
-
-
- 
       // // const leader = await getUser(formData?.groupLeaderId);
       // console.log('formData before getUser call:', formData);
 
@@ -53,7 +46,6 @@ const GroupDetail = () => {
 
       // console.log('leader after getUser call:', leader);
 
-      
       const temp = [];
       // console.log(leader);
       const groupLeaderDetails = formData.groupLeader;
@@ -61,23 +53,22 @@ const GroupDetail = () => {
       const leaderName = groupLeaderDetails[1];
       // formData.groupLeader.forEach()
       temp.push({
-        role: 'Leader',
+        role: "Leader",
         name: leaderName,
-        email: leaderEmail
+        email: leaderEmail,
       });
 
-    // Assuming you have an array called formData.groupUserNames that corresponds to formData.groupUserEmails
-    formData.groupUserEmails.forEach((email, index) => {
-      // Assuming 'N/A' is a placeholder and formData.groupUserNames is defined and has the same length as formData.groupUserEmails
-      const name = formData.groupUserNames[index] || 'N/A'; // Use the name if available, otherwise 'N/A'
-      
-      temp.push({
-        role: 'Member',
-        name: name,
-        email: email
+      // Assuming you have an array called formData.groupUserNames that corresponds to formData.groupUserEmails
+      formData.groupUserEmails.forEach((email, index) => {
+        // Assuming 'N/A' is a placeholder and formData.groupUserNames is defined and has the same length as formData.groupUserEmails
+        const name = formData.groupUserNames[index] || "N/A"; // Use the name if available, otherwise 'N/A'
 
+        temp.push({
+          role: "Member",
+          name: name,
+          email: email,
+        });
       });
-    });
 
       setMembers(temp);
     }
@@ -90,7 +81,7 @@ const GroupDetail = () => {
   useEffect(() => {
     const fetchGroup = async () => {
       const result = await getGroupId(id);
-      setMembers([])
+      setMembers([]);
       setFormData(result);
     };
 
@@ -119,7 +110,7 @@ const GroupDetail = () => {
       <div>
         {editable && (
           <FormContainer
-            schema={{ ...groupFormSchema, button: "Update" }}
+            schema={{ ...groupFormSchema, button: " Update" }}
             formData={formData}
             setFormData={setFormData}
             onChange={(e) => setFormData(e.formData)}
@@ -127,10 +118,9 @@ const GroupDetail = () => {
             templates={{
               ObjectFieldTemplate,
               ButtonTemplates: { SubmitButton },
-              GroupArrayFieldTemplate,
             }}
             onSubmitAction={handleSubmit}
-            arrayFieldTemplate={GroupArrayFieldTemplate}
+            arrayFieldTemplate={ArrayFieldTemplate}
           />
         )}
       </div>
@@ -151,10 +141,10 @@ const GroupDetail = () => {
 
       {username === members[0]?.name && (
         <div className="btn-div">
-          <button className="text-btn" onClick={handleDelete}>
+          <button className="text-btn-del" onClick={handleDelete}>
             Delete
           </button>
-          <button className="text-btn" onClick={handleEdit}>
+          <button className="text-btn-edit" onClick={handleEdit}>
             {editable ? "Cancel" : "Edit"}
           </button>
         </div>
