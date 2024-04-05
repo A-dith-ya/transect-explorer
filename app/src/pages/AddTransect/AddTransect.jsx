@@ -10,7 +10,11 @@ import {
   updateTransect,
 } from "../../services/TransectService";
 import { getUserGroup } from "../../services/GroupService";
-import { UPDATE_GEOJSON } from "../../state/actions/index";
+import {
+  EDIT_TRANSECT_OBSERVATION,
+  EDIT_TRANSECT_REGION,
+  UPDATE_GEOJSON,
+} from "../../state/actions/index";
 
 /***** MAP IMPORTS *****/
 import { MapContainer, TileLayer, GeoJSON } from "react-leaflet";
@@ -41,10 +45,25 @@ const AddTransect = () => {
           const fetchedTransect = await getTransectID(id);
           setTransect(fetchedTransect);
 
+          console.log(JSON.stringify(fetchedTransect));
           dispatch({
             type: EDIT_TRANSECT_NAME,
             payload: {
               transectName: fetchedTransect.transectName,
+            },
+          });
+
+          dispatch({
+            type: EDIT_TRANSECT_OBSERVATION,
+            payload: {
+              transectObservation: fetchedTransect.description,
+            },
+          });
+
+          dispatch({
+            type: EDIT_TRANSECT_REGION,
+            payload: {
+              transectRegion: fetchedTransect.location,
             },
           });
         } catch (error) {

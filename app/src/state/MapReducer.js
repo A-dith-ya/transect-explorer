@@ -17,6 +17,8 @@ import {
   NONE,
   EDIT_TRANSECT,
   EDIT_TRANSECT_NAME,
+  EDIT_TRANSECT_OBSERVATION,
+  EDIT_TRANSECT_REGION,
   USER_BOUND_UPDATE_ON_MOVE,
   USER_BOUND_UPDATE_ON_ZOOM,
 } from "./actions";
@@ -29,6 +31,8 @@ export const initialState = {
   coordinates: [],
   form: {
     transectName: "",
+    observation: "",
+    region: "",
   },
   user_bound: null,
   buffered_extents: {
@@ -164,6 +168,28 @@ export default function MapReducer(state, action) {
         form: {
           ...state.form,
           transectName: transectName,
+        },
+      };
+
+    case EDIT_TRANSECT_OBSERVATION:
+      let transectObservation = action.payload.transectObservation;
+      console.log("Setting state: " + transectObservation);
+      return {
+        ...state,
+        form: {
+          ...state.form,
+          observation: transectObservation,
+        },
+      };
+
+    case EDIT_TRANSECT_REGION:
+      let transectRegion = action.payload.transectRegion;
+      console.log("Setting region: " + transectRegion);
+      return {
+        ...state,
+        form: {
+          ...state.form,
+          region: transectRegion,
         },
       };
 
