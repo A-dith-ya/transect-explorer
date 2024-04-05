@@ -40,10 +40,14 @@ const FormContainer = ({
     if (schema.title === "Add Transect") {
       setFormData({
         ...formData,
-        transectName: state.form.transectName ? state.form.transectName : "",
-        observation: state.form.observation ? state.form.observation : "",
-        group: state.form.group ? state.form.group : "",
-        region: state.form.region ? state.form.region : "",
+        transectName: state.form.transectName
+          ? state.form.transectName
+          : formData.transectName,
+        observation: state.form.observation
+          ? state.form.observation
+          : formData.observation,
+        group: state.form.group ? state.form.group : formData.group,
+        region: state.form.region ? state.form.region : formData.region,
         coordinates: state.coordinates.map((coord) => coord.join(",")),
       });
     }
