@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.Optional;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Arrays;
 
 @RestController
 @RequestMapping("/groups")
@@ -48,8 +49,10 @@ public class GroupController {
                 groupUserNames.add(groupUser.getUser().getUsername());
             }
 
+            List<String> groupLeaderDetails = Arrays.asList(group.get().getGroupLeader().getUserEmail(), group.get().getGroupLeader().getUsername());
+            
             return new ResponseEntity<>(new GroupDTO(group.get().getId(), group.get().getGroupName(),
-                    group.get().getGroupLeaderId(), groupUserEmails, groupUserNames), HttpStatus.OK);
+                    group.get().getGroupLeaderId(), groupLeaderDetails, groupUserEmails, groupUserNames), HttpStatus.OK);
         }
 
         return new ResponseEntity<>(HttpStatus.NOT_FOUND);
