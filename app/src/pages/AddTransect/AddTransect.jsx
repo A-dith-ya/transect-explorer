@@ -10,7 +10,7 @@ import {
   updateTransect,
 } from "../../services/TransectService";
 import { getUserGroup } from "../../services/GroupService";
-import { UPDATE_GEOJSON } from "../../state/actions/index";
+import { CREATE_TRANSECT, UPDATE_GEOJSON } from "../../state/actions/index";
 
 /***** MAP IMPORTS *****/
 import { MapContainer, TileLayer, GeoJSON } from "react-leaflet";
@@ -64,6 +64,10 @@ const AddTransect = () => {
     };
 
     createTransect(formDataUpdated, navigate);
+
+    dispatch({
+      type: CREATE_TRANSECT,
+    });
   };
 
   const handleUpdateTransect = async (formData) => {
@@ -204,29 +208,3 @@ const AddTransect = () => {
 };
 
 export default AddTransect;
-
-/*transect ? (
-        <>
-          <FormContainer
-            uiSchema={UISchemas.addTransectUISchema}
-            schema={addTransectFormSchema(groupOptions)}
-            onSubmitAction={handleUpdateTransect}
-            formData={{
-              transectName: transect?.transectName || "",
-              group: transect?.groupId
-                ? groupOptions.find((option) =>
-                    option.label.startsWith(`${transect.groupId}:`)
-                  )?.label || ""
-                : "",
-              region: transect?.location || "",
-              observation: transect?.description || "",
-              coordinates: transect?.coordinate
-                ? JSON.parse(transect.coordinate).geometry.coordinates[0].map(
-                    (coord) => coord.join(",")
-                  )
-                : [],
-              files: [],
-            }}
-          />
-        </>
-      ) : (*/
