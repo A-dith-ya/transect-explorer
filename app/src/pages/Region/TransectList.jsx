@@ -1,6 +1,9 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { getTransectsByCreatorId } from "../../services/TransectService";
+import {
+  getTransectsByCreatorId,
+  getTransectsByGroupId,
+} from "../../services/TransectService";
 import "./index.css";
 
 const TransectList = ({ selectedGroupId }) => {
@@ -12,9 +15,16 @@ const TransectList = ({ selectedGroupId }) => {
   useEffect(() => {
     const fetchTransects = async () => {
       try {
-        const fetchedTransects = await getTransectsByCreatorId();
-        if (fetchedTransects) {
-          setTransects(fetchedTransects);
+        if (selectedGroupId) {
+          const fetchedTransects = await getTransectsByGroupId(selectedGroupId);
+          if (fetchedTransects) {
+            setTransects(fetchedTransects);
+          }
+        } else {
+          const fetchedTransects = await getTransectsByCreatorId();
+          if (fetchedTransects) {
+            setTransects(fetchedTransects);
+          }
         }
       } catch (error) {
         console.error("Error fetching transects:", error);
@@ -80,7 +90,8 @@ const TransectList = ({ selectedGroupId }) => {
               return (
                 <tr
                   key={transect.id}
-                  onClick={() => navigate(`/region/transect/${transect.id}`)}>
+                  onClick={() => navigate(`/region/transect/${transect.id}`)}
+                >
                   <td>{transect?.transectName}</td>
                   <td>{transect?.description}</td>
                   <td>{transect?.location}</td>
