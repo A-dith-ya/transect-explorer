@@ -20,7 +20,7 @@ const FormContainer = ({
   addButtonIcon,
   removeButtonIcon,
 }) => {
-  const {state, dispatch} = useContext(MapContext);
+  const { state, dispatch } = useContext(MapContext);
   const [formData, setFormData] = useState(initialFormData);
 
   useEffect(() => {
@@ -37,8 +37,13 @@ const FormContainer = ({
   }, [formData]);
 
   useEffect(() => {
-    if (schema.title === 'Add Transect') {
-      setFormData({...formData, coordinates: state.coordinates.map((coord) => coord.join(","))});
+    if (schema.title === "Add Transect") {
+      setFormData({
+        ...formData,
+        transectName: state.form.transectName ? state.form.transectName : "",
+        group: state.form.transectGroup,
+        coordinates: state.coordinates.map((coord) => coord.join(",")),
+      });
     }
   }, [state]);
 
@@ -46,7 +51,7 @@ const FormContainer = ({
     onSubmitAction(formData);
   };
 
-  function handleChange({formData}) {
+  function handleChange({ formData }) {
     setFormData(formData);
   }
 

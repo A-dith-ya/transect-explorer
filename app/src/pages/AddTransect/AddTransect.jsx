@@ -20,6 +20,7 @@ import FetchPosition from "../../components/map/buttons/FetchPosition";
 import ClickMarkers from "../../components/map/renders/ClickMarkers";
 import { MapContext } from "../../contexts/MapContext";
 import { toGeoJSON } from "../../components/map/helpers/GeoJSON";
+import { EDIT_TRANSECT, EDIT_TRANSECT_NAME } from "../../state/actions/index";
 
 const AddTransect = () => {
   const { state, dispatch } = useContext(MapContext);
@@ -32,19 +33,26 @@ const AddTransect = () => {
   const userId = Number(sessionStorage.getItem("id"));
 
   useEffect(() => {
+    fetchData();
+
     if (id) {
       const fetchTransect = async () => {
         try {
           const fetchedTransect = await getTransectID(id);
           setTransect(fetchedTransect);
+
+          dispatch({
+            type: EDIT_TRANSECT_NAME,
+            payload: {
+              transectName: fetchedTransect.transectName,
+            },
+          });
         } catch (error) {
           console.error("Error fetching transect:", error);
         }
       };
       fetchTransect();
     }
-
-    fetchData();
   }, [setTransect]);
 
   const handleCreateTransect = (formData) => {
