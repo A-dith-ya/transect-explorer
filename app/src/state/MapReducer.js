@@ -15,6 +15,7 @@ import {
   REMOVE_COORDINATE,
   MEASURE_DISTANCE,
   NONE,
+  EDIT_TRANSECT,
   USER_BOUND_UPDATE_ON_MOVE,
   USER_BOUND_UPDATE_ON_ZOOM
 } from './actions'
@@ -43,8 +44,8 @@ export default function MapReducer (state, action) {
   console.log('ACTION DISPATCH:',action.type, action.payload)
   switch (action.type) {
     case DRAW_POLY:
-      if (state.coordinates.length > 3) {
-        const len = state.coordinates.length;
+      const len = state.coordinates.length
+      if (len > 3) {
         const newCoordinates = state.coordinates.slice(0, len - 1);
         return {
           ...state,
@@ -52,49 +53,57 @@ export default function MapReducer (state, action) {
           geojson: null,
           coordinates: newCoordinates
         }
-      }
+      };
+
       return {
         ...state,
         mode: map_modes.polygon,
         geojson: null,
         coordinates: []
-      }
+      };
+
     case MEASURE_DISTANCE:
       return {
         ...state,
         mode: map_modes.distance,
         geojson: null,
-      }
+      };
+
     case NONE:
       return {
         ...state,
         mode: map_modes.none,
         geojson: action.payload.geojson,
-      }
+      };
+
     case ADD_COORDINATE:
     case UPDATE_COORDINATES:
     case REMOVE_COORDINATE:
       return {
         ...state,
         coordinates: action.payload.coordinates
-      }
+      };
+
     case CLEAR_COORDINATES:
       return {
         ...state,
         mode: NONE,
         coordinates: []
-      }
+      };
+
     case CURRENT_POSITION_UPDATE:
       return {
         ...state,
         current_position: action.payload.current_position
-      }
+      };
+
     case USER_BOUND_UPDATE_ON_MOVE:
     case USER_BOUND_UPDATE_ON_ZOOM:
       return {
         ...state,
         user_bound: action.payload.geojson
-      }
+      };
+
     case BUFFERED_EXTENTS_INITIALIZE:
       return {
         ...state,
@@ -106,7 +115,8 @@ export default function MapReducer (state, action) {
           }
         },
         fetch_geojson: action.payload.fetch_geojson
-      }
+      };
+
     case BUFFERED_EXTENTS_UPDATE_ON_NO_INTERSECTIONS:
     case BUFFERED_EXTENTS_UPDATE_ON_ONE_INTERSECTIONS:
     case BUFFERED_EXTENTS_UPDATE_ON_TWO_INTERSECTIONS:
@@ -122,7 +132,8 @@ export default function MapReducer (state, action) {
           }
         },
         fetch_geojson: action.payload.fetch_geojson
-      }
+      };
+
     case CACHED_DATA_UPDATE:
       return {
         ...state,
@@ -130,8 +141,19 @@ export default function MapReducer (state, action) {
           ...state.cached_data,
           features: action.payload.features
         }
+      };
+
+    case EDIT_TRANSECT:
+      const len = action.payload.coordinates.length;
+      const coords = action.payload.coordinates.splice( len - 1, 1 );
+      return {
+        ...state,
+        mode: map_modes.polygon,
+        geojson: null,
+        coordinates: action.payload.coordinates
       }
+
     default:
-      return state
+      return state;
   }
 }
