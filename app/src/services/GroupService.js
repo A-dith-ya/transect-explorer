@@ -73,6 +73,7 @@ const updateGroup = async (formData) => {
   try {
     await axios.put(`${baseURL}/${formData.id}`, formData);
     toast.success("Successfully updated!");
+    // window.location.reload();
     return true;
   } catch (error) {
     console.log(error);
