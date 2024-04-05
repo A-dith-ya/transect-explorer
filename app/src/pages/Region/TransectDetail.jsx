@@ -66,8 +66,8 @@ const TransectDetail = () => {
       type: EDIT_TRANSECT,
       payload: {
         geojson: geojson,
-        coordinates: coordinates
-      }
+        coordinates: coordinates,
+      },
     });
 
     navigate(`/add/${transect.id}`);
@@ -118,10 +118,7 @@ const TransectDetail = () => {
         </div>
       )}
 
-      <button
-        className="text-btn"
-        onClick={handleEdit}
-      >
+      <button className="text-btn" onClick={handleEdit}>
         Edit
       </button>
       <button

@@ -9,8 +9,14 @@ import {
   getTransectID,
   updateTransect,
 } from "../../services/TransectService";
-import { getUserGroup } from "../../services/GroupService";
-import { CREATE_TRANSECT, UPDATE_GEOJSON } from "../../state/actions/index";
+import { getGroupId, getUserGroup } from "../../services/GroupService";
+import {
+  EDIT_TRANSECT_OBSERVATION,
+  EDIT_TRANSECT_REGION,
+  EDIT_TRANSECT_GROUP,
+  EDIT_TRANSECT_NAME,
+  CREATE_TRANSECT, UPDATE_GEOJSON,
+} from "../../state/actions/index";
 
 /***** MAP IMPORTS *****/
 import { MapContainer, TileLayer, GeoJSON } from "react-leaflet";
@@ -32,19 +38,80 @@ const AddTransect = () => {
   const userId = Number(sessionStorage.getItem("id"));
 
   useEffect(() => {
+    fetchData();
+
     if (id) {
       const fetchTransect = async () => {
         try {
           const fetchedTransect = await getTransectID(id);
           setTransect(fetchedTransect);
+
+          console.log(JSON.stringify(fetchedTransect));
+          dispatch({
+            type: EDIT_TRANSECT_NAME,
+            payload: {
+              transectName: fetchedTransect.transectName,
+            },
+          });
+
+          dispatch({
+            type: EDIT_TRANSECT_OBSERVATION,
+            payload: {
+              transectObservation: fetchedTransect.description,
+            },
+          });
+
+          dispatch({
+            type: EDIT_TRANSECT_REGION,
+            payload: {
+              transectRegion: fetchedTransect.location,
+            },
+          });
+
+          const fetchedGroup = await getGroupId(fetchedTransect.groupId);
+          console.log(`${fetchedTransect.groupId}: ${fetchedGroup.groupName}`);
+          if (fetchedGroup && fetchedTransect) {
+            dispatch({
+              type: EDIT_TRANSECT_GROUP,
+              payload: {
+                transectGroup: `${fetchedTransect.groupId}: ${fetchedGroup.groupName}`,
+              },
+            });
+          }
         } catch (error) {
           console.error("Error fetching transect:", error);
         }
       };
       fetchTransect();
-    }
+    } else {
+      dispatch({
+        type: EDIT_TRANSECT_NAME,
+        payload: {
+          transectName: "",
+        },
+      });
 
-    fetchData();
+      dispatch({
+        type: EDIT_TRANSECT_OBSERVATION,
+        payload: {
+          transectObservation: "",
+        },
+      });
+
+      dispatch({
+        type: EDIT_TRANSECT_REGION,
+        payload: {
+          transectRegion: "",
+        },
+      });
+
+      dispatch({
+        type: EDIT_TRANSECT_GROUP,
+        payload: {
+          transectGroup: "",
+        },
+      });
+    }
   }, [setTransect]);
 
   const handleCreateTransect = (formData) => {
