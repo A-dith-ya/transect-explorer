@@ -1,6 +1,13 @@
 import axios from "axios";
 import { toast } from "react-toastify";
-import { storeUserTransects, getTransect } from "./TransectIndexedDBService";
+import {
+  createUserTransect,
+  getAllUserTransects,
+  getTransect,
+  updateUserTransect,
+  deleteUserTransect,
+  storeUserTransects,
+} from "./TransectIndexedDBService";
 
 const baseURL = "http://localhost:8080/transects";
 axios.defaults.withCredentials = true;
@@ -17,13 +24,14 @@ const createTransect = async (formData, navigate) => {
       userCreatorName: formData.creatorName,
     };
 
-    console.log(transectData);
+    if (navigator.onLine) {
+      await axios.post(baseURL, transectData);
+    } else {
+      await createUserTransect(transectData);
+    }
 
-    await axios.post(baseURL, transectData).then((response) => {
-      console.log(response);
-      toast.success(transectData.transectName + " Created!");
-      navigate("/region"); // FUTUREWORK navigate to the transect list page
-    });
+    toast.success(transectData.transectName + " Created!");
+    navigate("/region"); // FUTUREWORK navigate to the transect list page
   } catch (error) {
     console.log(error);
     toast.error("Error creating transect: " + error.message);
@@ -41,13 +49,14 @@ const updateTransect = async (formData, id, navigate) => {
       coordinate: formData.coordinates,
     };
 
-    console.log(transectData);
+    if (navigator.onLine) {
+      await axios.put(`${baseURL}/${id}`, transectData);
+    } else {
+      await updateUserTransect(transectData, id);
+    }
 
-    await axios.put(`${baseURL}/${id}`, transectData).then((response) => {
-      console.log(response);
-      toast.success(transectData.transectName + " Updated!");
-      navigate(`/region/transect/${id}`);
-    });
+    toast.success(transectData.transectName + " Updated!");
+    navigate(`/region/transect/${id}`);
   } catch (error) {
     console.log(error);
     toast.error("Error updating transect: " + error.message);
@@ -65,8 +74,12 @@ async function getTransects(uri_endpoint) {
 
 const getTransectID = async (id) => {
   try {
-    const result = await axios.get(`${baseURL}/${id}`);
-    return result.data;
+    if (navigator.onLine) {
+      const result = await axios.get(`${baseURL}/${id}`);
+      return result.data;
+    } else {
+      return await getTransect(id);
+    }
   } catch (error) {
     console.log(error);
     toast.error("Error getting transectID: " + error.message);
@@ -75,7 +88,11 @@ const getTransectID = async (id) => {
 
 const deleteTransect = async (id) => {
   try {
-    await axios.delete(`${baseURL}/${id}`);
+    if (navigator.onLine) {
+      await axios.delete(`${baseURL}/${id}`);
+    } else {
+      await deleteUserTransect(id);
+    }
   } catch (error) {
     console.log(error);
     toast.error("Error deleting transect: " + error.message);
@@ -85,13 +102,12 @@ const deleteTransect = async (id) => {
 const getTransectsByCreatorId = async () => {
   try {
     const userCreatorId = sessionStorage.getItem("id");
-    if (userCreatorId) {
-      console.log("Session Storage: " + userCreatorId);
+    if (navigator.onLine) {
       const result = await axios.get(`${baseURL}/users/${userCreatorId}`);
       storeUserTransects(result.data);
       return result.data;
     } else {
-      throw new Error("No User Id in session storage");
+      return await getAllUserTransects(userCreatorId);
     }
   } catch (error) {
     console.log(error);
