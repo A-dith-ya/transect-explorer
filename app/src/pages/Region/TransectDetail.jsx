@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useContext, useState, useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { MapContainer, TileLayer, GeoJSON } from "react-leaflet";
 import { calculateCenter } from "../../components/map/helpers/Calculate";
@@ -7,6 +7,8 @@ import { deleteTransect, getTransectID } from "../../services/TransectService";
 import { deleteTransectFormSchema } from "../../components/rjsf/schema/DeleteTransectSchema";
 import UISchemas from "../../components/rjsf/UISchema/UISchema";
 import Modal from "../../components/Modal/Modal";
+import { MapContext } from "../../contexts/MapContext";
+import { EDIT_TRANSECT } from "../../state/actions/index";
 
 const testGeo = {
   type: "Feature",
@@ -25,10 +27,19 @@ const testGeo = {
 };
 
 const TransectDetail = () => {
+  const { state, dispatch } = useContext(MapContext);
   const navigate = useNavigate();
   const { id } = useParams();
   const [transect, setTransect] = useState(null);
   const [deleteModal, setDeleteModal] = useState(false);
+
+  useEffect(() => {
+    if (transect) {
+      const geojson = JSON.parse(transect.coordinate);
+      console.log(geojson);
+      console.log(geojson.geometry.coordinates);
+    }
+  }, [transect]);
 
   useEffect(() => {
     const fetchTransect = async () => {
@@ -41,6 +52,21 @@ const TransectDetail = () => {
     };
     fetchTransect();
   }, [id]);
+
+  function handleEdit() {
+    const geojson = JSON.parse(transect.coordinate);
+    const coordinates = geojson.geometry.coordinates[0];
+
+    dispatch({
+      type: EDIT_TRANSECT,
+      payload: {
+        geojson: geojson,
+        coordinates: coordinates
+      }
+    });
+
+    navigate(`/add/${transect.id}`);
+  }
 
   const handleDeleteTransect = async (data) => {
     if (data.delete.toLowerCase() === "delete transect") {
@@ -89,9 +115,9 @@ const TransectDetail = () => {
 
       <button
         className="text-btn"
-        onClick={() => navigate(`/add/${transect.id}`)}
+        onClick={handleEdit}
       >
-        {"Edit"}
+        Edit
       </button>
       <button
         className="text-btn delete-btn"

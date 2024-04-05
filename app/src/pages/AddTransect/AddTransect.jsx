@@ -47,11 +47,6 @@ const AddTransect = () => {
     fetchData();
   }, [setTransect]);
 
-  useEffect(() => {
-    if (!transect && state.coordinates.length > 0) {
-    }
-  }, [state]);
-
   const handleCreateTransect = (formData) => {
     const geoJSON = toGeoJSON(state.coordinates, "Polygon");
 
