@@ -14,6 +14,7 @@ import {
   UPDATE_COORDINATES,
   REMOVE_COORDINATE,
   MEASURE_DISTANCE,
+  CREATE_TRANSECT,
   NONE,
   EDIT_TRANSECT,
   USER_BOUND_UPDATE_ON_MOVE,
@@ -58,6 +59,14 @@ export default function MapReducer (state, action) {
       return {
         ...state,
         mode: map_modes.polygon,
+        geojson: null,
+        coordinates: []
+      };
+
+    case CREATE_TRANSECT:
+      return {
+        ...state,
+        mode: map_modes.none,
         geojson: null,
         coordinates: []
       };
