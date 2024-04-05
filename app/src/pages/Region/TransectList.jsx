@@ -69,21 +69,27 @@ const TransectList = ({ selectedGroupId }) => {
                   <i className="fa-solid fa-arrows-alt-v"></i>
                 </button>
               </th>
-              <th>Coordinate</th>
+              <th>UTM Zone</th>
+              <th>Northing</th>
+              <th>Easting</th>
             </tr>
           </thead>
           <tbody>
-            {transects.map((transect) => (
-              <tr
-                key={transect.id}
-                onClick={() => navigate(`/region/transect/${transect.id}`)}
-              >
-                <td>{transect.transectName}</td>
-                <td>{transect.description}</td>
-                <td>{transect.location}</td>
-                <td>{transect.coordinate}</td>
-              </tr>
-            ))}
+            {transects.map((transect) => {
+              const utm = JSON.parse(transect.coordinate).properties.utm;
+              return (
+                <tr
+                  key={transect.id}
+                  onClick={() => navigate(`/region/transect/${transect.id}`)}>
+                  <td>{transect.transectName}</td>
+                  <td>{transect.description}</td>
+                  <td>{transect.location}</td>
+                  <td>{utm.zone}</td>
+                  <td>{utm.northing}</td>
+                  <td>{utm.easting}</td>
+                </tr>
+              );
+            })}
           </tbody>
         </table>
       </div>
