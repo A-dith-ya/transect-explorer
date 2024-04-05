@@ -48,7 +48,6 @@ const AddTransect = () => {
   }, [setTransect]);
 
   const handleCreateTransect = (formData) => {
-
     const geoJSON = toGeoJSON(state.coordinates, "Polygon");
 
     const geoJSONString = JSON.stringify(geoJSON);
@@ -63,7 +62,7 @@ const AddTransect = () => {
       coordinates: geoJSONString,
       group: selectedGroupId,
     };
-    
+
     createTransect(formDataUpdated, navigate);
   };
 
@@ -81,7 +80,7 @@ const AddTransect = () => {
       coordinatesGeoJSON[0].push(coordinatesGeoJSON[0][0]);
     }
 
-    const geoJSON = toGeoJSON(state.coordinates, 'Polygon');
+    const geoJSON = toGeoJSON(state.coordinates, "Polygon");
 
     const geoJSONString = JSON.stringify(geoJSON);
     const selectedGroupValue = formData.group;
@@ -109,13 +108,14 @@ const AddTransect = () => {
     const fetchedGroupsData = await getUserGroup(userId);
     let mergedGroups = [];
     if (
-      fetchedGroupsData &&
-      fetchedGroupsData.userGroups &&
-      fetchedGroupsData.userGroups.length > 0
+      (fetchedGroupsData && fetchedGroupsData.userGroups) ||
+      (fetchedGroupsData.leaderGroups &&
+        fetchedGroupsData.userGroups.length > 0) ||
+      fetchedGroupsData.leaderGroups.length > 0
     ) {
       mergedGroups = [
         ...fetchedGroupsData.leaderGroups.map((group) => group),
-        ...fetchedGroupsData.userGroups.map((group) => group)
+        ...fetchedGroupsData.userGroups.map((group) => group),
       ];
     }
 
@@ -135,55 +135,56 @@ const AddTransect = () => {
     }
 
     return uniqueGroups;
-  };
-
+  }
 
   return (
-    <div className='page'>
-
+    <div className="page">
       {/*<div className='title'>
         <h2>Create transect</h2>
         </div>*/}
 
-        {transect
-          ? <FormContainer
-              uiSchema={UISchemas.addTransectUISchema}
-              schema={addTransectFormSchema(groupOptions)}
-              onSubmitAction={handleUpdateTransect}
-              formData={{
-                transectName: transect?.transectName || "",
-                group: transect?.groupId
-                  ? groupOptions.find((option) =>
-                      option.label.startsWith(`${transect.groupId}:`)
-                    )?.label || ""
-                  : "",
-                region: transect?.location || "",
-                observation: transect?.description || "",
-                coordinates: transect?.coordinate
-                  ? JSON.parse(transect.coordinate).geometry.coordinates[0].map(
-                      (coord) => coord.join(",")
-                    )
-                  : [],
-                files: [],
-              }} />
-          : <FormContainer
-              uiSchema={UISchemas.addTransectUISchema}
-              schema={addTransectFormSchema(groupOptions)}
-              onSubmitAction={handleCreateTransect}
-              formData={{
-                ...this,
-                coordinates: state.coordinates
-                }}/>
-          }
+      {transect ? (
+        <FormContainer
+          uiSchema={UISchemas.addTransectUISchema}
+          schema={addTransectFormSchema(groupOptions)}
+          onSubmitAction={handleUpdateTransect}
+          formData={{
+            transectName: transect?.transectName || "",
+            group: transect?.groupId
+              ? groupOptions.find((option) =>
+                  option.label.startsWith(`${transect.groupId}:`)
+                )?.label || ""
+              : "",
+            region: transect?.location || "",
+            observation: transect?.description || "",
+            coordinates: transect?.coordinate
+              ? JSON.parse(transect.coordinate).geometry.coordinates[0].map(
+                  (coord) => coord.join(",")
+                )
+              : [],
+            files: [],
+          }}
+        />
+      ) : (
+        <FormContainer
+          uiSchema={UISchemas.addTransectUISchema}
+          schema={addTransectFormSchema(groupOptions)}
+          onSubmitAction={handleCreateTransect}
+          formData={{
+            ...this,
+            coordinates: state.coordinates,
+          }}
+        />
+      )}
 
       <div>
         <MapContainer
           id="transect-map"
-          center={[55,-122]}
+          center={[55, -122]}
           zoom={7}
           scrollWheelZoom={true}
-          zoomControl={false}>
-
+          zoomControl={false}
+        >
           <DrawingBar>
             <DrawPoly />
             <FetchPosition />
@@ -191,20 +192,20 @@ const AddTransect = () => {
 
           <ClickMarkers />
 
-          {state.geojson && <GeoJSON key={Math.random()} data={state.geojson} />}
+          {state.geojson && (
+            <GeoJSON key={Math.random()} data={state.geojson} />
+          )}
 
-          <TileLayer url='https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png' />
-
+          <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
         </MapContainer>
       </div>
-
     </div>
   );
 };
 
 export default AddTransect;
 
-    /*transect ? (
+/*transect ? (
         <>
           <FormContainer
             uiSchema={UISchemas.addTransectUISchema}
