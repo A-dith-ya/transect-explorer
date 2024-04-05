@@ -55,7 +55,7 @@ const TransectList = ({ selectedGroupId }) => {
 
   return (
     <div className="container-transect-list">
-      <h1>Transect List</h1>
+      <h2>Transect List</h2>
       <div className="table-div">
         <table>
           <thead>

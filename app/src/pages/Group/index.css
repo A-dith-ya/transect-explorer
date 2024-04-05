@@ -266,6 +266,12 @@ div.details-page table {
   min-width: 500px;
 }
 
+.container-members-list {
+  overflow-y: scroll;
+  margin: auto;
+  width: 80%;
+}
+
 @media only screen and (max-width: 600px) {
   .group-list-page .title {
     width: 300px;

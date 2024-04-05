@@ -127,7 +127,7 @@ const GroupDetail = () => {
 
       {!editable && (
         <>
-          <div>
+          <div className="container-members-list">
             <h2>Members</h2>
             <MemberList data={members} />
           </div>
