@@ -23,7 +23,9 @@ import { MapContainer, TileLayer, GeoJSON } from "react-leaflet";
 import DrawingBar from "../../components/map/DrawingBar";
 import DrawPoly from "../../components/map/buttons/DrawPoly";
 import FetchPosition from "../../components/map/buttons/FetchPosition";
+import MyPosition from "../../components/map/buttons/MyPosition";
 import ClickMarkers from "../../components/map/renders/ClickMarkers";
+import CurrentPosition from "../../components/map/renders/CurrentPosition";
 import { MapContext } from "../../contexts/MapContext";
 import { toGeoJSON } from "../../components/map/helpers/GeoJSON";
 
@@ -259,9 +261,11 @@ const AddTransect = () => {
           <DrawingBar>
             <DrawPoly />
             <FetchPosition />
+            <MyPosition />
           </DrawingBar>
 
           <ClickMarkers />
+          <CurrentPosition />
 
           {state.geojson && (
             <GeoJSON key={Math.random()} data={state.geojson} />

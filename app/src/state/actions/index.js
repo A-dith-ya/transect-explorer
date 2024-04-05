@@ -1,4 +1,7 @@
 // Map Reducer Actions
+export const UPDATE_POSITION = "UPDATE_POSITION";
+export const ENABLE_POSITION = "ENABLE_POSITION";
+export const DISABLE_POSITION = "DISABLE_POSITION";
 export const DRAW_POLY = "DRAW_POLY";
 export const MEASURE_DISTANCE = "MEASURE_DISTANCE";
 export const NONE = "NONE";
