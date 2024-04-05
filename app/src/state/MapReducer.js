@@ -44,8 +44,8 @@ export default function MapReducer (state, action) {
   console.log('ACTION DISPATCH:',action.type, action.payload)
   switch (action.type) {
     case DRAW_POLY:
-      const len = state.coordinates.length
-      if (len > 3) {
+      if (state.coordinates.length > 3) {
+        let len = state.coordinates.length;
         const newCoordinates = state.coordinates.slice(0, len - 1);
         return {
           ...state,
@@ -144,7 +144,7 @@ export default function MapReducer (state, action) {
       };
 
     case EDIT_TRANSECT:
-      const len = action.payload.coordinates.length;
+      let len = action.payload.coordinates.length;
       const coords = action.payload.coordinates.splice( len - 1, 1 );
       return {
         ...state,
