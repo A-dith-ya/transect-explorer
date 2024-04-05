@@ -67,9 +67,15 @@ const getGroupId = async (groupId) => {
 
 const updateGroup = async (formData) => {
   try {
-    await axios.put(`${baseURL}/${formData.id}`, formData);
+    const response = await axios.put(`${baseURL}/${formData.id}`, formData);
     toast.success("Successfully updated!");
+    const createdGroup = await getGroupId(response.data.id);
     // window.location.reload();
+    formData.groupUserEmails.forEach((email) => {
+      if (!createdGroup.groupUserEmails.includes(email)) {
+        toast.error(email + " does not exist!");
+      }
+    });
     return true;
   } catch (error) {
     console.log(error);
