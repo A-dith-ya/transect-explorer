@@ -5,10 +5,10 @@ import { useMapEvents } from 'react-leaflet';
 import { toGeoJSON } from '../helpers/GeoJSON';
 import { DRAW_POLY, NONE, ADD_COORDINATE } from '../../../state/actions';
 import { MapContext } from '../../../contexts/MapContext';
+import { toast } from "react-toastify";
 
 export default function DrawPoly() {
   const { state, dispatch } = useContext(MapContext);
-  const [draw, setDraw] = useState(false);
   const [coords, setCoords] = useState([]);
   const [geo, setGeo] = useState(null);
 
@@ -17,14 +17,19 @@ export default function DrawPoly() {
       console.log(e);
       if (state.mode === map_modes.polygon) {
 
-        const newCoordinates = [...state.coordinates, [e.latlng.lng, e.latlng.lat]];
+        if (state.coordinates.length < 10) {
+          const newCoordinates = [...state.coordinates, [e.latlng.lng, e.latlng.lat]];
 
-        dispatch({
-          type: ADD_COORDINATE,
-          payload: {
-            coordinates: newCoordinates
-          }
-        });
+          dispatch({
+            type: ADD_COORDINATE,
+            payload: {
+              coordinates: newCoordinates
+            }
+          });
+        }
+        if (state.coordinates.length > 9) {
+          toast.error("Can\'t add more than 10 coordinates onto the map.");
+        }
 
       }
     }
@@ -33,9 +38,9 @@ export default function DrawPoly() {
   function handleClick() {
     if (state.mode === map_modes.polygon) {
       let geo = null
-      if (state.coordinates.length > 1) {
+      if (state.coordinates.length > 2) {
         console.log(state.coordinates);
-        geo = toGeoJSON(state.coordinates, 'Polygon')
+        geo = toGeoJSON(state.coordinates, 'Polygon');
       }
 
       dispatch({
@@ -43,14 +48,13 @@ export default function DrawPoly() {
         payload: {
           geojson: geo
         }
-      })
+      });
     }
     else
     {
       dispatch({ type: DRAW_POLY })
     }
 
-    setDraw(!draw);
   }
 
   return (
