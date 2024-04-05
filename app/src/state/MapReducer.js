@@ -14,7 +14,9 @@ import {
   UPDATE_COORDINATES,
   REMOVE_COORDINATE,
   MEASURE_DISTANCE,
+  CREATE_TRANSECT,
   NONE,
+  DETAILS_PAGE_GEO,
   EDIT_TRANSECT,
   EDIT_TRANSECT_NAME,
   EDIT_TRANSECT_OBSERVATION,
@@ -72,6 +74,14 @@ export default function MapReducer(state, action) {
         coordinates: [],
       };
 
+    case CREATE_TRANSECT:
+      return {
+        ...state,
+        mode: map_modes.none,
+        geojson: null,
+        coordinates: []
+      };
+
     case MEASURE_DISTANCE:
       return {
         ...state,
@@ -99,6 +109,12 @@ export default function MapReducer(state, action) {
         ...state,
         mode: NONE,
         coordinates: [],
+      };
+
+    case DETAILS_PAGE_GEO:
+      return {
+        ...state,
+        geojson: action.payload.geojson
       };
 
     case CURRENT_POSITION_UPDATE:

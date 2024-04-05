@@ -8,7 +8,7 @@ import { deleteTransectFormSchema } from "../../components/rjsf/schema/DeleteTra
 import UISchemas from "../../components/rjsf/UISchema/UISchema";
 import Modal from "../../components/Modal/Modal";
 import { MapContext } from "../../contexts/MapContext";
-import { EDIT_TRANSECT, EDIT_TRANSECT_NAME } from "../../state/actions/index";
+import { EDIT_TRANSECT, DETAILS_PAGE_GEO } from "../../state/actions/index";
 
 const testGeo = {
   type: "Feature",
@@ -36,8 +36,13 @@ const TransectDetail = () => {
   useEffect(() => {
     if (transect) {
       const geojson = JSON.parse(transect.coordinate);
-      console.log(geojson);
-      console.log(geojson.geometry.coordinates);
+
+      dispatch({
+        type: DETAILS_PAGE_GEO,
+        payload: {
+          geojson: geojson
+        }
+      });
     }
   }, [transect]);
 
@@ -97,18 +102,18 @@ const TransectDetail = () => {
       <h3>Description</h3>
       <p>{transect ? transect.description : "Loading ..."}</p>
 
-      {!deleteModal && (
+      {!deleteModal && state.geojson && (
         <div style={{ width: "90vw", height: "350px", paddingBottom: "5rem" }}>
           <MapContainer
             id="cool-map"
-            center={geoCenter}
+            center={state.geojson.properties.center}
             zoom={13}
             scrollWheelZoom={true}
             zoomControl={false}
           >
             <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
 
-            <GeoJSON key={Math.random()} data={testGeo} />
+            {state.geojson && <GeoJSON key={Math.random()} data={state.geojson} />}
           </MapContainer>
         </div>
       )}

@@ -15,7 +15,7 @@ import {
   EDIT_TRANSECT_REGION,
   EDIT_TRANSECT_GROUP,
   EDIT_TRANSECT_NAME,
-  UPDATE_GEOJSON,
+  CREATE_TRANSECT, UPDATE_GEOJSON,
 } from "../../state/actions/index";
 
 /***** MAP IMPORTS *****/
@@ -131,6 +131,10 @@ const AddTransect = () => {
     };
 
     createTransect(formDataUpdated, navigate);
+
+    dispatch({
+      type: CREATE_TRANSECT,
+    });
   };
 
   const handleUpdateTransect = async (formData) => {
@@ -271,29 +275,3 @@ const AddTransect = () => {
 };
 
 export default AddTransect;
-
-/*transect ? (
-        <>
-          <FormContainer
-            uiSchema={UISchemas.addTransectUISchema}
-            schema={addTransectFormSchema(groupOptions)}
-            onSubmitAction={handleUpdateTransect}
-            formData={{
-              transectName: transect?.transectName || "",
-              group: transect?.groupId
-                ? groupOptions.find((option) =>
-                    option.label.startsWith(`${transect.groupId}:`)
-                  )?.label || ""
-                : "",
-              region: transect?.location || "",
-              observation: transect?.description || "",
-              coordinates: transect?.coordinate
-                ? JSON.parse(transect.coordinate).geometry.coordinates[0].map(
-                    (coord) => coord.join(",")
-                  )
-                : [],
-              files: [],
-            }}
-          />
-        </>
-      ) : (*/
