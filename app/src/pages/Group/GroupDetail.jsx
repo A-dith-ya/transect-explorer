@@ -12,9 +12,9 @@ import validator from "@rjsf/validator-ajv8";
 import ObjectFieldTemplate from "../../components/rjsf/template/ObjectFieldTemplate";
 import ArrayFieldTemplate from "../../components/rjsf/template/ArrayFieldTemplate";
 import SubmitButton from "../../components/rjsf/template/SubmitButton";
-import TransectList from "../../components/transects/TransectList";
 import MemberList from "../../components/group/MemberList";
 import "./index.css";
+import TransectList from "../Region/TransectList";
 
 const GroupDetail = () => {
   const [formData, setFormData] = useState(false);
@@ -127,14 +127,13 @@ const GroupDetail = () => {
 
       {!editable && (
         <>
-          <div>
+          <div className="container-members-list">
             <h2>Members</h2>
             <MemberList data={members} />
           </div>
 
           <div>
-            <h2>Transects</h2>
-            <TransectList group_id={id} />
+            <TransectList selectedGroupId={id} />
           </div>
         </>
       )}

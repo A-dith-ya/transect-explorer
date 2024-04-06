@@ -115,6 +115,16 @@ const getTransectsByCreatorId = async () => {
   }
 };
 
+const getTransectsByGroupId = async (groupId) => {
+  try {
+    const result = await axios.get(`${baseURL}/groups/${groupId}`);
+    return result.data;
+  } catch (error) {
+    console.log(error);
+    toast.error("Error getting transects by group ID: " + error.message);
+  }
+};
+
 export {
   createTransect,
   getTransects,
@@ -122,4 +132,5 @@ export {
   deleteTransect,
   getTransectsByCreatorId,
   updateTransect,
+  getTransectsByGroupId,
 };
