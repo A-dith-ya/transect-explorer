@@ -9,6 +9,7 @@ import {
   storeUserTransects,
   getCreatedTransects,
   getUpdatedTransects,
+  getDeletedTransects,
 } from "./TransectIndexedDBService";
 
 const baseURL = "http://localhost:8080/transects";
@@ -154,6 +155,18 @@ const updateMultipleTransects = async () => {
   }
 };
 
+const deleteMultipleTransects = async () => {
+  try {
+    const transects = await getDeletedTransects();
+    const transectIds = transects.map((transect) => transect.id).join(",");
+    await axios.delete(`${baseURL}/sync?transectIds=${transectIds}`);
+    toast.success("Multiple transects synced!");
+  } catch (error) {
+    console.log(error);
+    toast.error("Error deleting multiple transects: " + error.message);
+  }
+};
+
 export {
   createTransect,
   getTransects,
@@ -164,4 +177,5 @@ export {
   getTransectsByGroupId,
   createMultipleTransects,
   updateMultipleTransects,
+  deleteMultipleTransects,
 };

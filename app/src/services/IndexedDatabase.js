@@ -13,6 +13,7 @@ const getIndexedDatabase = async () => {
       transectStore.createIndex("userCreatorId", "userCreatorId", {
         unique: false,
       });
+      db.createObjectStore("deletedTransects", { keyPath: "id" });
     },
   });
 };

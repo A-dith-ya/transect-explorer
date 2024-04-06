@@ -9,6 +9,7 @@ import MapContextProvider from "./contexts/MapContext.jsx";
 import {
   createMultipleTransects,
   updateMultipleTransects,
+  deleteMultipleTransects,
 } from "./services/TransectService.js";
 
 if ("serviceWorker" in navigator) {
@@ -31,6 +32,7 @@ window.addEventListener("online", () => {
   console.log("You are now online.");
   createMultipleTransects();
   updateMultipleTransects();
+  deleteMultipleTransects();
 });
 
 ReactDOM.createRoot(document.getElementById("root")).render(

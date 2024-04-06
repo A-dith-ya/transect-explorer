@@ -95,6 +95,21 @@ const getUpdatedTransects = async (userId) => {
 };
 
 /**
+ * Retrieves all deleted transect ids
+ * @returns @param {{id: number}[]}
+ */
+const getDeletedTransects = async () => {
+  try {
+    const db = await getIndexedDatabase();
+    const deleteTransectIds = await db.getAll("deletedTransects");
+    await db.clear("deletedTransects");
+    return deleteTransectIds;
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+/**
  * Updates user transects
  * @param {{id: number, groupId: number, userCreatorId: number, transectName: string, description: string, location: string, coordinate: string, userCreatorName: string}} formData
  * @param {number} transectId
@@ -119,6 +134,7 @@ const deleteUserTransect = async (transectId) => {
   try {
     const db = await getIndexedDatabase();
     await db.delete("transects", +transectId);
+    await db.add("deletedTransects", { id: +transectId });
   } catch (error) {
     console.log(error);
   }
@@ -145,6 +161,7 @@ export {
   getTransect,
   getAllUserTransects,
   getCreatedTransects,
+  getDeletedTransects,
   getUpdatedTransects,
   updateUserTransect,
   deleteUserTransect,
