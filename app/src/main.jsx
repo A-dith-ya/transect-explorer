@@ -6,7 +6,10 @@ import "react-toastify/dist/ReactToastify.css";
 import "./index.css";
 import { AuthProvider } from "./contexts/AuthContext.jsx";
 import MapContextProvider from "./contexts/MapContext.jsx";
-import { createMultipleTransects } from "./services/TransectService.js";
+import {
+  createMultipleTransects,
+  updateMultipleTransects,
+} from "./services/TransectService.js";
 
 if ("serviceWorker" in navigator) {
   window.addEventListener("load", () => {
@@ -27,6 +30,7 @@ if ("serviceWorker" in navigator) {
 window.addEventListener("online", () => {
   console.log("You are now online.");
   createMultipleTransects();
+  updateMultipleTransects();
 });
 
 ReactDOM.createRoot(document.getElementById("root")).render(

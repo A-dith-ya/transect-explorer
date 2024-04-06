@@ -80,9 +80,15 @@ const getUpdatedTransects = async (userId) => {
   try {
     const db = await getIndexedDatabase();
     const transects = await db.getAll("transects");
-    return transects.filter(
+    const filteredTransects = transects.filter(
       (transect) => transect.userCreatorId === +userId && !transect.isCreated
     );
+
+    for (let transect of transects) {
+      await db.delete("transects", transect.id);
+    }
+
+    return filteredTransects;
   } catch (error) {
     console.log(error);
   }
