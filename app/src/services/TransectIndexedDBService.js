@@ -56,9 +56,16 @@ const getCreatedTransects = async (userId) => {
   try {
     const db = await getIndexedDatabase();
     const transects = await db.getAll("transects");
-    return transects.filter(
+    const filteredTransects = transects.filter(
       (transect) => transect.userCreatorId === +userId && transect.isCreated
     );
+
+    // Delete all transects after filtering
+    for (let transect of transects) {
+      await db.delete("transects", transect.id);
+    }
+
+    return filteredTransects;
   } catch (error) {
     console.log(error);
   }
@@ -73,9 +80,30 @@ const getUpdatedTransects = async (userId) => {
   try {
     const db = await getIndexedDatabase();
     const transects = await db.getAll("transects");
-    return transects.filter(
+    const filteredTransects = transects.filter(
       (transect) => transect.userCreatorId === +userId && !transect.isCreated
     );
+
+    for (let transect of transects) {
+      await db.delete("transects", transect.id);
+    }
+
+    return filteredTransects;
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+/**
+ * Retrieves all deleted transect ids
+ * @returns @param {{id: number}[]}
+ */
+const getDeletedTransects = async () => {
+  try {
+    const db = await getIndexedDatabase();
+    const deleteTransectIds = await db.getAll("deletedTransects");
+    await db.clear("deletedTransects");
+    return deleteTransectIds;
   } catch (error) {
     console.log(error);
   }
@@ -106,6 +134,7 @@ const deleteUserTransect = async (transectId) => {
   try {
     const db = await getIndexedDatabase();
     await db.delete("transects", +transectId);
+    await db.add("deletedTransects", { id: +transectId });
   } catch (error) {
     console.log(error);
   }
@@ -132,6 +161,7 @@ export {
   getTransect,
   getAllUserTransects,
   getCreatedTransects,
+  getDeletedTransects,
   getUpdatedTransects,
   updateUserTransect,
   deleteUserTransect,
