@@ -167,8 +167,9 @@
 /* button */
 .group__detail__button--back {
   padding: 10px;
-  margin-top: 10px;
-  background-color: #333;
+  margin-top: 2rem;
+  margin-left: 1rem;
+  background-color: #2ceaa3;
   border-radius: 10px;
   outline: none;
   border: none;
@@ -203,7 +204,7 @@
 
 .group__detail__button--back i,
 .group__detail__button--repeat i {
-  color: #2ceaa3;
+  color: black;
 }
 
 .group__detail__information .detail__buttons--delete {
@@ -265,6 +266,12 @@ div.details-page table {
   min-width: 500px;
 }
 
+.container-members-list {
+  overflow-y: scroll;
+  margin: auto;
+  width: 80%;
+}
+
 @media only screen and (max-width: 600px) {
   .group-list-page .title {
     width: 300px;
@@ -278,4 +285,3 @@ div.details-page table {
     min-width: 300px;
   }
 }
-

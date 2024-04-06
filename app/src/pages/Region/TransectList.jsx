@@ -1,6 +1,9 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { getTransectsByCreatorId } from "../../services/TransectService";
+import {
+  getTransectsByCreatorId,
+  getTransectsByGroupId,
+} from "../../services/TransectService";
 import "./index.css";
 
 const TransectList = ({ selectedGroupId }) => {
@@ -12,9 +15,16 @@ const TransectList = ({ selectedGroupId }) => {
   useEffect(() => {
     const fetchTransects = async () => {
       try {
-        const fetchedTransects = await getTransectsByCreatorId();
-        if (fetchedTransects) {
-          setTransects(fetchedTransects);
+        if (selectedGroupId) {
+          const fetchedTransects = await getTransectsByGroupId(selectedGroupId);
+          if (fetchedTransects) {
+            setTransects(fetchedTransects);
+          }
+        } else {
+          const fetchedTransects = await getTransectsByCreatorId();
+          if (fetchedTransects) {
+            setTransects(fetchedTransects);
+          }
         }
       } catch (error) {
         console.error("Error fetching transects:", error);
@@ -44,8 +54,8 @@ const TransectList = ({ selectedGroupId }) => {
   };
 
   return (
-    <>
-      <h1>Transect List</h1>
+    <div className="container-transect-list">
+      <h2>Transect List</h2>
       <div className="table-div">
         <table>
           <thead>
@@ -69,25 +79,32 @@ const TransectList = ({ selectedGroupId }) => {
                   <i className="fa-solid fa-arrows-alt-v"></i>
                 </button>
               </th>
-              <th>Coordinate</th>
+              <th>UTM Zone</th>
+              <th>Northing</th>
+              <th>Easting</th>
             </tr>
           </thead>
           <tbody>
-            {transects.map((transect) => (
-              <tr
-                key={transect.id}
-                onClick={() => navigate(`/region/transect/${transect.id}`)}
-              >
-                <td>{transect.transectName}</td>
-                <td>{transect.description}</td>
-                <td>{transect.location}</td>
-                <td>{transect.coordinate}</td>
-              </tr>
-            ))}
+            {transects.map((transect) => {
+              const utm = JSON.parse(transect.coordinate).properties.utm;
+              return (
+                <tr
+                  key={transect.id}
+                  onClick={() => navigate(`/region/transect/${transect.id}`)}
+                >
+                  <td>{transect?.transectName}</td>
+                  <td>{transect?.description}</td>
+                  <td>{transect?.location}</td>
+                  <td>{utm?.zone}</td>
+                  <td>{utm?.northing}</td>
+                  <td>{utm?.easting}</td>
+                </tr>
+              );
+            })}
           </tbody>
         </table>
       </div>
-    </>
+    </div>
   );
 };
 

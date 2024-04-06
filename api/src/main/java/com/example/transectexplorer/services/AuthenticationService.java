@@ -57,6 +57,11 @@ public class AuthenticationService {
         return new RegistrationDTO(userName, userEmail, userPassword);
     }
 
+    public String hashPassword(String userPassword){
+        String hashedPassword = passwordEncoder.encode(userPassword);
+        return hashedPassword;
+    }
+
     // Authenticate a user with the provided username and password
     public UserDTO login(String username, String password, HttpServletResponse response) {
         try {
@@ -121,5 +126,14 @@ public class AuthenticationService {
         return transectRepository.findById(transectId)
                 .map(transect -> authorizeGroupUser(transect.getGroup().getId()))
                 .orElse(false);
+    }
+
+    public void logout(HttpServletResponse response) {
+        Cookie cookie = new Cookie("jwt", null);
+        cookie.setMaxAge(0);
+        cookie.setHttpOnly(true);
+        cookie.setSecure(true);
+        cookie.setPath("/");
+        response.addCookie(cookie);
     }
 }

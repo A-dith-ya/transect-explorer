@@ -53,6 +53,12 @@ public class UserController {
         return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
     }
 
+    @PostMapping("/auth/logout")
+    public ResponseEntity<Void> logoutUser(HttpServletResponse response) {
+        authenticationService.logout(response);
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+
     @PutMapping("/{id}")
     @PreAuthorize("@authenticationService.authorizeUser(#id)")
     public ResponseEntity<UserDTO> updateUser(@PathVariable Long id, @RequestBody RegistrationDTO user) {
@@ -61,9 +67,15 @@ public class UserController {
         if (userOptional.isPresent()) {
             User updatedUser = userOptional.get();
 
+        if (user.getUsername() != null) {
             updatedUser.setUsername(user.getUsername());
+        }
+        if (user.getUserEmail() != null) {
             updatedUser.setUserEmail(user.getUserEmail());
-            updatedUser.setPassword(user.getPassword());
+        }
+        if (user.getPassword() != null) {
+            updatedUser.setPassword(authenticationService.hashPassword(user.getPassword()));
+        }
             userRepository.save(updatedUser);
 
             return new ResponseEntity<>(

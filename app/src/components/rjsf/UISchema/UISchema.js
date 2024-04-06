@@ -22,13 +22,20 @@ const resetUsernameUISchema = {
 const resetEmailUISchema = {
   ...authUISchema,
   usenameNew: {},
+  password: {
+    "ui:widget": "password",
+  },
+
   "ui:order": ["email", "emailNew", "password"],
 };
 
 const resetPasswordUISchema = {
   ...authUISchema,
+  password: {
+    "ui:widget": "password",
+  },
   passwordNew: {
-    "ui:widget": "passwordNew",
+    "ui:widget": "password",
   },
   "ui:order": ["email", "password", "passwordNew"],
 };
@@ -44,10 +51,17 @@ const addTransectUISchema = {
   },
 };
 
+const deleteTransectUISchema = {
+  delete: {
+    "ui:widget": "text",
+  },
+};
+
 const UISchemas = {
   registerUISchema,
   loginUISchema,
   addTransectUISchema,
+  deleteTransectUISchema,
   resetUsernameUISchema,
   resetEmailUISchema,
   resetPasswordUISchema,

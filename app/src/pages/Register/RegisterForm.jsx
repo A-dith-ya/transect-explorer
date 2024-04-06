@@ -9,7 +9,7 @@ const RegisterForm = () => {
   const navigate = useNavigate();
 
   return (
-    <div>
+    <div className="container">
       <FormContainer
         schema={registerFormSchema}
         uiSchema={UISchemas.registerUISchema}

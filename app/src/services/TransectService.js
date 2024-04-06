@@ -1,5 +1,16 @@
 import axios from "axios";
 import { toast } from "react-toastify";
+import {
+  createUserTransect,
+  getAllUserTransects,
+  getTransect,
+  updateUserTransect,
+  deleteUserTransect,
+  storeUserTransects,
+  getCreatedTransects,
+  getUpdatedTransects,
+  getDeletedTransects,
+} from "./TransectIndexedDBService";
 
 const baseURL = "http://localhost:8080/transects";
 axios.defaults.withCredentials = true;
@@ -16,13 +27,14 @@ const createTransect = async (formData, navigate) => {
       userCreatorName: formData.creatorName,
     };
 
-    console.log(transectData);
+    if (navigator.onLine) {
+      await axios.post(baseURL, transectData);
+    } else {
+      await createUserTransect(transectData);
+    }
 
-    await axios.post(baseURL, transectData).then((response) => {
-      console.log(response);
-      toast.success(transectData.transectName + " Created!");
-      navigate("/region"); // FUTUREWORK navigate to the transect list page
-    });
+    toast.success(transectData.transectName + " Created!");
+    navigate("/region"); // FUTUREWORK navigate to the transect list page
   } catch (error) {
     console.log(error);
     toast.error("Error creating transect: " + error.message);
@@ -40,13 +52,14 @@ const updateTransect = async (formData, id, navigate) => {
       coordinate: formData.coordinates,
     };
 
-    console.log(transectData);
+    if (navigator.onLine) {
+      await axios.put(`${baseURL}/${id}`, transectData);
+    } else {
+      await updateUserTransect(transectData, id);
+    }
 
-    await axios.put(`${baseURL}/${id}`, transectData).then((response) => {
-      console.log(response);
-      toast.success(transectData.transectName + " Updated!");
-      navigate(`/region/transect/${id}`);
-    });
+    toast.success(transectData.transectName + " Updated!");
+    navigate(`/region/transect/${id}`);
   } catch (error) {
     console.log(error);
     toast.error("Error updating transect: " + error.message);
@@ -64,18 +77,26 @@ async function getTransects(uri_endpoint) {
 
 const getTransectID = async (id) => {
   try {
-    const result = await axios.get(`${baseURL}/${id}`);
-    return result.data;
+    if (navigator.onLine) {
+      const result = await axios.get(`${baseURL}/${id}`);
+      return result.data;
+    } else {
+      return await getTransect(id);
+    }
   } catch (error) {
     console.log(error);
     toast.error("Error getting transectID: " + error.message);
   }
 };
 
-const deleteTransect = async (id, navigate) => {
+const deleteTransect = async (id) => {
   try {
-    await axios.delete(`${baseURL}/${id}`);
-    navigate("/transect");
+    if (navigator.onLine) {
+      await axios.delete(`${baseURL}/${id}`);
+      await deleteUserTransect(id);
+    } else {
+      await deleteUserTransect(id);
+    }
   } catch (error) {
     console.log(error);
     toast.error("Error deleting transect: " + error.message);
@@ -85,16 +106,64 @@ const deleteTransect = async (id, navigate) => {
 const getTransectsByCreatorId = async () => {
   try {
     const userCreatorId = sessionStorage.getItem("id");
-    if (userCreatorId) {
-      console.log("Session Storage: " + userCreatorId);
+    if (navigator.onLine) {
       const result = await axios.get(`${baseURL}/users/${userCreatorId}`);
+      storeUserTransects(result.data);
       return result.data;
     } else {
-      throw new Error("No User Id in session storage");
+      return await getAllUserTransects(userCreatorId);
     }
   } catch (error) {
     console.log(error);
     toast.error("Error getting transects by creator ID: " + error.message);
+  }
+};
+
+const getTransectsByGroupId = async (groupId) => {
+  try {
+    const result = await axios.get(`${baseURL}/groups/${groupId}`);
+    return result.data;
+  } catch (error) {
+    console.log(error);
+    toast.error("Error getting transects by group ID: " + error.message);
+  }
+};
+
+const createMultipleTransects = async () => {
+  try {
+    const userCreatorId = sessionStorage.getItem("id");
+    const transects = await getCreatedTransects(userCreatorId);
+    if (transects.length === 0) return;
+    await axios.post(`${baseURL}/sync`, transects);
+    toast.success("Multiple transects synced!");
+  } catch (error) {
+    console.log(error);
+    toast.error("Error creating multiple transects: " + error.message);
+  }
+};
+
+const updateMultipleTransects = async () => {
+  try {
+    const userCreatorId = sessionStorage.getItem("id");
+    const transects = await getUpdatedTransects(userCreatorId);
+    if (transects.length === 0) return;
+    await axios.put(`${baseURL}/sync`, transects);
+    toast.success("Multiple transects synced!");
+  } catch (error) {
+    console.log(error);
+    toast.error("Error updating multiple transects: " + error.message);
+  }
+};
+
+const deleteMultipleTransects = async () => {
+  try {
+    const transects = await getDeletedTransects();
+    const transectIds = transects.map((transect) => transect.id).join(",");
+    await axios.delete(`${baseURL}/sync?transectIds=${transectIds}`);
+    toast.success("Multiple transects synced!");
+  } catch (error) {
+    console.log(error);
+    toast.error("Error deleting multiple transects: " + error.message);
   }
 };
 
@@ -105,4 +174,8 @@ export {
   deleteTransect,
   getTransectsByCreatorId,
   updateTransect,
+  getTransectsByGroupId,
+  createMultipleTransects,
+  updateMultipleTransects,
+  deleteMultipleTransects,
 };

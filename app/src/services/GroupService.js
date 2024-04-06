@@ -1,15 +1,22 @@
 import axios from "axios";
-import { toast } from 'react-toastify';
+import { toast } from "react-toastify";
 
 const baseURL = "http://localhost:8080/groups";
 axios.defaults.withCredentials = true;
 
 const createGroup = async (formData, navigate) => {
   try {
-    await axios.post(baseURL, {
+    const response = await axios.post(baseURL, {
       groupLeaderId: Number(sessionStorage.getItem("id")),
       groupName: formData.groupName,
       groupUserEmails: formData.groupUserEmails,
+    });
+    const createdGroup = await getGroupId(response.data.id);
+
+    formData.groupUserEmails.forEach((email) => {
+      if (!createdGroup.groupUserEmails.includes(email)) {
+        toast.error(email + " does not exist!");
+      }
     });
 
     navigate("/group");
@@ -48,9 +55,9 @@ const getGroupLeader = async (userId) => {
   }
 };
 
-const getGroupId = async (id) => {
+const getGroupId = async (groupId) => {
   try {
-    const result = await axios.get(`${baseURL}/${id}`);
+    const result = await axios.get(`${baseURL}/${groupId}`);
     return result.data;
   } catch (error) {
     console.log(error);
@@ -60,8 +67,15 @@ const getGroupId = async (id) => {
 
 const updateGroup = async (formData) => {
   try {
-    await axios.put(`${baseURL}/${formData.id}`, formData);
+    const response = await axios.put(`${baseURL}/${formData.id}`, formData);
     toast.success("Successfully updated!");
+    const createdGroup = await getGroupId(response.data.id);
+    // window.location.reload();
+    formData.groupUserEmails.forEach((email) => {
+      if (!createdGroup.groupUserEmails.includes(email)) {
+        toast.error(email + " does not exist!");
+      }
+    });
     return true;
   } catch (error) {
     console.log(error);

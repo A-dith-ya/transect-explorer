@@ -15,7 +15,7 @@
   padding: 2rem 1rem;
   display: flex;
   flex-flow: column wrap;
-  
+
   align-items: start;
 }
 
@@ -45,3 +45,13 @@
   z-index: 3;
 }
 
+.delete-btn {
+  background-color: #ea2c2c;
+}
+
+.container-transect-list {
+  overflow-y: scroll;
+  margin: auto;
+  width: 80%;
+  padding-bottom: 150px;
+}

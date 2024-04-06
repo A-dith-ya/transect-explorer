@@ -4,6 +4,7 @@ import com.example.transectexplorer.model.Transect;
 import com.example.transectexplorer.model.User;
 import com.example.transectexplorer.repository.TransectRepository;
 import com.example.transectexplorer.repository.UserRepository;
+import com.example.transectexplorer.services.TransectService;
 import com.example.transectexplorer.dto.TransectDTO;
 import com.example.transectexplorer.model.Group;
 import com.example.transectexplorer.repository.GroupRepository;
@@ -28,6 +29,9 @@ public class TransectController {
 
     @Autowired
     private UserRepository userRepository;
+
+    @Autowired
+    private TransectService transectService;
 
     @PostMapping
     @PreAuthorize("@authenticationService.authorizeGroupUser(#transectDTO.getGroupId())")
@@ -122,5 +126,23 @@ public class TransectController {
             return new ResponseEntity<>(transectDTOs, HttpStatus.OK);
         }
         return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+    }
+
+    @PostMapping("/sync")
+    public ResponseEntity<List<TransectDTO>> createMultipleTransects(@RequestBody List<TransectDTO> transectDTOs) {
+        List<TransectDTO> savedTransects = transectService.createTransects(transectDTOs);
+        return new ResponseEntity<>(savedTransects, HttpStatus.CREATED);
+    }
+
+    @PutMapping("/sync")
+    public ResponseEntity<List<TransectDTO>> updateMultipleTransects(@RequestBody List<TransectDTO> transectDTOs) {
+        List<TransectDTO> updatedTransects = transectService.updateTransects(transectDTOs);
+        return new ResponseEntity<>(updatedTransects, HttpStatus.OK);
+    }
+
+    @DeleteMapping("/sync")
+    public ResponseEntity<Void> deleteMultipleTransects(@RequestParam List<Long> transectIds) {
+        transectService.deleteTransects(transectIds);
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 }

@@ -89,30 +89,3 @@ const GroupList = () => {
 };
 
 export default GroupList;
-
-/**
-
-      <div className="group__section">
-        <h2 className="group__section__title">User groups</h2>
-        <div className="group__box">
-          {groupsData.userGroups.map((group) => (
-            <GroupCard key={group.id} group={group} />
-          ))}
-        </div>
-      </div>
-
-      <div className="group__section">
-        <h2 className="group__section__title">LeaderGroup</h2>
-        <div className="group__box">
-          {groupsData.leaderGroups.map((group) => (
-            <GroupCard key={group.id} group={group} />
-          ))}
-          <button
-            onClick={() => navigate("/group/create-group")}
-            className="group__button--create"
-          >
-            <i className="fa-solid fa-plus" />
-          </button>
-        </div>
-      </div>
-*/

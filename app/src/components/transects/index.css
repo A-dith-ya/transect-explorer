@@ -37,6 +37,14 @@
   height: 70px;
 }
 
+div.table-div {
+  width: 100%;
+}
+
+div.table-div table {
+  width: 100%;
+}
+
 #cool-map {
   height: 100%;
   width: 100%;
