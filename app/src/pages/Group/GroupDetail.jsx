@@ -14,7 +14,7 @@ import ArrayFieldTemplate from "../../components/rjsf/template/ArrayFieldTemplat
 import SubmitButton from "../../components/rjsf/template/SubmitButton";
 import MemberList from "../../components/group/MemberList";
 import "./index.css";
-import TransectList from "../Region/TransectList";
+import TransectList from "../../components/transects/TransectList";
 
 const GroupDetail = () => {
   const [formData, setFormData] = useState(false);
@@ -100,6 +100,7 @@ const GroupDetail = () => {
 
   return (
     <div className="details-page">
+
       <div className="details-page-title">
         <button className="icon-btn" onClick={() => navigate("/group")}>
           <i className="fa-solid fa-arrow-left"></i>
@@ -127,14 +128,15 @@ const GroupDetail = () => {
 
       {!editable && (
         <>
-          <div className="container-members-list">
+      <div className="container-members-list" style={{
+      paddingTop: '50px',
+      paddingBottom: '50px'
+      }}>
             <h2>Members</h2>
             <MemberList data={members} />
           </div>
 
-          <div>
-            <TransectList selectedGroupId={id} />
-          </div>
+          <TransectList group_id={id} />
         </>
       )}
 
