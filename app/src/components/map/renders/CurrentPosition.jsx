@@ -9,7 +9,7 @@ const CurrentPosition = () => {
   const { state, dispatch } = useContext(MapContext)
 
   return (
-    state.position_enabled && <Marker position={state.current_position} />
+    state.position_enabled && state.current_position && <Marker position={state.current_position} />
   )
 }
 
