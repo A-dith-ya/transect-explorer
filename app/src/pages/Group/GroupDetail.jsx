@@ -14,7 +14,7 @@ import ArrayFieldTemplate from "../../components/rjsf/template/ArrayFieldTemplat
 import SubmitButton from "../../components/rjsf/template/SubmitButton";
 import MemberList from "../../components/group/MemberList";
 import "./index.css";
-import TransectList from "../../components/transects/TransectList";
+import TransectList from "../Region/TransectList";
 
 const GroupDetail = () => {
   const [formData, setFormData] = useState(false);
