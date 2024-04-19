@@ -12,7 +12,7 @@ import {
   getDeletedTransects,
 } from "./TransectIndexedDBService";
 
-const baseURL = "http://localhost:8080/transects";
+const baseURL = "https://transect-explorer.onrender.com/transects";
 axios.defaults.withCredentials = true;
 
 const createTransect = async (formData, navigate) => {
